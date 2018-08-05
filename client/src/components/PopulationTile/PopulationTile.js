@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 
-class CreateAProfile extends Component {
+class PopulationTile extends Component {
   state = {
     default: "Hello World"
   }
@@ -15,4 +15,4 @@ class CreateAProfile extends Component {
   }
 }
 
-export default CreateAProfile;
+export default PopulationTile;
