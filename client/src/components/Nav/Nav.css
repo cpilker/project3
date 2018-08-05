@@ -1,0 +1,65 @@
+.navbar-brand {
+  font-family: sans-serif;
+}
+
+.nav-item {
+  outline: none;
+}
+
+.navbar-brand {
+  font-family: sans-serif;
+}
+
+.nav-item {
+  outline: none;
+  padding: 3px 0;
+}
+
+.nav-item:focus, .nav-item:active, a:focus, a:active {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none;
+}
+
+#logo-header {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  padding: 5px;
+  border: 2px solid rgb(253, 130, 85);
+  margin-right: 5px;
+}
+
+.main-menu-links, .login-link {
+  padding-right: 2rem;
+  padding-left: 2rem;
+  font-family: Segoe UI Symbol;
+}
+
+.main-menu-links:hover {
+  color: orangered;
+  text-decoration: none;
+}
+
+.login-link {
+  color: orangered;
+  padding: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border: 2px solid rgb(253, 130, 85);
+}
+
+.login-link:hover {
+  text-decoration: none;
+  color: white;
+  background: rgb(253, 130, 85);
+}
+
+#log-in-header {
+  right: 5%;
+  color: orangered;
+  padding: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border: 2px solid rgb(253, 130, 85);
+}

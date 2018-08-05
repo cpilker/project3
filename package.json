@@ -1,0 +1,36 @@
+{
+  "name": "recruithound",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "cd ./client && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "setup": "node setup.js",
+    "dev-server": "cross-env NODE_ENV=development PORT=3001 ./node_modules/.bin/nodemon server.js",
+    "dev-client": "cd ./client && npm start",
+    "dev": "npm run dev-client & npm run dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cross-env": "^5.1.3",
+    "eslint": "^4.18.1",
+    "express": "^4.16.2",
+    "mongoose": "^5.2.6",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.1.2",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "1.14.11",
+    "node-sass-chokidar": "0.0.3",
+    "cross-env": "^5.1.3"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "keywords": [],
+  "description": ""
+}
