@@ -10,7 +10,7 @@ Live Demo: [https://recruithound.herokuapp.com/](https://recruithound.herokuapp.
 * Built using MERN Stack (MongoDB, Express, React, Node.js), JavaScript, PassportJS, Flexbox, Bootstrap
 
 **To run project**
-* After cloning git repo, from your terminal run **`npm init`** then **`npm install`** to install all dependencies
+* After cloning git repo, from your terminal run **`npm install`** to install all dependencies
 * Then, from the project root, run **`npm run dev`**
   
 ![](./recruithound.gif)
