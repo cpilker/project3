@@ -5,23 +5,17 @@ const userSchema = new Schema({
     firstname: {
         type: String,
         required: true,
-        validate: {
-          len: [1]
-        }
+
     },
     lastname: {
         type: String,
         required: true,
-        validate: {
-          len: [1]
-        }
+
     },
     address1: {
         type: String,
         required: true,
-        validate: {
-          len: [1]
-        }
+
     },
     address2: {
         type: String,
@@ -34,28 +28,21 @@ const userSchema = new Schema({
     state: {
         type: String,
         required: true,
-        validate: {
-          len: [1, 2]
-        }
     },
     zip: {
-        type: int,
+        type: Number,
         required: true,
-        validate: {
-          len: [1, 5]
-        }
+
     },
       password: {
         type: String,
         required: true
     },
     email: {
-        type: email,
+        type: String,
+        unique: true,
         required: true,
-        validate: {
-          len: [1],
-          isEmail: true
-        }
+        match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
     },
     created: {
           type: Date,
@@ -81,7 +68,7 @@ const userSchema = new Schema({
           ref: "savedRecruiter"
         }
     ]    
-}),
+});
 
 const User = mongoose.model("User", userSchema);
 

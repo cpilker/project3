@@ -1,10 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const monog = require("mongojs");
 const mongoose = require("mongoose");
 const routes = require("./routes");
-const db = require("./models");
 const app = express();
-const PORT = process.env.PORT || 3001;
+const db = require("./models");
+const PORT = process.env.PORT || 3000;
+
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,20 +21,15 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-// var databaseUrl = "main";
-// var db = mongojs(databaseUrl);
-
-
+app.use('/', function (req, res) {
+  res.sendFile(path.resolve('client/index.html'));
+});
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/main");
 //process.env.MONGODB_URI
 mongoose.Promise = Promise;
 
-// This makes sure that any errors are logged if mongodb runs into an issue
-db.on("error", function(error) {
-  console.log("Database Error:", error);
-});
 
 // Start the API server
 app.listen(PORT, function() {

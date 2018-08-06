@@ -25,7 +25,7 @@ const recruiterSchema = new Schema({
         required: true
     },
     zip_code1: {
-        type: String,
+        type: Number,
         required: true
     },
     nation: {
@@ -36,7 +36,8 @@ const recruiterSchema = new Schema({
         type: String
     },
     website: {
-        type: website,
+        type: String,
+        unique: true
     },
     date: {
         type: Date,
