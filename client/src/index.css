@@ -1,8 +1,8 @@
-fontOrange {
+.fontOrange {
   color: rgb(253, 130, 85);
 }
 
-mediumBold {
+.mediumBold {
   font-weight: 500;
 }
 
@@ -182,11 +182,6 @@ a:active {
   transition: background-color 0.5s ease-out, height 0.5s ease-out;
   color: #00A0AE;
 }
-
-
-
-
-
 
 .flex-container {
   display: flex;           /* establish flex container */

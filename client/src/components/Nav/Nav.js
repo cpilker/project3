@@ -9,7 +9,7 @@ class Nav extends Component {
   render () {
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white fixed-top">
-        <a class="navbar-brand" href="/"><img id="logo-header"src="/images/Logo-top-left.gif" alt="recruit hound logo" />Recruit<span className="fontOrange" />Hound</a>
+        <a class="navbar-brand" href="/"><img id="logo-header"src="/images/Logo-top-left.gif" alt="recruit hound logo" />Recruit<span className="fontOrange">Hound</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
