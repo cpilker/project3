@@ -1,3 +1,6 @@
+
+import $ from 'jquery'
+
 $("#showContactModal").on("click", function () {   // Button to display the contact us modal
     $("#jobseekercontact").attr("style", "display: inline-block");
     $("#recruitercontact").attr("style", "display: inline-block");
@@ -14,7 +17,7 @@ $("#jobseekercontact").on("click", function() {   // Button to display the job s
 
     $(".submitjobseeker").on("click", function() {   // Button to submit the job seeker contact form
         console.log("Submit has been fired");
-        event.preventDefault();
+        // event.preventDefault();
         // Prevent submitting the form again until the current one finishes
         $(this).toggleClass('disabled');
         $(this).prop('disabled', true);
@@ -31,7 +34,7 @@ $("#jobseekercontact").on("click", function() {   // Button to display the job s
 
             $.post("/api/sendmail", userData, function(res) {    // Send email containing userData
                 console.log(res.status);
-                if (res.status == 'success') {
+                if (res.status === 'success') {
                     $('#contactus-name').val('');  // Clear the contact form
                     $('#contactus-phone').val('');
                     $('#contactus-email').val('');
@@ -64,7 +67,7 @@ $("#recruitercontact").on("click", function() {   // Button to display the recru
 
     $(".submitrecruiter").on("click", function() {   // Button to submit the recruiter contact form
         console.log("Submit has been fired");
-        event.preventDefault();
+        // event.preventDefault();
         // Prevent submitting the form again until the current one finishes
         $(this).toggleClass('disabled');
         $(this).prop('disabled', true);        
@@ -82,7 +85,7 @@ $("#recruitercontact").on("click", function() {   // Button to display the recru
 
             $.post("/api/contactus-recruiter", recruiterData, function(res) {    // Send email containing recruiterData
                 console.log(res.status);
-                if (res.status == 'success') {
+                if (res.status === 'success') {
                     $('#recruiter-name').val('');  // Clear the contact form
                     $('#recruiter-company').val('');
                     $('#recruiter-phone').val('');

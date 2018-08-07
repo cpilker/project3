@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-// import "./contact.js";
+import "./contact.js";
 
 class ContactUs extends Component {
 
     render () {
         return (
-            <div className="modal" tabindex="-1" role="dialog" id="myModal">
+            <div className="modal" tabIndex="-1" role="dialog" id="myModal">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -19,22 +19,22 @@ class ContactUs extends Component {
                             <button type="button" className="btn btn-secondary" id="recruitercontact">Recruiter</button>
                             <form id="jobseekerform" style={{display: "none"}}>
                                 <div className="form-group col-xs-12">
-                                    <label for="contactus-name">Name</label>
+                                    <label htmlFor="contactus-name">Name</label>
                                     <input type="text" className="form-control" id="contactus-name" placeholder="Jane Doe" />
                                 </div>
 
                                 <div className="form-group col-xs-12">
-                                    <label for="contactus-email">Email</label>
+                                    <label htmlFor="contactus-email">Email</label>
                                     <input type="email" className="form-control" id="contactus-email" placeholder="janedoe@techworkers.com" />
                                 </div>
 
                                 <div className="form-group col-xs-12">
-                                    <label for="contactus-phone">Phone</label>
+                                    <label htmlFor="contactus-phone">Phone</label>
                                     <input type="text" className="form-control" id="contactus-phone" placeholder="123-456-7890" />
                                 </div>
 
                                 <div className="form-group col-xs-12">
-                                    <label for="contactus-message">Message</label>
+                                    <label htmlFor="contactus-message">Message</label>
                                     <textarea className="form-control" id="contactus-message" rows="3"></textarea>
                                 </div>
 
@@ -43,27 +43,27 @@ class ContactUs extends Component {
                             
                             <form id="recruiterform" style={{display: "none"}}>
                                 <div className="form-group col-xs-12">
-                                    <label for="recruiter-name">Name</label>
+                                    <label htmlFor="recruiter-name">Name</label>
                                     <input type="text" className="form-control" id="recruiter-name" placeholder="Jane Doe" />
                                 </div>
 
                                 <div className="form-group col-xs-12">
-                                    <label for="recruiter-company">Recruiter Agency</label>
+                                    <label htmlFor="recruiter-company">Recruiter Agency</label>
                                     <input type="text" className="form-control" id="recruiter-company" placeholder="TechWorkers Recruiting Agency" />
                                 </div>
 
                                 <div className="form-group col-xs-12">
-                                <label for="recruiter-email">Email</label>
+                                <label htmlFor="recruiter-email">Email</label>
                                     <input type="email" className="form-control" id="recruiter-email" placeholder="janedoe@techworkers.com" />
                                 </div>
 
                                 <div className="form-group col-xs-12">
-                                    <label for="recruiter-phone">Phone</label>
+                                    <label htmlFor="recruiter-phone">Phone</label>
                                     <input type="text" className="form-control" id="recruiter-phone" placeholder="123-456-7890" />
                                 </div>
 
                                 <div className="form-group col-xs-12">
-                                    <label for="recruiter-message">Message</label>
+                                    <label htmlFor="recruiter-message">Message</label>
                                     <textarea className="form-control" id="recruiter-message" rows="3"></textarea>
                                 </div>
 
