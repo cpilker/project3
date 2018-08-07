@@ -4,6 +4,8 @@ import $ from 'jquery'
 
 console.log("Loaded!")
 
+export function contactUsFunctions() {
+
     $("#showContactModal").on("click", function () { // Button to display the contact us modal
 
         $("#jobseekercontact").attr("style", "display: inline-block");
@@ -116,3 +118,8 @@ console.log("Loaded!")
             }       
         });
     });
+
+
+}
+
+   
