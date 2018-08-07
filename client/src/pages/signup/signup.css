@@ -1,0 +1,176 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#signupbody {
+    padding-top: 75px!important;
+}
+
+.statusmessage {
+    text-align: center;
+    font-style: italic;
+    color: red;
+}
+
+.profile-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    max-width: 1000px;
+}
+
+.profile-form {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    margin-top: 35px;
+}
+
+#skills-container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.parent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    max-width: 600px;
+    justify-content: center;
+    margin: auto;
+}
+
+/*Header*/
+h2 {
+    color: #35B729;
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/*End Personal Input fields*/
+
+
+#usersignup {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+}
+
+#logo-header {
+    width: 131px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 80px;
+    border: 2px solid orangered;
+    padding: 18px;
+}
+.container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.form-control {
+    background-color: #f2f2f2;
+    border-radius: 0px;
+    border: 0px;
+    font-size: 12px;
+}
+
+#newstate {
+    height: auto;
+}
+/*End Personal Input fields*/
+
+/*This is for the Upload resume*/
+.custom-file {
+    margin-bottom: 1rem;
+}
+.custom-file-input {
+    height: auto;
+    border: 0px;
+    border-radius: 0px;
+    background-color: #f2f2f2;
+    color: #495057;
+    font-size: 12px;
+    width: 100%;
+    padding-bottom: 0px;
+
+}
+
+.custom-file-label {
+    border: 0px;
+    border-radius: 0px;
+    background-color: #f2f2f2;
+    color: #495057;
+    font-size: 12px;
+    width: 100%;
+    padding-bottom: 0px;
+}
+/*End Upload resume*/
+
+/*Skill button CSS*/
+#technologiesWorkWith {
+    text-align: center;
+    width: 100%;
+    color: #35B729;
+    font-size: 18px;
+}
+
+.skillbutton {
+    color: #333;
+    background-color: #f2f2f2;
+    border: 0;
+    border-radius: 0;
+    font-size: 12px;
+}
+
+.btn-group-toggle>.btn, .btn-group-toggle>.btn-group>.btn {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active, .show>.btn.dropdown-toggle {
+    background-color: orangered; 
+}
+
+.btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active, .show>.btn.dropdown-toggle {
+    color: #fff;
+    background-color: rgb(253, 130, 85);
+    border-color: rgb(253, 130, 85);
+}
+.btn:not(:disabled):not(.disabled).active:focus, .btn:not(:disabled):not(.disabled):active:focus, .show>.btn.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgb(253,130,85);
+}
+/*End Skill Button CSS*/
+
+/*Submit Button*/
+.submitprofile {
+    width: 100%;
+    background-color: rgb(253, 130, 85);
+    border: 0px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    margin: 0 auto;
+}
+
+.submitprofile:hover {
+    background-color: orangered
+}
+
+.focus {
+    box-shadow: none!important;
+}
+
+/*Media queries options*/
+@media screen and (max-width:768px) {
+
+}
