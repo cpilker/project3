@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import "./Home.css";
+import Nav from '../../components/Nav';
+import Footer from '../../components/Footer';
 
 
 class Home extends Component {
@@ -9,22 +11,26 @@ class Home extends Component {
 
   render () {
     return (
-      <div className="home">
+      <div className="Home">
+        <header>
+          <Nav />
 
-        <section class="parallax-1 intro-text">
-          <div class="flex-container">
-              <div class="row">
-                <div class="flex-item">
-                  <p id="company-name">Recruit<span className="fontOrange">Hound</span></p>
-                  <p id="slogan">The hunt is on.</p>
-                </div>
+            <section class="parallax-1 intro-text">
+              <div class="flex-container">
+                  <div class="row">
+                    <div class="flex-item">
+                      <p id="company-name">Recruit<span className="fontOrange">Hound</span></p>
+                      <p id="slogan">The hunt is on.</p>
+                    </div>
+                  </div>
+                  <div class="flex-item">
+                    <a href="/signup"><div id="create-profile-button">Create a Profile</div></a>
+                  </div>
               </div>
-              <div class="flex-item">
-                <a href="/signup"><div id="create-profile-button">Create a Profile</div></a>
-              </div>
-          </div>
-        </section>
+            </section>
 
+        </header>
+    
         <section class="section section-light sectionOne"> 
           <div class="logo">
             <img src="/images/hounddog.png" alt="hounddog.png" />
@@ -59,7 +65,11 @@ class Home extends Component {
               </div>
             </div>
           </section>
-        </section>   
+        </section>
+
+        <div className="text-center">
+          <Footer />
+        </div>
 
       </div>
     )
