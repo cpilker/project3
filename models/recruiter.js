@@ -10,11 +10,12 @@ const recruiterSchema = new Schema({
         required: true
     },
     street_address1: {  
-        type: Date, default: Date.now 
+        type: String,
+        required: true 
     },
     unit1: {
         type: String,
-        required: true
+        required: false
     },
     city1: {
         type: String,
@@ -28,7 +29,11 @@ const recruiterSchema = new Schema({
         type: Number,
         required: true
     },
-    nation: {
+    number1: {
+        type: String,
+        require: true
+    },
+    national: {
         type: Boolean,
         default: true
     },
