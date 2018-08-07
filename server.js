@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const monog = require("mongojs");
+const mongodb = require("mongojs");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
@@ -26,10 +26,19 @@ app.use('/', function (req, res) {
 });
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/main");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/main");
 //process.env.MONGODB_URI
 mongoose.Promise = Promise;
 
+let connection = mongoose.connection;
+//test connection
+connection.on('error', function (err) {
+    console.log('Database Error: '+err)
+});
+
+connection.once('open', function () {
+    console.log('Mongo Connection Sucess!')
+})
 
 // Start the API server
 app.listen(PORT, function() {

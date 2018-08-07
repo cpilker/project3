@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-// import "./signin.css";
-
+//import "./signin.css";
+import Nav from '../../components/Nav';
+import Footer from '../../components/Footer';
 
 class Signin extends Component {
   state = {
@@ -9,6 +10,9 @@ class Signin extends Component {
 
   render () {
     return (
+      <div>
+        <Nav />
+
         <div className="signin-container">
           <div className="signin-content">
               <img id="logo-signin" src="/images/Logo-top-left.gif" alt="Logo-top-left.gif" />
@@ -36,6 +40,8 @@ class Signin extends Component {
             </div>
           </div>
         </div>
+        <Footer/>
+      </div>
     )
   }
 }

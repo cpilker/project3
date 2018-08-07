@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 // import "./signup.css";
-
+import Nav from '../../components/Nav';
+import Footer from '../../components/Footer';
 
 class Signup extends Component {
   state = {
@@ -13,6 +14,8 @@ class Signup extends Component {
 
   render () {
     return (
+    <div>
+      <Nav />
       <div id="signupbody">
           <section class="profile-container">
             <div class="profile-content">
@@ -132,6 +135,8 @@ class Signup extends Component {
           </section>
           {/* <h1>{this.state.default}</h1> */}
       </div>
+    <Footer/>
+    </div>
     )
   }
 }
