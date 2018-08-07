@@ -26,9 +26,11 @@ app.use('/', function (req, res) {
 });
 
 // Connect to the Mongo DB
+
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/main");
 //process.env.MONGODB_URI
 mongoose.Promise = Promise;
+
 
 let connection = mongoose.connection;
 //test connection
@@ -39,6 +41,8 @@ connection.on('error', function (err) {
 connection.once('open', function () {
     console.log('Mongo Connection Sucess!')
 })
+
+
 
 // Start the API server
 app.listen(PORT, function() {
