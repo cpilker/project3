@@ -1,13 +1,16 @@
 import React, {Component} from "react";
 import './Nav.css';
+import ContactUs from '../ContactUs';
 
 class Nav extends Component {
   state = {
-    default: "Hello World"
+    default: "Hello World",
   }
+
 
   render () {
     return (
+        <div>
       <nav className="navbar navbar-expand-md navbar-light bg-white fixed-top">
         <a class="navbar-brand" href="/"><img id="logo-header"src="/images/Logo-top-left.gif" alt="recruit hound logo" />Recruit<span className="fontOrange">Hound</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +22,7 @@ class Nav extends Component {
                     <a class="main-menu-links" href="#two">How It Works</a>
                 </li>
                 <li class="nav-item">
-                    <a class="main-menu-links" href="/" data-toggle="modal" data-target="#myModal" id="showContactModal">Contact Us</a>
+                    <a class="main-menu-links" href="" data-toggle="modal" data-target="#myModal" id="showContactModal">Contact Us</a>
                 </li>
                 <li class="nav-item">
                     <a class="login-link" href="/signin">Sign In</a>
@@ -27,6 +30,10 @@ class Nav extends Component {
             </ul>
         </div>
       </nav>
+        <div>
+            <ContactUs />
+        </div>
+      </div>
     )
   }
 }
