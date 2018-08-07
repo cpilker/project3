@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 app.use('/images', express.static("client/public/images"));
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static("client"));
 }
 
 // Add routes, both API and view
