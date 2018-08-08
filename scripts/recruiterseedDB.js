@@ -43,7 +43,7 @@ console.log("About to do the db lines")
 
   db.Recruiter.insertMany(recruiterSeed)//)
   .then(data => {
-    console.log(data.result + " records inserted!");
+    console.log(data.length + " records inserted!");
     process.exit(0);
   })
   .catch(err => {
