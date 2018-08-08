@@ -10,7 +10,9 @@ const recruiterSeed = [
   {
     prefix: "R",
     recruiting_agency: "Recruit Hound Test",    
-    street_addres1: "1 Recruit Central",    
+    email: "chad.pilker@gmail.com",
+    password: "password",
+    street_address1: "1 Recruit Central",    
     unit1: "A",
     city1: "Charlotte",
     state1: "NC",
@@ -24,7 +26,9 @@ const recruiterSeed = [
   {
     prefix: "R",
     recruiting_agency: "Teksystems",
-    street_addres1: "200 South College Street",
+    email: "cp@123.com",
+    password: "password",
+    street_address1: "200 South College Street",
     unit1: "Suite 1900",
     city1: "Charlotte",
     state1: "NC",
@@ -35,15 +39,15 @@ const recruiterSeed = [
     date: new Date(Date.now()),
   }
 ];
+console.log("About to do the db lines")
 
-db.Recruiter
-  .remove({})
-  .then(() => db.Recruiter.recruiter.insertMany(recruiterSeed))
+  db.Recruiter.insertMany(recruiterSeed)//)
   .then(data => {
-    console.log(data.result.n + " records inserted!");
+    console.log(data.result + " records inserted!");
     process.exit(0);
   })
   .catch(err => {
+    console.log("hi")
     console.error(err);
     process.exit(1);
   });
