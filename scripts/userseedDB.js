@@ -3,8 +3,15 @@ const db = require("../models");
 
 // This file empties the recruiter collection and inserts the books below
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/main"
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/main");   // Establish connection to database
+
+db.User.remove(function(err, p) {   // Empty the user model to start brand new, for dev purposes only
+  if (err) {
+    throw err;
+  } else {
+    console.log(`User model emptied!`);
+  }
+})
 
 const userSeed = [
     {
@@ -88,7 +95,7 @@ console.log("About to do the db lines")
 
   db.User.insertMany(userSeed)//)
   .then(data => {
-    console.log(data.result + " records inserted!");
+    console.log(data.length + " records inserted!");
     process.exit(0);
   })
   .catch(err => {
