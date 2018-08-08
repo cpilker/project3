@@ -5,8 +5,6 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const db = require("./models");
-const passport = require('passport');
-const session  = require('express-session');
 const PORT = process.env.PORT || 3000;
 
 
@@ -22,18 +20,6 @@ if (process.env.NODE_ENV === "production") {
 
 // Add routes, both API and view
 app.use(routes);
-
-// Required for passport
-app.use(session({
-	secret: 'keyboard cat',
-	resave: true,
-	saveUninitialized: true
- } )); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-const authRoute = require('./routes/api/passport-routes.js')(app, passport);
-//load passport strategies
-require('./config/passport/passport.js')(passport, db.user);
 
 // Connect to the Mongo DB
 
