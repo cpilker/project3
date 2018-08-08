@@ -1,7 +1,3 @@
-// *********************************************************************************
-// api-routes.js - this file offers a set of routes for displaying and saving data to the db
-// *********************************************************************************
-
 // Requiring our dependencies 
 var db = require("../models");
 var email 	= require("emailjs");
