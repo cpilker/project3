@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import UserDashboard from './pages/UserDashboard';
+import RecruiterDashboard from './pages/RecruiterDashboard';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
             <Route path='/signin' component={Signin} />
             <Route path='/signup' component={Signup} />
             <Route path='/userdashboard' component={UserDashboard} />
+            <Route path='/recruiterdashboard' component={RecruiterDashboard} />
           </Switch>
         </div>
       </Router>
