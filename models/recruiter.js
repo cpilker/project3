@@ -9,6 +9,15 @@ const recruiterSchema = new Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
+    },
+    password: {
+        type: String
+    },
     street_address1: {  
         type: String,
         required: true 
