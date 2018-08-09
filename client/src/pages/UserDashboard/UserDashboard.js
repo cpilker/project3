@@ -26,6 +26,7 @@ class UserDashboard extends Component {
     return (
       <div className="UserDashboard container">
       <Nav />
+
         <div className="row" id="portfolio_info">
           <div className="col-xs-12 col-md-4">
             <div className="thumbnail" id="profile_image">
@@ -137,13 +138,34 @@ class UserDashboard extends Component {
               <div className="form-row" id="save-btn-container">
                 <input type="hidden" id="skill" name="skill" value="" />
                 <input type="submit" className="btn btn-primary saveprofile" value="Save" />
+                  
+      <div>name</div>
+      <div>address</div>
+      <div>phone #</div>
+      <div>e-mail address</div>
+      <div>name</div>
+      <div>name</div>
+      <div>name</div>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-md-6 m-auto'>
+            <h1 className='text-center display-4 my-4'>Mongo File Uplaods</h1>
+            <form action='/upload' method='POST' enctype='multipart/form-data'>
+              <div className='custom-file mb-3'>
+                <input type='file' name='file' id='file' className='custom-file-input'/>
+                <label for='file' className='custom-file-label'>Choose File
+                </label>
+
+
               </div>
+              <input type='submit' value='Submit' className='btn btn-primary btn-block'/>
             </form>
           </div>
         </div>
       </div>
 
       <hr />
+      
       <div className="row" id='agency_info'>
       <h2 id='accordion-header'>Your Local Recruiters!</h2>
 
