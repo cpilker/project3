@@ -245,7 +245,6 @@ console.log("About to do the db lines")
     process.exit(0);
   })
   .catch(err => {
-    console.log("hi")
     console.error(err);
     process.exit(1);
   });
