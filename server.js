@@ -31,6 +31,10 @@ app.use(session({
  } )); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  console.log('req.session:', req.session);
+  return next();
+}); // Used to display the current session info, debugging purposes only!
 
 // Serve up static assets (usually on heroku)
 app.use('/images', express.static("client/public/images"));

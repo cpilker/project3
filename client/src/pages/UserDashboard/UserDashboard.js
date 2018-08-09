@@ -5,7 +5,21 @@ import Footer from '../../components/Footer';
 
 class UserDashboard extends Component {
   state = {
-    username: "Test"
+    username: '',
+    newfirstname: '',
+    newlastname: '',
+    newaddress1: '',
+    newaddress2: '',
+    newcity: '',
+    newstate: '',
+    newzip: '',
+    password: ''
+  }
+
+  handleOnChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   render () {
@@ -35,9 +49,21 @@ class UserDashboard extends Component {
         </div>
       </div>
 
-    
+      <hr />
+      
+      <div className="row" id='agency_info'>
+      <h2 id='accordion-header'>Your Local Recruiters!</h2>
 
-
+      <div className='col-xs-12 agency-locate'>
+        <form className="form-row">
+          <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
+          <button className="btn btn-primary" id="search-button">Search</button>
+        </form>
+      </div>
+      </div>
+      <div className="col-xs-12 recruiter-return-info" display-toggle="none">
+        <div className="accordion" id="recruiterAccordion"></div>	
+      </div>
       <Footer />
     </div>
     )
