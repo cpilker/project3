@@ -72,6 +72,10 @@ class Signup extends Component {
         } else {
           console.log("Success!");
           console.log(response);
+          this.props.updateUser({
+            loggedIn: true,
+            username: response.username
+          })
           this.setState({
             redirectTo: '/user-dashboard'
           })
