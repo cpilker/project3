@@ -2,10 +2,16 @@ import React, {Component} from "react";
 //import "./signin.css";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import $ from 'jquery';
 
 class Signin extends Component {
   state = {
     default: "Hello World"
+  }
+
+  onHandleSubmit(event) {
+    event.preventDefault()
+
   }
 
   render () {
