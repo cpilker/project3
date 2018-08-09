@@ -30,7 +30,7 @@ class UserDashboard extends Component {
           <div className="col-xs-12 col-md-4">
             <div className="thumbnail" id="profile_image">
               <img className='img-thumbnail' src="./images/army.jpg" alt="army.jpg" id="image_source" />
-              <h3>Logged In? = {this.props.loggedIn}</h3>
+              <h3>Logged In? = {this.props.loggedIn.toString()}</h3>
               <h3>Username = {this.props.username}</h3>
             </div>
           </div>
