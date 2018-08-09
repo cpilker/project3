@@ -9,30 +9,14 @@ var server 	= email.server.connect({
   tls:  false
 });
 
-// Routes
-// =============================================================
 module.exports = function(app) {
 
   // GET route for display all
-  app.get("/api/users", function(req, res) {
-    db.user.findAll({}).then(function(results) {
-      res.json(results)
-    })
+  app.get("/api/getuser", (req, res, next) => {
+    console.log("Retreving current user");
+    console.log(req);
   });
  
-
-  // Get route for retrieving a single piece of data
-  app.get("/api/posts/:id", function(req, res) {
-   
-  });
-
-  // POST route for saving information when a new user requests information
-  app.post("/api/userContacts", function(req, res) {
-    console.log(req.body)
-    db.userContact.create(req.body).then(function(dbPost){
-      res.json(dbPost)
-    })
-  });
 
   app.post("/api/sendmail", function(req, res) {
     console.log("Sendmail has been fired!");
@@ -56,17 +40,6 @@ module.exports = function(app) {
           res.json({status: "error"});
         }
     });
-  });
-
-
-  // DELETE route for deleting a piece of data
-  app.delete("/api/posts/:id", function(req, res) {
-    
-  });
-
-  // PUT route for updating a piece of data
-  app.put("/api/posts", function(req, res) {
-   
   });
 
 };
