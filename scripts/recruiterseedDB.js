@@ -15,7 +15,7 @@ const recruiterSeed = [   // Update the collection (aka database) with the recru
   {
     prefix: "R",
     recruiting_agency: "Teksystems",
-    email: "cp@123.com",
+    username: "teksystems@test.com",
     password: "password",
     street_address1: "200 South College Street",
     unit1: "Suite 1900",
@@ -31,7 +31,7 @@ const recruiterSeed = [   // Update the collection (aka database) with the recru
   {
     prefix: "R",
     recruiting_agency: "Aeroteks",
-    email: "aeroteks@test.com",
+    username: "aeroteks@test.com",
     password: "password",
     street_address1: "16810 Kenton Dr",
     unit1: "Suite 180",
@@ -47,7 +47,7 @@ const recruiterSeed = [   // Update the collection (aka database) with the recru
   {
     prefix: "R",
     recruiting_agency: "Randstand",
-    username: "cp@125.com",
+    username: "randstand@test.com",
     password: "password",
     street_address1: "201 South College Street",
     unit1: "Suite 2180",
@@ -63,7 +63,7 @@ const recruiterSeed = [   // Update the collection (aka database) with the recru
   {
     prefix: "R",
     recruiting_agency: "Ettain Group",
-    username: "cp@126.com",
+    username: "ettain@test.com",
     password: "password",
     street_address1: "127 West Worthington Ave",
     unit1: "Suite 100",
@@ -95,7 +95,7 @@ const recruiterSeed = [   // Update the collection (aka database) with the recru
   {
     prefix: "R",
     recruiting_agency: "Talent Bridge",
-    username: "vaco@test.com",
+    username: "talentbridge@test.com",
     password: "password",
     street_address1: "6100 Fairview Rd",
     unit1: "Suite 500",
