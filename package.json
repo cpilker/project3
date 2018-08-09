@@ -8,10 +8,9 @@
     "heroku-postbuild": "cd client && npm install && npm run build",
     "setup": "node setup.js",
     "seed": "node scripts/recruiterseedDB.js",
-    "seeds": "node scripts/userseedDB.js",
     "dev-server": "cross-env NODE_ENV=development PORT=3001 ./node_modules/.bin/nodemon server.js",
     "dev-client": "cd ./client && npm start",
-    "dev": "npm-run-all -p dev-client dev-server seed seeds"
+    "dev": "npm-run-all -p dev-client dev-server seed"
   },
   "author": "",
   "license": "ISC",

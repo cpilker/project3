@@ -59,46 +59,46 @@ class Signup extends Component {
     <div>
       <Nav />
       <div id="signupbody">
-          <section class="profile-container">
-            <div class="profile-content">
-              <div class="thumbnail" >
+          <section className="profile-container">
+            <div className="profile-content">
+              <div className="thumbnail" >
                 <img id="logo-signin"src="./images/Logo-top-left.gif" alt="recruit hound logo"/>
               </div>
       
-              <div class="profile-form">
+              <div className="profile-form">
                 <form id="usersignup" name="signup">
                   <h2>CREATE A PROFILE</h2>
-                    <h5 class="statusmessage">Error: {this.state.errorMessage}</h5>
-                    <h5 class="statusmessage">{this.state.statusMessage}</h5>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <input type="email" class="form-control" id="newemail" placeholder="Email" name="newemail" value={this.state.newemail} onChange={this.handleOnChange} required/>
+                    <h5 className="statusmessage">Error: {this.state.errorMessage}</h5>
+                    <h5 className="statusmessage">{this.state.statusMessage}</h5>
+                  <div className="form-row">
+                    <div className="form-group col-md-6">
+                      <input type="email" className="form-control" id="newemail" placeholder="Email" name="newemail" value={this.state.newemail} onChange={this.handleOnChange} required autoComplete="email"/>
                     </div>
-                    <div class="form-group col-md-6">
-                      <input type="password" class="form-control" id="newpassword" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required/>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <input type="text" class="form-control" id="newfirstname" placeholder="Jane" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required/>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <input type="text" class="form-control" id="newlastname" placeholder="Smith" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required/>
+                    <div className="form-group col-md-6">
+                      <input type="password" className="form-control" id="newpassword" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required autoComplete="new-password" />
                     </div>
                   </div>
-                  <div class="form-group">    
-                      <input type="text" class="form-control" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required/>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange}/>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <input type="text" class="form-control" id="newcity" name="newcity" placeholder="City" value={this.state.newcity} onChange={this.handleOnChange} required/>
+                  <div className="form-row">
+                    <div className="form-group col-md-6">
+                      <input type="text" className="form-control" id="newfirstname" placeholder="Jane" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required autoComplete="given-name" />
                     </div>
-                    <div class="form-group col-md-4">
-                      <select id="newstate" class="form-control" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required>
-                        <option selected disabled>Choose...</option>
+                    <div className="form-group col-md-6">
+                      <input type="text" className="form-control" id="newlastname" placeholder="Smith" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required autoComplete="family-name" />
+                    </div>
+                  </div>
+                  <div className="form-group">    
+                      <input type="text" className="form-control" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required autoComplete="address-line1" />
+                  </div>
+                  <div className="form-group">
+                    <input type="text" className="form-control" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange} autoComplete="address-line2" />
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group col-md-6">
+                      <input type="text" className="form-control" id="newcity" name="newcity" placeholder="City" value={this.state.newcity} onChange={this.handleOnChange} required autoComplete="address-level2" />
+                    </div>
+                    <div className="form-group col-md-4">
+                      <select id="newstate" className="form-control" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required autoComplete="address-level1">
+                        <option disabled>Choose...</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
                         <option value="AZ">Arizona</option>
@@ -152,24 +152,24 @@ class Signup extends Component {
                         <option value="WY">Wyoming</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-2">
-                      <input type="text" class="form-control" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange}required/>
+                    <div className="form-group col-md-2">
+                      <input type="text" className="form-control" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
                     </div>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="newresume" name="newresume"/>
-                      <label class="custom-file-label" for="newresume">Upload Resume</label>
+                    <div className="custom-file">
+                      <input type="file" className="custom-file-input" id="newresume" name="newresume"/>
+                      <label className="custom-file-label" htmlFor="newresume">Upload Resume</label>
                     </div>
-                    <div class="form-group" id="skills-container">
-                      <label id="technologiesWorkWith" for="skills-block">What technologies do you work with?</label>
-                      <div class="btn-group-toggle" data-toggle="buttons" id="skills-block">
+                    <div className="form-group" id="skills-container">
+                      <label id="technologiesWorkWith" htmlFor="skills-block">What technologies do you work with?</label>
+                      <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                           {/* //Begin list of skills */}
                           {this.state.skills}
                       </div>
                     </div>
                   </div>
-                  <div class="form-row" id="submit-btn-container">
+                  <div className="form-row" id="submit-btn-container">
                     <input type="hidden" id="skill" name="skill" value=""/>
-                    <button type="submit" class="btn btn-primary submitprofile" value="Create My Profile" onClick={this.submitForm}>Create My Profile</button>
+                    <button type="submit" className="btn btn-primary submitprofile" value="Create My Profile" onClick={this.submitForm}>Create My Profile</button>
                   </div>
                 </form>
               </div>

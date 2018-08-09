@@ -2,7 +2,7 @@
 import $ from 'jquery'
 // import { model } from 'mongoose';
 
-console.log("Loaded!")
+console.log("contact.js has been loaded!")
 
 export function contactUsFunctions() {
 
