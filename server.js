@@ -1,22 +1,28 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const path = require('path');
-const http = require('http');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const cookieParser = require('cookie-parser');
-const session  = require('express-session');
-const mongodb = require("mongojs");
-const mongoose = require("mongoose");
-const routes = require("./routes");
-const app = express();
-const db = require("./models");
-const PORT = process.env.PORT || 3000;
+const express = require("express"),
+      bodyParser = require("body-parser"),
+      path = require('path'),
+      crypto = require('crypto'),
+      multer = require('multer'),
+      GridFsStorage = require('multer-gridfs-storage'),
+      Grid = require('gridfs-stream'),
+      methodOverride = require('method-override'),
+      http = require('http'),
+      passport = require('passport'),
+      LocalStrategy = require('passport-local').Strategy,
+      cookieParser = require('cookie-parser'),
+      session  = require('express-session'),
+      mongodb = require("mongojs"),
+      mongoose = require("mongoose"),
+      routes = require("./routes"),
+      db = require("./models"),
+      app = express(),
+      PORT = process.env.PORT || 3000;
 
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(session({
 	secret: 'random phrase',
