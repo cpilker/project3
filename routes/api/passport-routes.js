@@ -1,65 +1,33 @@
-module.exports = function(app, passport) {
+const passport = require('passport');
+const User = require('../../models/user');
 
-     app.get('/signup', function(req, res) {
-        res.render('signup', {
-            statusMessage: req.flash('statusMessage')
-        });
-    });
+module.exports = function(app) {
 
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/dashboard', 
-        failureRedirect: '/signup',
-        failureFlash: true
-    }))
-
-    app.get('/signin', function(req, res) {
-        res.render('signin', {
-            statusMessage: req.flash('statusMessage')
-        });
-    });
-
-    app.post('/signin', passport.authenticate('local-signin',  { 
-        successRedirect: '/dashboard',
-        failureRedirect: '/signin',
-        failureFlash: true
-    }));
-
-    app.get('/dashboard', isLoggedIn, function(req, res) {
-        res.render('dashboard', {
-            email: req.user.email,
-            password: req.user.password,
-            firstname: req.user.firstname,
-            lastname: req.user.lastname,
-            address1: req.user.address1,
-            address2: req.user.address2,
-            city: req.user.city,
-            state: req.user.state,
-            zip: req.user.zip,
-            lastlogin: req.user.last_login,
-            skills: req.user.skill,
-            resume: req.user.resume,
-            status: req.user.status,
-            createdAt: req.user.createdAt,
-            updatedAt: req.user.updatedAt
-        });
-    });
-
-    app.get('/fail', function(req, res) {
-        res.render('fail', {
-            statusMessage: req.flash('statusMessage')
-        });
-    });
-
-    app.get('/logout', function(req, res) {
-        req.session.destroy(function(err) {
-            res.redirect('/');
-        });
-    });
-
-    function isLoggedIn(req, res, next) {
-        if (req.isAuthenticated()) 
-            return next();
-        res.redirect('/signin');
+  app.post('/api/signup', function(req, res) {
+    console.log("Post incoming...");
+    console.log(req.body);
+    User.register(new User(
+      { 
+        username: req.body.newemail,
+        firstname: req.body.newfirstname,
+        lastname: req.body.newlastname,
+        address1: req.body.newaddress1,
+        address2: req.body.newaddress2,
+        city: req.body.newcity,
+        state: req.body.newstate,
+        zip: req.body.newzip
+      }), req.body.newpassword, function(err, account) {
+      if (err) {
+          console.log(err);
+      } else {
+          console.log('New user added!');
+          passport.authenticate('local')(req, res, function() {
+            console.log('Done!');
+            console.log(req);
+            res.json({username: req.username});
+          });
+        }
+      });
     }
- 
+  );
 }

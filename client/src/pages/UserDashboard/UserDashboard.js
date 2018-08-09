@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 
 class UserDashboard extends Component {
   state = {
-    default: "Hello World"
+    username: "Test"
   }
 
   render () {
@@ -24,7 +24,7 @@ class UserDashboard extends Component {
               <h2 id="editheader">Edit Profile</h2>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <input type="email" class="form-control" id="editemail" placeholder="Email" name="newemail" value="{{email}}" />
+                  <input type="email" class="form-control" id="editemail" placeholder="Email" name="newemail" value={this.state.username} />
                 </div>
                 <div class="form-group col-md-6">
                   <input type="password" class="form-control" id="editpassword" placeholder="Password" name="newpassword" />
