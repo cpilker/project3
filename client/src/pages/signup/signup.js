@@ -8,7 +8,7 @@ class Signup extends Component {
     skills: ['C++', 'C#', 'Java', 'JavaScript', 'Perl', 'PHP', 'Python', 'Bootstrap', 'Handlebars', 'React', 'NodeJS', 'Angular', 'CSS', 'HTML'],
     errorMessage: "Placeholder message",
     statusMessage: "plcaeholder 2",
-    newemail: '',
+    username: '',
     newfirstname: '',
     newlastname: '',
     newaddress1: '',
@@ -16,7 +16,7 @@ class Signup extends Component {
     newcity: '',
     newstate: '',
     newzip: '',
-    newpassword: ''
+    password: ''
   }
 
   handleOnChange = this.handleOnChange.bind(this);
@@ -28,6 +28,20 @@ class Signup extends Component {
     });
   }
 
+  clearForm() {
+    this.setState({
+      username: '',
+      newfirstname: '',
+      newlastname: '',
+      newaddress1: '',
+      newaddress2: '',
+      newcity: '',
+      newstate: '',
+      newzip: '',
+      password: ''
+    })
+  }
+
   submitForm(e) {
     e.preventDefault();
     console.log("SubmitForm has been fired!");
@@ -35,7 +49,7 @@ class Signup extends Component {
       url: '/api/signup',
       type: 'post',
       data: { 
-        newemail: this.state.newemail, 
+        username: this.state.username, 
         newfirstname: this.state.newfirstname,
         newlastname: this.state.newlastname,
         newaddress1: this.state.newaddress1,
@@ -43,10 +57,20 @@ class Signup extends Component {
         newcity: this.state.newcity,
         newstate: this.state.newstate,
         newzip: this.state.newzip,
-        newpassword: this.state.newpassword,
+        password: this.state.password,
       },
-      success: () => {
-        console.log("You did it!");
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success!");
+          console.log(response);
+        }
       },
       error: (err) => {
         console.log(err);
@@ -72,10 +96,10 @@ class Signup extends Component {
                     <h5 className="statusmessage">{this.state.statusMessage}</h5>
                   <div className="form-row">
                     <div className="form-group col-md-6">
-                      <input type="email" className="form-control" id="newemail" placeholder="Email" name="newemail" value={this.state.newemail} onChange={this.handleOnChange} required autoComplete="email"/>
+                      <input type="email" className="form-control" id="email" placeholder="Email" name="username" value={this.state.username} onChange={this.handleOnChange} required autoComplete="email"/>
                     </div>
                     <div className="form-group col-md-6">
-                      <input type="password" className="form-control" id="newpassword" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required autoComplete="new-password" />
+                      <input type="password" className="form-control" id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleOnChange} required autoComplete="new-password" />
                     </div>
                   </div>
                   <div className="form-row">
