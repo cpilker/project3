@@ -5,51 +5,65 @@ import Footer from '../../components/Footer';
 
 class UserDashboard extends Component {
   state = {
-    username: "Test"
+    username: '',
+    newfirstname: '',
+    newlastname: '',
+    newaddress1: '',
+    newaddress2: '',
+    newcity: '',
+    newstate: '',
+    newzip: '',
+    password: ''
+  }
+
+  handleOnChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   render () {
     return (
       <div className="UserDashboard container">
       <Nav />
-        <div class="row" id="portfolio_info">
-          <div class="col-xs-12 col-md-4">
-            <div class="thumbnail" id="profile_image">
-              <img class='img-thumbnail' src="./images/army.jpg" alt="army.jpg" id="image_source" />
+        <div className="row" id="portfolio_info">
+          <div className="col-xs-12 col-md-4">
+            <div className="thumbnail" id="profile_image">
+              <img className='img-thumbnail' src="./images/army.jpg" alt="army.jpg" id="image_source" />
             </div>
           </div>
-          <div class="col-xs-12 col-md-8">
-            <div class="profile-form">
+          <div className="col-xs-12 col-md-8">
+            <div className="profile-form">
               <form id="useredit" name="edit" method="post" action="edit">
               <h2 id="editheader">Edit Profile</h2>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <input type="email" class="form-control" id="editemail" placeholder="Email" name="newemail" value={this.state.username} autoComplete="email" />
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <input type="email" className="form-control" id="editemail" placeholder="Email" name="username" value={this.state.username} onChange={this.handleOnChange} autoComplete="email" />
                 </div>
-                <div class="form-group col-md-6">
-                  <input type="password" class="form-control" id="editpassword" placeholder="Password" name="newpassword" autoComplete="new-password" />
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="editfirstname" placeholder="Jane" name="newfirstname" value="{{firstname}}" />
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="editlastname" placeholder="Smith" name="newlastname" value="{{lastname}}" />
+                <div className="form-group col-md-6">
+                  <input type="password" className="form-control" id="editpassword" placeholder="Password" name="newpassword" autoComplete="new-password" />
                 </div>
               </div>
-              <div class="form-group">    
-                <input type="text" class="form-control" id="editaddress1" placeholder="1234 Main St" name="newaddress1" value="{{address1}}" />
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="editaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value="{{address2}}" />
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="editcity" name="newcity" placeholder="City" value="{{city}}" />
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <input type="text" className="form-control" id="editfirstname" placeholder="Jane" name="firstname" value={this.state.firstname} onChange={this.handleOnChange} autoComplete="given-name" />
                 </div>
-                <div class="form-group col-md-4">
-                  <select id="editstate" class="form-control" name="newstate">
+                <div className="form-group col-md-6">
+                  <input type="text" className="form-control" id="editlastname" placeholder="Smith" name="lastname" value={this.state.lastname} onChange={this.handleOnChange} autoComplete="family-name" />
+                </div>
+              </div>
+              <div className="form-group">    
+                <input type="text" className="form-control" id="editaddress1" placeholder="1234 Main St" name="address1" value={this.state.address1} onChange={this.handleOnChange} autoComplete="address-line1" />
+              </div>
+              <div className="form-group">
+                <input type="text" className="form-control" id="editaddress2" placeholder="Apartment, studio, or floor" name="address2" value={this.state.address2} onChange={this.handleOnChange} autoComplete="address-line2" />
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <input type="text" className="form-control" id="editcity" name="city" placeholder="City" value={this.state.city} onChange={this.handleOnChange} autoComplete="address-level2" />
+                </div>
+                <div className="form-group col-md-4">
+                  <select id="editstate" className="form-control" name="state" value={this.state.state} onChange={this.handleOnChange} autoComplete="address-level1">
                   <option disabled>Choose...</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
@@ -104,23 +118,23 @@ class UserDashboard extends Component {
                   <option value="WY">Wyoming</option>
                   </select>
                 </div>
-                <div class="form-group col-md-2">
-                  <input type="text" class="form-control" id="editzip" name="newzip" placeholder="Zip" value="" />
+                <div className="form-group col-md-2">
+                  <input type="text" className="form-control" id="editzip" name="zip" placeholder="Zip" value={this.state.zip} onChange={this.handleOnChange} autoComplete="postal-code" />
                 </div>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="editresume" name="newresume" />
-                  <label class="custom-file-label" for="editresume">Upload Resume</label>
+                <div className="custom-file">
+                  <input type="file" className="custom-file-input" id="editresume" name="newresume" />
+                  <label className="custom-file-label" htmlFor="editresume">Upload Resume</label>
                 </div>
-                <div class="form-group" id="skills-container">
-                  <label id="skills" for="skills-block">What technologies do you work with?</label>
-                  <div class="btn-group-toggle" data-toggle="buttons" id="skills-block">
+                <div className="form-group" id="skills-container">
+                  <label id="skills" htmlFor="skills-block">What technologies do you work with?</label>
+                  <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                     {/* <!-- Begin list of skills --> */}
                   </div>
                 </div>
               </div>
-              <div class="form-row" id="save-btn-container">
+              <div className="form-row" id="save-btn-container">
                 <input type="hidden" id="skill" name="skill" value="" />
-                <input type="submit" class="btn btn-primary saveprofile" value="Save" />
+                <input type="submit" className="btn btn-primary saveprofile" value="Save" />
               </div>
             </form>
           </div>
@@ -128,18 +142,18 @@ class UserDashboard extends Component {
       </div>
 
       <hr />
-      <div class="row" id='agency_info'>
+      <div className="row" id='agency_info'>
       <h2 id='accordion-header'>Your Local Recruiters!</h2>
 
-      <div class='col-xs-12 agency-locate'>
-        <form class="form-row">
-          <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" />
-          <button class="btn btn-primary" id="search-button">Search</button>
+      <div className='col-xs-12 agency-locate'>
+        <form className="form-row">
+          <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
+          <button className="btn btn-primary" id="search-button">Search</button>
         </form>
       </div>
       </div>
-      <div class="col-xs-12 recruiter-return-info" display-toggle="none">
-        <div class="accordion" id="recruiterAccordion"></div>	
+      <div className="col-xs-12 recruiter-return-info" display-toggle="none">
+        <div className="accordion" id="recruiterAccordion"></div>	
       </div>
       <Footer />
     </div>

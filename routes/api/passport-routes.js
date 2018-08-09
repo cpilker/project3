@@ -33,4 +33,15 @@ module.exports = function(app) {
       });
     }
   );
+
+  app.get('/user-dashboard', isLoggedIn, function(req, res) {
+    res.json({username: req.body.username});
+  });
+
+  function isLoggedIn(req, res, next) {
+    if (req.user) 
+      return next();
+    res.redirect('/');
+  }
+
 }
