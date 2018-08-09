@@ -71,6 +71,7 @@ class App extends Component {
             <Signin
               username={this.state.username}
               loggedIn={this.state.loggedIn}
+              updateUser={this.updateUser}
             />}
           />
             <Route path='/signup' render={() =>
