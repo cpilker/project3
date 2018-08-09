@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import * as utils from "./contact.js";
 
-
-
 class ContactUs extends Component {
 
   componentDidMount () {
@@ -26,22 +24,22 @@ class ContactUs extends Component {
                 <form id="jobseekerform" style={{display: "none"}}>
                   <div className="form-group col-xs-12">
                     <label htmlFor="contactus-name">Name</label>
-                    <input type="text" className="form-control" id="contactus-name" placeholder="Jane Doe" />
+                    <input type="text" className="form-control" id="contactus-name" placeholder="Jane Doe" autoComplete="name" />
                   </div>
 
                   <div className="form-group col-xs-12">
                     <label htmlFor="contactus-email">Email</label>
-                    <input type="email" className="form-control" id="contactus-email" placeholder="janedoe@techworkers.com" />
+                    <input type="email" className="form-control" id="contactus-email" placeholder="janedoe@techworkers.com" autoComplete="email" />
                   </div>
 
                   <div className="form-group col-xs-12">
                     <label htmlFor="contactus-phone">Phone</label>
-                    <input type="text" className="form-control" id="contactus-phone" placeholder="123-456-7890" />
+                    <input type="text" className="form-control" id="contactus-phone" placeholder="123-456-7890" autoComplete="tel-national" />
                   </div>
 
                   <div className="form-group col-xs-12">
                     <label htmlFor="contactus-message">Message</label>
-                    <textarea className="form-control" id="contactus-message" rows="3"></textarea>
+                    <textarea className="form-control" id="contactus-message" rows="3" autoComplete="street-address"></textarea>
                   </div>
 
                   <button type="submit" className="btn btn-primary submitjobseeker">Submit</button>
@@ -50,22 +48,22 @@ class ContactUs extends Component {
                 <form id="recruiterform" style={{display: "none"}}>
                   <div className="form-group col-xs-12">
                     <label htmlFor="recruiter-name">Name</label>
-                    <input type="text" className="form-control" id="recruiter-name" placeholder="Jane Doe" />
+                    <input type="text" className="form-control" id="recruiter-name" placeholder="Jane Doe" autoComplete="name" />
                   </div>
 
                   <div className="form-group col-xs-12">
                     <label htmlFor="recruiter-company">Recruiter Agency</label>
-                    <input type="text" className="form-control" id="recruiter-company" placeholder="TechWorkers Recruiting Agency" />
+                    <input type="text" className="form-control" id="recruiter-company" placeholder="TechWorkers Recruiting Agency" autoComplete="organization" />
                   </div>
 
                   <div className="form-group col-xs-12">
                   <label htmlFor="recruiter-email">Email</label>
-                    <input type="email" className="form-control" id="recruiter-email" placeholder="janedoe@techworkers.com" />
+                    <input type="email" className="form-control" id="recruiter-email" placeholder="janedoe@techworkers.com" autoComplete="email" />
                   </div>
 
                   <div className="form-group col-xs-12">
                     <label htmlFor="recruiter-phone">Phone</label>
-                    <input type="text" className="form-control" id="recruiter-phone" placeholder="123-456-7890" />
+                    <input type="text" className="form-control" id="recruiter-phone" placeholder="123-456-7890" autoComplete="tel" />
                   </div>
  
                   <div className="form-group col-xs-12">
