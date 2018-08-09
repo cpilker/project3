@@ -1,16 +1,58 @@
 import React, {Component} from "react";
-// import "./signup.css";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import $ from 'jquery';
 
 class Signup extends Component {
   state = {
-    default: "Hello World",
     skills: ['C++', 'C#', 'Java', 'JavaScript', 'Perl', 'PHP', 'Python', 'Bootstrap', 'Handlebars', 'React', 'NodeJS', 'Angular', 'CSS', 'HTML'],
     errorMessage: "Placeholder message",
-    statusMessage: "plcaeholder 2"
+    statusMessage: "plcaeholder 2",
+    newemail: '',
+    newfirstname: '',
+    newlastname: '',
+    newaddress1: '',
+    newaddress2: '',
+    newcity: '',
+    newstate: '',
+    newzip: '',
+    newpassword: ''
   }
 
+  handleOnChange = this.handleOnChange.bind(this);
+  submitForm = this.submitForm.bind(this);
+
+  handleOnChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  submitForm(e) {
+    e.preventDefault();
+    console.log("SubmitForm has been fired!");
+    $.ajax({
+      url: '/api/signup',
+      type: 'post',
+      data: { 
+        newemail: this.state.newemail, 
+        newfirstname: this.state.newfirstname,
+        newlastname: this.state.newlastname,
+        newaddress1: this.state.newaddress1,
+        newaddress2: this.state.newaddress2,
+        newcity: this.state.newcity,
+        newstate: this.state.newstate,
+        newzip: this.state.newzip,
+        newpassword: this.state.newpassword,
+      },
+      success: () => {
+        console.log("You did it!");
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
 
   render () {
     return (
@@ -24,38 +66,38 @@ class Signup extends Component {
               </div>
       
               <div class="profile-form">
-                <form id="usersignup" name="signup" method="post" action="signup">
+                <form id="usersignup" name="signup">
                   <h2>CREATE A PROFILE</h2>
                     <h5 class="statusmessage">Error: {this.state.errorMessage}</h5>
                     <h5 class="statusmessage">{this.state.statusMessage}</h5>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <input type="email" class="form-control" id="newemail" placeholder="Email" name="newemail" required/>
+                      <input type="email" class="form-control" id="newemail" placeholder="Email" name="newemail" value={this.state.newemail} onChange={this.handleOnChange} required/>
                     </div>
                     <div class="form-group col-md-6">
-                      <input type="password" class="form-control" id="newpassword" placeholder="Password" name="newpassword" required/>
+                      <input type="password" class="form-control" id="newpassword" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required/>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <input type="text" class="form-control" id="newfirstname" placeholder="Jane" name="newfirstname" required/>
+                      <input type="text" class="form-control" id="newfirstname" placeholder="Jane" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required/>
                     </div>
                     <div class="form-group col-md-6">
-                      <input type="text" class="form-control" id="newlastname" placeholder="Smith" name="newlastname" required/>
+                      <input type="text" class="form-control" id="newlastname" placeholder="Smith" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required/>
                     </div>
                   </div>
                   <div class="form-group">    
-                      <input type="text" class="form-control" id="newaddress1" placeholder="1234 Main St" name="newaddress1" required/>
+                      <input type="text" class="form-control" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required/>
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2"/>
+                    <input type="text" class="form-control" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange}/>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <input type="text" class="form-control" id="newcity" name="newcity" placeholder="City" required/>
+                      <input type="text" class="form-control" id="newcity" name="newcity" placeholder="City" value={this.state.newcity} onChange={this.handleOnChange} required/>
                     </div>
                     <div class="form-group col-md-4">
-                      <select id="newstate" class="form-control" name="newstate" required>
+                      <select id="newstate" class="form-control" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required>
                         <option selected disabled>Choose...</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
@@ -111,7 +153,7 @@ class Signup extends Component {
                       </select>
                     </div>
                     <div class="form-group col-md-2">
-                      <input type="text" class="form-control" id="newzip" name="newzip" placeholder="Zip" required/>
+                      <input type="text" class="form-control" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange}required/>
                     </div>
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="newresume" name="newresume"/>
@@ -127,7 +169,7 @@ class Signup extends Component {
                   </div>
                   <div class="form-row" id="submit-btn-container">
                     <input type="hidden" id="skill" name="skill" value=""/>
-                    <input type="submit" class="btn btn-primary submitprofile" value="Create My Profile"/>
+                    <button type="submit" class="btn btn-primary submitprofile" value="Create My Profile" onClick={this.submitForm}>Create My Profile</button>
                   </div>
                 </form>
               </div>
