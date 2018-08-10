@@ -17,6 +17,9 @@ module.exports = function(app) {
     console.log(req);
   });
  
+  app.post('/upload', upload.single('file'), (req, res) => {
+    
+  })
 
   app.post("/api/sendmail", function(req, res) {
     console.log("Sendmail has been fired!");
