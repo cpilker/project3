@@ -68,12 +68,12 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/signin' render={() =>
-            <Signin
-              username={this.state.username}
-              loggedIn={this.state.loggedIn}
-              updateUser={this.updateUser}
-            />}
-          />
+              <Signin
+                username={this.state.username}
+                loggedIn={this.state.loggedIn}
+                updateUser={this.updateUser}
+              />}
+            />
             <Route path='/signup' render={() =>
               <Signup
                 updateUser={this.updateUser}
