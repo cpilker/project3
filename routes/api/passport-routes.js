@@ -34,16 +34,17 @@ module.exports = function(app) {
     }
   );
 
-  app.post('/api/signin', function(req, res) {
+  app.post('/api/signin', function(req, res, next) {
     console.log("Signin post incoming...");
     console.log(req.body);
-    passport.authenticate('local')(req, res, function() {
-      console.log(req.user);
-      console.log('Done!');
+    next();
+  },
+    passport.authenticate('local'),(req, res) => {
+      console.log('logged in: ', req.user);
       res.json({username: req.user.username});
-    });
-  })
-
+    }
+  )
+     
   app.get('/user-dashboard', isLoggedIn, function(req, res) {
     res.json({username: req.body.username});
   });

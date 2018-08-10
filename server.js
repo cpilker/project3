@@ -16,6 +16,7 @@ const express = require("express"),
       routes = require("./routes"),
       db = require("./models"),
       app = express(),
+      MongoStore = require('connect-mongo')(session),
       PORT = process.env.PORT || 3000;
 
 
@@ -25,16 +26,17 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(session({
-	secret: 'random phrase',
-	resave: true,
-	saveUninitialized: true
- } )); // session secret
+  secret: 'random phrase', // session secret
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+	resave: false,
+  saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use((req, res, next) => {
-  console.log('req.session:', req.session);
-  return next();
-}); // Used to display the current session info, debugging purposes only!
+// app.use((req, res, next) => {
+  // console.log('req.session:', req.session);
+  // return next();
+// }); // Used to display the current session info, debugging purposes only!
 
 // Serve up static assets (usually on heroku)
 app.use('/images', express.static("client/public/images"));
@@ -45,7 +47,6 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 // app.use(routes);
 
-
 // passport config
 const User = require('./models/user');
 passport.use(new LocalStrategy(User.authenticate()));
@@ -54,19 +55,10 @@ passport.deserializeUser(User.deserializeUser());
 
 require('./routes/api/passport-routes')(app, passport);
 
-
-
-
-
-
-
-
 // Connect to the Mongo DB
 let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
 mongoose.Promise = Promise;
 
-
-let connection = mongoose.connection;
 //test connection
 conn.on('error', function (err) {
     console.log('Database Error: '+err)
@@ -75,8 +67,6 @@ conn.on('error', function (err) {
 conn.once('open', function () {
     console.log('Mongo Connection Success!')
 })
-
-
 
 // Start the API server
 app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));

@@ -8,7 +8,8 @@ class Signin extends Component {
   state = {
     username: '',
     password: '',
-    redirectTo: null
+    redirectTo: null,
+    error: null
   }
 
   handleChange = this.handleChange.bind(this);
@@ -31,27 +32,20 @@ class Signin extends Component {
         password: this.state.password,
       },
       success: (response) => {
-        // this.clearForm()
-        if (response.err) {
-          console.log("Error!");
-          console.log(response.err);
-          this.setState({
-            errorMessage: response.err.message
-          })
-        } else {
-          console.log("Success!");
-          console.log(response);
-          this.props.updateUser({
-            loggedIn: true,
-            username: response.username
-          })
-          this.setState({
-            redirectTo: '/user-dashboard'
-          })
-        }
+        console.log("Success!");
+        console.log(response);
+        this.props.updateUser({
+          loggedIn: true,
+          username: response.username
+        })
+        this.setState({
+          redirectTo: '/user-dashboard'
+        })
       },
       error: (err) => {
-        console.log(err);
+        this.setState({
+          error: err.responseText
+        })
       }
     });
   }
@@ -72,10 +66,11 @@ class Signin extends Component {
                   <div className="frontbox">
                     <div className="login">
                       <h2>SIGN IN</h2>
+                      <h3>{this.state.error}</h3>
                       <form id="signin" name="signin" method="post" action="signin">
                         <div className="inputbox">
-                          <input className="form-control" type="text" name="username" placeholder="EMAIL" required value={this.state.username} onChange={this.handleChange} />
-                          <input className="form-control" type="password" name="password" placeholder="Password" required value={this.state.password} onChange={this.handleChange} />
+                          <input className="form-control" type="text" name="username" placeholder="EMAIL" required value={this.state.username} onChange={this.handleChange} autoComplete="email" />
+                          <input className="form-control" type="password" name="password" placeholder="Password" required value={this.state.password} onChange={this.handleChange} autoComplete="current-password" />
                           <button className="btn" type="submit" id="btn-signin" value="Sign In" onClick={this.onHandleSubmit} />
                           <a href="/">
                             <p>Forget Password?</p>
