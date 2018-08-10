@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
+
+// TO DO: This needs to be moved out of this file and instead exported here...
 let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
 
 const userSchema = new Schema({
