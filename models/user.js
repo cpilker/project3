@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
-const conn2 = require('../server')
 
-console.log(conn2)
 let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
 
 const userSchema = new Schema({

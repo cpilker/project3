@@ -52,7 +52,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-require('./routes/api/passport-routes')(app);
+require('./routes/api/passport-routes')(app, passport);
 
 
 
@@ -60,9 +60,7 @@ require('./routes/api/passport-routes')(app);
 
 
 
-module.exports = {
-  conn: mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
-}
+
 // Connect to the Mongo DB
 let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
 mongoose.Promise = Promise;
