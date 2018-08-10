@@ -20,7 +20,7 @@ class RecruiterTile extends Component {
 
           <div className=" card [ is-collapsed ] ">
             <div className="card__inner [ js-expander ]">
-              <img src="./images/recruiter-logos/charlotte_automation.jpg" />
+              <img src="./images/recruiter-logos/charlotte_automation.jpg" alt="charlotte_automation.jpg" />
             </div>
             <div className="card__expander expand_animation">
               <div className="expander__content">
@@ -32,14 +32,14 @@ class RecruiterTile extends Component {
               Charlotte, NC 28217<br/>
               205-733-3700</p>
 
-              <p><a href="http://www.apstemps.com" target="_blank">http://www.apstemps.com</a></p>
+              <p><a href="http://www.apstemps.com" target="_blank" rel="noopener noreferrer">http://www.apstemps.com</a></p>
               </div>
             </div>
           </div>
 
           <div className=" card [ is-collapsed ] ">
             <div className="card__inner [ js-expander ]">
-              <img src="./images/recruiter-logos/charlotte_ettain_group.jpg" />
+              <img src="./images/recruiter-logos/charlotte_ettain_group.jpg" alt="charlotte_ettain_group.jpg" />
             </div>
             <div className="card__expander expand_animation">
               Expander
@@ -48,7 +48,7 @@ class RecruiterTile extends Component {
 
           <div className=" card [ is-collapsed ] ">
             <div className="card__inner [ js-expander ]">
-              <img src="./images/recruiter-logos/charlotte_insight_global.jpg" />
+              <img src="./images/recruiter-logos/charlotte_insight_global.jpg" alt="charlotte_insight_global.jpg" />
             </div>
             <div className="card__expander expand_animation">
               Expander
@@ -57,7 +57,7 @@ class RecruiterTile extends Component {
                  
           <div className=" card [ is-collapsed ] ">
             <div className="card__inner [ js-expander ]">
-              <img src="./images/recruiter-logos/charlotte_automation.jpg" />
+              <img src="./images/recruiter-logos/charlotte_automation.jpg" alt="charlotte_automation.jpg" />
             </div>
             <div className="card__expander expand_animation">
               Expander
@@ -69,7 +69,7 @@ class RecruiterTile extends Component {
 
           <div className=" card [ is-collapsed ] ">
             <div className="card__inner [ js-expander ]">
-              <img src="./images/recruiter-logos/charlotte_ettain_group.jpg" />
+              <img src="./images/recruiter-logos/charlotte_ettain_group.jpg" alt="charlotte_ettain_group.jpg" />
             </div>
             <div className="card__expander expand_animation">
               Expander
@@ -78,7 +78,7 @@ class RecruiterTile extends Component {
 
           <div className=" card [ is-collapsed ] ">
             <div className="card__inner [ js-expander ]">
-              <img src="./images/recruiter-logos/charlotte_insight_global.jpg" />
+              <img src="./images/recruiter-logos/charlotte_insight_global.jpg" alt="charlotte_insight_global.jpg" />
             </div>
             <div className="card__expander expand_animation">
               Expander
