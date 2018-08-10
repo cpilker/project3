@@ -11,10 +11,13 @@ const express = require("express"),
       LocalStrategy = require('passport-local').Strategy,
       cookieParser = require('cookie-parser'),
       session  = require('express-session'),
+      cheerio = require('cheerio'),
+      request = require('request'),
       mongodb = require("mongojs"),
       mongoose = require("mongoose"),
       routes = require("./routes"),
       db = require("./models"),
+      axios = require("axios")
       app = express(),
       PORT = process.env.PORT || 3000;
 
@@ -74,4 +77,36 @@ connection.once('open', function () {
 // Start the API server
 app.listen(PORT, function() {
   console.log(`http://localhost: ${PORT}!`);
+});
+
+request("https://www.eventbrite.com/d/NC--Charlotte/science-and-tech--events/technology-recruiting/?page=1", function(error, response, html) {
+
+  // Load the HTML into cheerio and save it to a variable
+  // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
+  var $ = cheerio.load(html);
+
+  // An empty array to save the data that we'll scrape
+  var results = [];
+
+  // With cheerio, find each p-tag with the "title" class
+  // (i: iterator. element: the current element)
+  $("div").each(function(i, element) {
+
+    // Save the text of the element in a "title" variable
+    let title = $(element);
+
+    // In the currently selected element, look at its child elements (i.e., its a-tags),
+    // then save the values for any "href" attributes that the child elements may have
+    // var link = $(element).children().attr("href");
+
+    // Save these results in an object that we'll push into the results array we defined earlier
+    results.push({
+      title: title[0],
+      // link: link
+    });
+    
+  });
+
+  // Log the results once you've looped through each of the elements found with cheerio
+  console.log(results);
 });

@@ -1,7 +1,10 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-
+import axios from "axios";
+import cheerio from "cheerio";
+// import API from "../../utils/API";
+import EventBrite from "../../components/Eventbrite";
 
 class UserDashboard extends Component {
   state = {
@@ -13,13 +16,22 @@ class UserDashboard extends Component {
     newcity: '',
     newstate: '',
     newzip: '',
-    password: ''
+    password: '',
+    city: "Charlotte",
+    state: "NC"
+
   }
 
   handleOnChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+
+  getEventBrite() {
+    console.log("hello")
+    return axios.get("https://www.eventbrite.com/d/" + this.state.state + "--" + this.state.city + "/science-and-tech--events--networking/technology-recruiting/?page=1");
   }
 
   render () {
@@ -70,6 +82,7 @@ class UserDashboard extends Component {
       <div className="col-xs-12 recruiter-return-info" display-toggle="none">
         <div className="accordion" id="recruiterAccordion"></div>	
       </div>
+      <EventBrite getEventBrite={this.getEventBrite}/>
       <Footer />
     </div>
     )
