@@ -4,7 +4,7 @@ const User = require('../../models/user');
 module.exports = function(app) {
 
   app.post('/api/signup', function(req, res) {
-    console.log("Post incoming...");
+    console.log("Signup post incoming...");
     console.log(req.body);
     User.register(new User(
       { 
@@ -33,6 +33,16 @@ module.exports = function(app) {
       });
     }
   );
+
+  app.post('/api/signin', function(req, res) {
+    console.log("Signin post incoming...");
+    console.log(req.body);
+    passport.authenticate('local')(req, res, function() {
+      console.log(req.user);
+      console.log('Done!');
+      res.json({username: req.user.username});
+    });
+  })
 
   app.get('/user-dashboard', isLoggedIn, function(req, res) {
     res.json({username: req.body.username});

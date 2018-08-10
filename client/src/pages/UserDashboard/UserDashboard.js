@@ -35,14 +35,16 @@ class UserDashboard extends Component {
       <div>name</div>
       <div>name</div>
       <div>name</div>
+      <h3>Logged In? = {this.props.loggedIn.toString()}</h3>
+      <h3>Username = {this.props.username}</h3>
       <div className='container'>
         <div className='row'>
           <div className='col-md-6 m-auto'>
             <h1 className='text-center display-4 my-4'>Mongo File Uplaods</h1>
-            <form action='/upload' method='POST' enctype='multipart/form-data'>
+            <form action='/upload' method='POST' encType='multipart/form-data'>
               <div className='custom-file mb-3'>
                 <input type='file' name='file' id='file' className='custom-file-input'/>
-                <label for='file' className='custom-file-label'>Choose File
+                <label htmlFor='file' className='custom-file-label'>Choose File
                 </label>
 
 
