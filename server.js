@@ -54,50 +54,31 @@ passport.deserializeUser(User.deserializeUser());
 
 require('./routes/api/passport-routes')(app);
 
-// // Connect to the Mongo DB
-// mongoose.connect();
-// mongoose.Promise = Promise;
 
 
-const conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
 
-let gfs;
 
+
+
+module.exports = {
+  conn: mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
+}
+// Connect to the Mongo DB
+let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
+mongoose.Promise = Promise;
+
+
+let connection = mongoose.connection;
 //test connection
 conn.on('error', function (err) {
     console.log('Database Error: '+err)
 });
 
-conn.once('open', () =>  {
+conn.once('open', function () {
     console.log('Mongo Connection Success!')
-    gfs = Grid(conn.db, mongoose.mongo)
-    gfs.collection('uploads')
 })
-
-
-const storage = new GridFsStorage({
-  url: 'mongodb://host:27017/database',
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-        if (err) {
-          return reject(err);
-        }
-        const filename = buf.toString('hex') + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-          bucketName: 'uploads'
-        };
-        resolve(fileInfo);
-      });
-    });
-  }
-});
-const upload = multer({ storage });
 
 
 
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`http://localhost: ${PORT}!`);
-});
+app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
