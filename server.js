@@ -54,20 +54,46 @@ passport.deserializeUser(User.deserializeUser());
 
 require('./routes/api/passport-routes')(app);
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/main");
-mongoose.Promise = Promise;
+// // Connect to the Mongo DB
+// mongoose.connect();
+// mongoose.Promise = Promise;
 
 
-let connection = mongoose.connection;
+const conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
+
+let gfs;
+
 //test connection
-connection.on('error', function (err) {
+conn.on('error', function (err) {
     console.log('Database Error: '+err)
 });
 
-connection.once('open', function () {
+conn.once('open', () =>  {
     console.log('Mongo Connection Success!')
+    gfs = Grid(conn.db, mongoose.mongo)
+    gfs.collection('uploads')
 })
+
+
+const storage = new GridFsStorage({
+  url: 'mongodb://host:27017/database',
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString('hex') + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketName: 'uploads'
+        };
+        resolve(fileInfo);
+      });
+    });
+  }
+});
+const upload = multer({ storage });
 
 
 
