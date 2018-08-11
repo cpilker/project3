@@ -1,11 +1,41 @@
 const passport = require('passport');
 const User = require('../../models/user');
+multer = require('multer');
+crypto = require('crypto');
+GridFsStorage = require('multer-gridfs-storage');
 
 module.exports = function(app) {
 
-  app.post('/api/signup', function(req, res) {
+  const storage = new GridFsStorage({
+    url: 'mongodb://localhost/main',
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = 'testing123';
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'uploads',
+            aliases: ['testing123']
+          };
+          console.log(fileInfo)
+          resolve(fileInfo);
+        });
+      });
+    }
+  });
+
+  const upload = multer({ storage });
+  
+  app.post('/api/signup', upload.single('file'), (req, res) => {
+    // res.json({file: req.file})
+    // res.redirect('/user-dashboard')
+
     console.log("Signup post incoming...");
     console.log(req.body);
+    
     User.register(new User(
       { 
         username: req.body.username,
@@ -24,42 +54,15 @@ module.exports = function(app) {
           res.json({err});
       } else {
           console.log('New user added!');
+
+
+
           passport.authenticate('local')(req, res, function() {
             console.log(req.user);
             console.log('Done!');
             res.json({username: req.user.username});
-
-          const storage = new GridFsStorage({
-            url: 'mongodb://localhost/main',
-            file: (req, file) => {
-              return new Promise((resolve, reject) => {
-                crypto.randomBytes(16, (err, buf) => {
-                  if (err) {
-                    return reject(err);
-                  }
-                  const filename = 'testing123';
-                  const fileInfo = {
-                    filename: filename,
-                    bucketName: 'uploads',
-                    aliases: ['testing123']
-                  };
-                  console.log(fileInfo)
-                  resolve(fileInfo);
-                });
-              });
-            }
-          });
-          const upload = multer({ storage });
-
-          app.post('/upload', upload.single('file'), (req, res) => {
-            // res.json({file: req.file})
-            res.redirect('/user-dashboard')
-          })
-
           });
         }
-
-      
       });
     }
   );
