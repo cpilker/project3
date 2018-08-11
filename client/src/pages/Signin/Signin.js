@@ -71,7 +71,7 @@ class Signin extends Component {
                         <div className="inputbox">
                           <input className="form-control" type="text" name="username" placeholder="EMAIL" required value={this.state.username} onChange={this.handleChange} autoComplete="email" />
                           <input className="form-control" type="password" name="password" placeholder="Password" required value={this.state.password} onChange={this.handleChange} autoComplete="current-password" />
-                          <button className="btn" type="submit" id="btn-signin" value="Sign In" onClick={this.onHandleSubmit} />
+                          <button className="btn" type="submit" id="btn-signin" value="Sign In" onClick={this.onHandleSubmit}>Submit</button>
                           <a href="/">
                             <p>Forget Password?</p>
                           </a> 

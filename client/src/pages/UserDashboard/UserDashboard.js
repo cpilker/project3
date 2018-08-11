@@ -145,6 +145,7 @@ saveProfile(e) {
                 <input type='file' name='file' id='file' className='custom-file-input'/>
                 <label htmlFor='file' className='custom-file-label'>Choose File
                 </label>
+
               </div>
               <div className="form-group col-md-6">
                 <input type="password" className="form-control" id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleOnChange} required autoComplete="new-password" />
