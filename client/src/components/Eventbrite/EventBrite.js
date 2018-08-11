@@ -28,8 +28,7 @@ class EventBrite extends Component {
                   <h2>Event Location: </h2>
                   <p><strong>{this.props.location}</strong></p>
                   <p>{this.props.street}<br/>
-                  {this.props.city}, {this.props.state} {this.props.zipcode}<br/>
-                  205-733-3700</p>
+                  {this.props.city}, {this.props.state} {this.props.zipcode}<br/></p>
                   <p><a href={this.props.url} target="_blank" rel="noopener noreferrer">More Info</a></p>
                 </div>
               </div>

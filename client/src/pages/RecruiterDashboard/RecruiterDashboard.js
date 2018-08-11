@@ -7,6 +7,35 @@ class RecruiterDashboard extends Component {
     default: "Hello World"
   }
 
+  searchUsers(e){
+    e.preventDefault();
+    let city = $('#search-input').val()
+    console.log(city)
+    $.ajax({
+      url: '/usersearch',
+      type: 'get',
+      data: {
+        city: $('#search-input').val()
+      },
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success!");
+          console.log(response);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
   render () {
     return (
       <div className="RecruiterDashboard container">
@@ -133,7 +162,7 @@ class RecruiterDashboard extends Component {
       <div class='col-xs-12 agency-locate'>
         <form class="form-row">
           <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" />
-          <button class="btn btn-primary" id="search-button">Search</button>
+          <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Search</button>
         </form>
       </div>
       </div>
