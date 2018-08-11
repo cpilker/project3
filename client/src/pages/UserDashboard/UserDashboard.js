@@ -4,6 +4,8 @@ import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
 import $ from "jquery";
+import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
+import GridLoader from "../../utils/GridLoader";
 // import API from "../../utils/API";
 
 
@@ -112,6 +114,8 @@ saveProfile(e) {
   render () {
     return (
       <div className="UserDashboard container">
+
+      <GridLoader />
         <Nav />
         <div className="profile-form">
           <form id="user" name="user-dashboard">
@@ -252,28 +256,36 @@ saveProfile(e) {
         <div className="col-xs-12 recruiter-return-info" display-toggle="none">
           <div className="accordion" id="recruiterAccordion"></div>	
         </div>
-        <hr/>
-        <div className="row" id='events'>
-          <h2 id='accordion-header'>Events in Your Area!</h2>
-          {this.state.events.map(event => (
+
+      <hr/>
+
+      <div className="row" id='events'>
+        <h2 id='accordion-header'>Events in Your Area!</h2>
+        <div className="container">
+        <div className="cards">
+        {this.state.events.map(event => (
           <EventBrite
-            id={event.id}
-            image={event.image}
-            event={event.event}
-            description={event.description}
-            location={event.location}
-            street={event.street}
-            city={event.city}
-            state={event.state}
-            zipcode={event.zipcode}
-            date={event.date}
-            url={event.url}
-          />
-          ))}
+          id={event.id}
+          image={event.image}
+          event={event.event}
+          description={event.description}
+          location={event.location}
+          street={event.street}
+          city={event.city}
+          state={event.state}
+          zipcode={event.zipcode}
+          date={event.date}
+          url={event.url}
+        />
+        ))}
         </div>
-        <Footer />
         </div>
       </div>
+
+      <RecruiterTile />
+      <Footer />
+    </div>
+
     )
   }
 }
