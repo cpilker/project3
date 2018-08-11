@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import GridLoader from '../../utils/GridLoader';
 
 class RecruiterDashboard extends Component {
   state = {
@@ -39,6 +40,7 @@ class RecruiterDashboard extends Component {
   render () {
     return (
       <div className="RecruiterDashboard container">
+      <GridLoader />
       <Nav />
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">

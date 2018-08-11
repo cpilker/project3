@@ -1,15 +1,10 @@
 import React, {Component} from "react";
 import './RecruiterTile.css';
-import * as utils from './grid.js';
+import * as utils from '../../utils/grid';
 import recruiters from './recruiters';
 
 class RecruiterTile extends Component {
   
-  // Initialize grid logic when component mounts
-  componentDidMount () {
-    utils.gridFunction()
-  }
-
   render () {
 
     function renderGrid(recruiters, i) {
@@ -34,7 +29,9 @@ class RecruiterTile extends Component {
 
     return (
       <div className="container">
+        <div className="cards">
         {recruiters.map(renderGrid)}
+        </div>
       </div>
     )
   }

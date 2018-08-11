@@ -4,6 +4,8 @@ import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
 import $ from "jquery";
+import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
+import GridLoader from "../../utils/GridLoader";
 // import API from "../../utils/API";
 
 
@@ -65,6 +67,7 @@ class UserDashboard extends Component {
   render () {
     return (
       <div className="UserDashboard container">
+      <GridLoader />
       <Nav />
 
       
@@ -114,6 +117,8 @@ class UserDashboard extends Component {
 
       <div className="row" id='events'>
         <h2 id='accordion-header'>Events in Your Area!</h2>
+        <div className="container">
+        <div className="cards">
         {this.state.events.map(event => (
           <EventBrite
           id={event.id}
@@ -129,7 +134,11 @@ class UserDashboard extends Component {
           url={event.url}
         />
         ))}
+        </div>
+        </div>
       </div>
+
+      <RecruiterTile />
       <Footer />
     </div>
     )
