@@ -5,7 +5,8 @@ import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
-import GridLoader from "../../utils/GridLoader";
+// import GridLoader from "../../utils/GridLoader";
+import * as utils from '../../utils/grid';
 // import API from "../../utils/API";
 
 
@@ -26,7 +27,15 @@ class UserDashboard extends Component {
   }
 
   searchRecruiters = this.searchRecruiters.bind(this);
+  
 
+  componentDidUpdate(){
+    utils.gridFunction();
+  }
+
+  componentDidMount(){
+    utils.gridFunction();
+  }
 
   handleOnChange(event) {
     this.setState({
@@ -55,6 +64,9 @@ class UserDashboard extends Component {
         } else {
           console.log("Success!");
           console.log(response);
+          this.setState({
+            recruitersearch: response.response
+          });
         }
       },
       error: (err) => {
@@ -67,7 +79,7 @@ class UserDashboard extends Component {
   render () {
     return (
       <div className="UserDashboard container">
-      <GridLoader />
+      {/* <GridLoader/> */}
       <Nav />
 
       
@@ -112,6 +124,7 @@ class UserDashboard extends Component {
         <div className="col-xs-12 recruiter-return-info" display-toggle="none">
           <div className="accordion" id="recruiterAccordion"></div>	
         </div>
+        <RecruiterTile recruiters={this.state.recruitersearch}/>
 
       <hr/>
 
@@ -138,7 +151,7 @@ class UserDashboard extends Component {
         </div>
       </div>
 
-      <RecruiterTile />
+
       <Footer />
     </div>
     )
