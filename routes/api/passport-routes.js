@@ -28,8 +28,38 @@ module.exports = function(app) {
             console.log(req.user);
             console.log('Done!');
             res.json({username: req.user.username});
+
+          const storage = new GridFsStorage({
+            url: 'mongodb://localhost/main',
+            file: (req, file) => {
+              return new Promise((resolve, reject) => {
+                crypto.randomBytes(16, (err, buf) => {
+                  if (err) {
+                    return reject(err);
+                  }
+                  const filename = 'testing123';
+                  const fileInfo = {
+                    filename: filename,
+                    bucketName: 'uploads',
+                    aliases: ['testing123']
+                  };
+                  console.log(fileInfo)
+                  resolve(fileInfo);
+                });
+              });
+            }
+          });
+          const upload = multer({ storage });
+
+          app.post('/upload', upload.single('file'), (req, res) => {
+            // res.json({file: req.file})
+            res.redirect('/user-dashboard')
+          })
+
           });
         }
+
+      
       });
     }
   );

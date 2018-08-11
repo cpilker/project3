@@ -46,11 +46,11 @@ class UserDashboard extends Component {
                 <input type='file' name='file' id='file' className='custom-file-input'/>
                 <label htmlFor='file' className='custom-file-label'>Choose File
                 </label>
-
-
               </div>
               <input type='submit' value='Submit' className='btn btn-primary btn-block'/>
             </form>
+            <hr/>
+
           </div>
         </div>
       </div>
