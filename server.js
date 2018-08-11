@@ -1,23 +1,23 @@
-const express = require("express"),
-      bodyParser = require("body-parser"),
-      path = require('path'),
-      crypto = require('crypto'),
-      multer = require('multer'),
-      GridFsStorage = require('multer-gridfs-storage'),
-      Grid = require('gridfs-stream'),
-      methodOverride = require('method-override'),
-      http = require('http'),
-      passport = require('passport'),
-      LocalStrategy = require('passport-local').Strategy,
-      cookieParser = require('cookie-parser'),
-      session  = require('express-session'),
-      mongodb = require("mongojs"),
-      mongoose = require("mongoose"),
-      routes = require("./routes"),
-      db = require("./models"),
-      app = express(),
-      MongoStore = require('connect-mongo')(session),
-      PORT = process.env.PORT || 3000;
+const 
+  express = require("express"),
+  bodyParser = require("body-parser"),
+  path = require('path'),
+  crypto = require('crypto'),
+  multer = require('multer'),
+  GridFsStorage = require('multer-gridfs-storage'),
+  Grid = require('gridfs-stream'),
+  methodOverride = require('method-override'),
+  http = require('http'),
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
+  cookieParser = require('cookie-parser'),
+  session  = require('express-session'),
+  mongodb = require("mongojs"),
+  mongoose = require("mongoose"),
+  routes = require("./routes"),
+  db = require("./models"),
+  app = express(),
+  PORT = process.env.PORT || 3000;
 
 
 // Define middleware here
@@ -27,7 +27,6 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(session({
   secret: 'random phrase', // session secret
-  store: new MongoStore({ mongooseConnection: mongoose.connection }),
 	resave: false,
   saveUninitialized: false
 }));
@@ -98,10 +97,10 @@ const upload = multer({ storage });
 
 // @route POST /upload
 // @desc Uploads file to DB
-app.post('/upload', upload.single('file'), (req, res) => {
-  // res.json({file: req.file})
-  res.redirect('/user-dashboard')
-})
+// app.post('/upload', upload.single('file'), (req, res) => {
+//   // res.json({file: req.file})
+//   res.redirect('/user-dashboard')
+// })
 
 
 // @route GET /files/:filename
@@ -145,7 +144,8 @@ app.get('/image/:filename', (req, res) => {
       });
     }
     // Check if image
-    if (file.contentType === 'image/jpeg' || file.contentType === 'img/png') {
+    if (file.contentType === 'image/jpeg' 
+    || file.contentType === 'img/png') {
       // Read output to browser 
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
