@@ -120,6 +120,7 @@ saveProfile(e) {
               <h5 className="statusmessage">{this.state.statusMessage}</h5>
             <div className="form-row">
               <div className="form-group col-md-6">
+              <label htmlFor="username">{this.props.username}</label>
                 <input type="email" className="form-control" id="email" placeholder="Email" name="username" value={this.state.username} onChange={this.handleOnChange} required autoComplete="email"/>
               </div>
               <div className="form-group col-md-6">

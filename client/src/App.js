@@ -9,7 +9,15 @@ import UserDashboard from './pages/UserDashboard';
 
 class App extends Component {
   state = {
+    id: null,
     username: null,
+    firstname: null,
+    lastname: null,
+    address1: null,
+    address2: null,
+    city: null,
+    state: null,
+    zip: null,
     loggedIn: false
   }
 
@@ -44,8 +52,17 @@ class App extends Component {
             />
             <Route path='/user-dashboard' render={() =>
               <UserDashboard
+                id={this.state.id}
                 username={this.state.username}
+                firstname={this.state.firstname}
+                lastname={this.state.lastname}
+                address1={this.state.address1}
+                address2={this.state.address2}
+                city={this.state.city}
+                state={this.state.state}
+                zip={this.state.zip}
                 loggedIn={this.state.loggedIn}
+                updateUser={this.updateUser}
               />}
             />
             {/* <Route path='/recruiterdashboard' component={RecruiterDashboard} /> */}
