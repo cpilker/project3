@@ -235,57 +235,44 @@ saveProfile(e) {
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
               </form>
               <hr/>
-
             </div>
-              <input type='submit' value='Submit' className='btn btn-primary btn-block'/>
-            </form>
-            <hr/>
-
           </div>
         </div>
-
         <hr />
-        
         <div className="row" id='agency_info'>
-      <hr />
-      
-      <div className="row" id='agency_info'>
-        <h2 id='accordion-header'>Your Local Recruiters!</h2>
-
-        <div className='col-xs-12 agency-locate'>
-          <form className="form-row">
-            <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
-            <button className="btn btn-primary" id="search-button">Search</button>
-            <button className="btn btn-primary" id="search-button" onClick={this.searchRecruiters}>Search</button>
-          </form>
-        </div>
+          <h2 id='accordion-header'>Your Local Recruiters!</h2>
+          <div className='col-xs-12 agency-locate'>
+            <form className="form-row">
+              <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
+              <button className="btn btn-primary" id="search-button" onClick={this.searchRecruiters}>Search</button>
+            </form>
+          </div>
         </div>
         <div className="col-xs-12 recruiter-return-info" display-toggle="none">
           <div className="accordion" id="recruiterAccordion"></div>	
         </div>
-      <hr/>
-
-      <div className="row" id='events'>
-        <h2 id='accordion-header'>Events in Your Area!</h2>
-        {this.state.events.map(event => (
+        <hr/>
+        <div className="row" id='events'>
+          <h2 id='accordion-header'>Events in Your Area!</h2>
+          {this.state.events.map(event => (
           <EventBrite
-          id={event.id}
-          image={event.image}
-          event={event.event}
-          description={event.description}
-          location={event.location}
-          street={event.street}
-          city={event.city}
-          state={event.state}
-          zipcode={event.zipcode}
-          date={event.date}
-          url={event.url}
-        />
-        ))}
-
-      </div>
+            id={event.id}
+            image={event.image}
+            event={event.event}
+            description={event.description}
+            location={event.location}
+            street={event.street}
+            city={event.city}
+            state={event.state}
+            zipcode={event.zipcode}
+            date={event.date}
+            url={event.url}
+          />
+          ))}
+        </div>
         <Footer />
-    </div>
+        </div>
+      </div>
     )
   }
 }
