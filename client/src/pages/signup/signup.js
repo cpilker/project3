@@ -40,27 +40,32 @@ class Signup extends Component {
       newcity: '',
       newstate: '',
       newzip: '',
-      password: ''
+      password: '',
+      file:''
     })
   }
 
   submitForm(e) {
     e.preventDefault();
     console.log("SubmitForm has been fired!");
+    const data = new FormData(e.target);
+    data.append('username', this.state.username);
+    data.append('newfirstname', this.state.newfirstname);
+    data.append('newlastname', this.state.newlastname);
+    data.append('newaddress1', this.state.newaddress1);
+    data.append('newaddress2', this.state.newaddress2);
+    data.append('newcity', this.state.newcity);
+    data.append('newstate', this.state.newstate);
+    data.append('newzip', this.state.newzip);
+    data.append('password', this.state.password);
+    data.append('file', $('#file').val());
     $.ajax({
       url: '/api/signup',
       type: 'post',
-      data: { 
-        username: this.state.username, 
-        newfirstname: this.state.newfirstname,
-        newlastname: this.state.newlastname,
-        newaddress1: this.state.newaddress1,
-        newaddress2: this.state.newaddress2,
-        newcity: this.state.newcity,
-        newstate: this.state.newstate,
-        newzip: this.state.newzip,
-        password: this.state.password,
-      },
+      data: data,
+      dataType: "JSON",
+      processData: false,
+      contentType: false,
       success: (response) => {
         // this.clearForm()
         if (response.err) {
@@ -102,7 +107,7 @@ class Signup extends Component {
                 </div>
         
                 <div className="profile-form">
-                  <form id="usersignup" name="signup">
+                  <form id="usersignup" name="signup" encType='multipart/form-data' onSubmit={this.submitForm} action="" method="post">
                     <h2>CREATE A PROFILE</h2>
                       <h5 className="statusmessage">Error: {this.state.errorMessage}</h5>
                       <h5 className="statusmessage">{this.state.statusMessage}</h5>
@@ -192,7 +197,7 @@ class Signup extends Component {
                         <input type="text" className="form-control" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
                       </div>
                       <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="newresume" name="newresume"/>
+                        <input type="file" className="custom-file-input" id="newresume" name="file" id="file" onChange={this.handleOnChange} />
                         <label className="custom-file-label" htmlFor="newresume">Upload Resume</label>
                       </div>
                       <div className="form-group" id="skills-container">
@@ -205,7 +210,7 @@ class Signup extends Component {
                     </div>
                     <div className="form-row" id="submit-btn-container">
                       <input type="hidden" id="skill" name="skill" value=""/>
-                      <button type="submit" className="btn btn-primary submitprofile" value="Create My Profile" onClick={this.submitForm}>Create My Profile</button>
+                      <button type="submit" className="btn btn-primary submitprofile" value="Create My Profile">Create My Profile</button>
                     </div>
                   </form>
                 </div>
