@@ -125,27 +125,15 @@ saveProfile(e) {
       <div className="UserDashboard container">
       {/* <GridLoader/> */}
       <Nav />
-
-      
-      <div>name</div>
-      <div>address</div>
-      <div>phone #</div>
-      <div>e-mail address</div>
-      <div>name</div>
-      <div>name</div>
-      <div>name</div>
-      <h3>Logged In? = {this.props.loggedIn.toString()}</h3>
-      <h3>Username = {this.props.username}</h3>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-6 m-auto'>
-            <h1 className='text-center display-4 my-4'>Mongo File Uplaods</h1>
-            <form action='/upload' method='POST' encType='multipart/form-data'>
-              <div className='custom-file mb-3'>
-                <input type='file' name='file' id='file' className='custom-file-input'/>
-                <label htmlFor='file' className='custom-file-label'>Choose File
-                </label>
-
+      <div className="profile-form">
+          <form id="user" name="user-dashboard">
+            <h2>USER-DASHBOARD</h2>
+              <h5 className="statusmessage">{this.state.errorMessage ? `Error: ${this.state.errorMessage}` : null }</h5>
+              <h5 className="statusmessage">{this.state.statusMessage}</h5>
+            <div className="form-row">
+              <div className="form-group col-md-6">
+              <label htmlFor="username">{this.props.username}</label>
+                <input type="email" className="form-control" id="email" placeholder="Email" name="username" value={this.state.username} onChange={this.handleOnChange} required autoComplete="email"/>
               </div>
               <div className="form-group col-md-6">
                 <input type="password" className="form-control" id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleOnChange} required autoComplete="new-password" />
@@ -305,6 +293,7 @@ saveProfile(e) {
 
 
       <Footer />
+    </div>
     </div>
 
     )
