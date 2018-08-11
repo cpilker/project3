@@ -1,7 +1,10 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import $ from 'jquery';
+import EventBrite from '../../components/Eventbrite';
+import events from './eventbrite.json';
+import $ from "jquery";
+// import API from "../../utils/API";
 
 
 class UserDashboard extends Component {
@@ -15,11 +18,14 @@ class UserDashboard extends Component {
     newstate: '',
     newzip: '',
     password: '',
-    errorMessage: null
+    errorMessage: null,
+    events,
+    recruitersearch: ''
   }
 
   handleOnChange = this.handleOnChange.bind(this);
   saveProfile = this.saveProfile.bind(this);
+  searchRecruiters = this.searchRecruiters.bind(this);
 
   handleOnChange(event) {
     this.setState({
@@ -27,7 +33,7 @@ class UserDashboard extends Component {
     });
   }
 
-  saveProfile(e) {
+saveProfile(e) {
     e.preventDefault();
     console.log("saveProfile has been fired!");
     const data = {
@@ -68,6 +74,39 @@ class UserDashboard extends Component {
         })
       }
     });
+  }
+
+  searchRecruiters(e){
+    e.preventDefault();
+    let city = $('#search-input').val()
+    console.log(city)
+    $.ajax({
+      url: '/recruitersearch',
+      type: 'get',
+      data: {
+        city: $('#search-input').val()
+      },
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success!");
+          console.log(response);
+          this.props.updateUser({
+            loggedIn: true,
+            username: response.username
+          })
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   render () {
@@ -198,26 +237,54 @@ class UserDashboard extends Component {
               <hr/>
 
             </div>
+              <input type='submit' value='Submit' className='btn btn-primary btn-block'/>
+            </form>
+            <hr/>
+
           </div>
         </div>
 
         <hr />
         
         <div className="row" id='agency_info'>
+      <hr />
+      
+      <div className="row" id='agency_info'>
         <h2 id='accordion-header'>Your Local Recruiters!</h2>
 
         <div className='col-xs-12 agency-locate'>
           <form className="form-row">
             <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
             <button className="btn btn-primary" id="search-button">Search</button>
+            <button className="btn btn-primary" id="search-button" onClick={this.searchRecruiters}>Search</button>
           </form>
         </div>
         </div>
         <div className="col-xs-12 recruiter-return-info" display-toggle="none">
           <div className="accordion" id="recruiterAccordion"></div>	
         </div>
-        <Footer />
+      <hr/>
+
+      <div className="row" id='events'>
+        <h2 id='accordion-header'>Events in Your Area!</h2>
+        {this.state.events.map(event => (
+          <EventBrite
+          id={event.id}
+          image={event.image}
+          event={event.event}
+          description={event.description}
+          location={event.location}
+          street={event.street}
+          city={event.city}
+          state={event.state}
+          zipcode={event.zipcode}
+          date={event.date}
+          url={event.url}
+        />
+        ))}
+
       </div>
+        <Footer />
     </div>
     )
   }

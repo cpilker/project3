@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import Signup from './pages/Signup';
-import Signin from './pages/Signin';
+import Signup from './pages/signup';
+import Signin from './pages/signin';
 import UserDashboard from './pages/UserDashboard';
+
 // import RecruiterDashboard from './pages/RecruiterDashboard';
 
 class App extends Component {
