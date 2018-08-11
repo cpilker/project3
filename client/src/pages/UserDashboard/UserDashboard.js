@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import axios from "axios";
-import cheerio from "cheerio";
+import EventBrite from '../../components/Eventbrite';
+import events from './eventbrite.json';
 // import API from "../../utils/API";
-import EventBrite from "../../components/Eventbrite";
+
+
 
 class UserDashboard extends Component {
   state = {
@@ -17,8 +18,8 @@ class UserDashboard extends Component {
     newstate: '',
     newzip: '',
     password: '',
-    city: "Charlotte",
-    state: "NC"
+
+    events
 
   }
 
@@ -82,7 +83,23 @@ class UserDashboard extends Component {
       <div className="col-xs-12 recruiter-return-info" display-toggle="none">
         <div className="accordion" id="recruiterAccordion"></div>	
       </div>
-      <EventBrite getEventBrite={this.getEventBrite}/>
+      <hr/>
+      <h2 id='accordion-header'>Events in Your Area!</h2>
+      {this.state.events.map(event => (
+        <EventBrite
+        id={event.id}
+        image={event.image}
+        event={event.event}
+        description={event.description}
+        location={event.location}
+        street={event.street}
+        city={event.city}
+        state={event.state}
+        zipcode={event.zipcode}
+        date={event.date}
+        url={event.url}
+      />
+      ))}
       <Footer />
     </div>
     )
