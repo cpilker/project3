@@ -154,7 +154,16 @@ module.exports = function(app) {
   )
      
   app.get('/user-dashboard', isLoggedIn, function(req, res) {
-    res.json({username: req.body.username});
+    res.json({
+      username: req.body.username,
+      firstname: req.body.newfirstname,
+      lastname: req.body.newlastname,
+      address1: req.body.newaddress1,
+      address2: req.body.newaddress2,
+      city: req.body.newcity,
+      state: req.body.newstate,
+      zip: req.body.newzip
+    });
   });
 
 
