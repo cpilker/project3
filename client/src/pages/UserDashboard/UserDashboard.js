@@ -3,6 +3,7 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
+import $ from "jquery";
 // import API from "../../utils/API";
 
 
@@ -18,10 +19,12 @@ class UserDashboard extends Component {
     newstate: '',
     newzip: '',
     password: '',
-
-    events
-
+    events,
+    recruitersearch: ''
   }
+
+  searchRecruiters = this.searchRecruiters.bind(this);
+
 
   handleOnChange(event) {
     this.setState({
@@ -29,11 +32,35 @@ class UserDashboard extends Component {
     });
   }
 
-
-  getEventBrite() {
-    console.log("hello")
-    return axios.get("https://www.eventbrite.com/d/" + this.state.state + "--" + this.state.city + "/science-and-tech--events--networking/technology-recruiting/?page=1");
+  searchRecruiters(e){
+    e.preventDefault();
+    let city = $('#search-input').val()
+    console.log(city)
+    $.ajax({
+      url: '/recruitersearch',
+      type: 'get',
+      data: {
+        city: $('#search-input').val()
+      },
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success!");
+          console.log(response);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
+  
 
   render () {
     return (
@@ -63,7 +90,6 @@ class UserDashboard extends Component {
               <input type='submit' value='Submit' className='btn btn-primary btn-block'/>
             </form>
             <hr/>
-
           </div>
         </div>
       </div>
@@ -71,35 +97,39 @@ class UserDashboard extends Component {
       <hr />
       
       <div className="row" id='agency_info'>
-      <h2 id='accordion-header'>Your Local Recruiters!</h2>
+        <h2 id='accordion-header'>Your Local Recruiters!</h2>
 
-      <div className='col-xs-12 agency-locate'>
-        <form className="form-row">
-          <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
-          <button className="btn btn-primary" id="search-button">Search</button>
-        </form>
-      </div>
-      </div>
-      <div className="col-xs-12 recruiter-return-info" display-toggle="none">
-        <div className="accordion" id="recruiterAccordion"></div>	
-      </div>
+        <div className='col-xs-12 agency-locate'>
+          <form className="form-row">
+            <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
+            <button className="btn btn-primary" id="search-button" onClick={this.searchRecruiters}>Search</button>
+          </form>
+        </div>
+        </div>
+        <div className="col-xs-12 recruiter-return-info" display-toggle="none">
+          <div className="accordion" id="recruiterAccordion"></div>	
+        </div>
+
       <hr/>
-      <h2 id='accordion-header'>Events in Your Area!</h2>
-      {this.state.events.map(event => (
-        <EventBrite
-        id={event.id}
-        image={event.image}
-        event={event.event}
-        description={event.description}
-        location={event.location}
-        street={event.street}
-        city={event.city}
-        state={event.state}
-        zipcode={event.zipcode}
-        date={event.date}
-        url={event.url}
-      />
-      ))}
+
+      <div className="row" id='events'>
+        <h2 id='accordion-header'>Events in Your Area!</h2>
+        {this.state.events.map(event => (
+          <EventBrite
+          id={event.id}
+          image={event.image}
+          event={event.event}
+          description={event.description}
+          location={event.location}
+          street={event.street}
+          city={event.city}
+          state={event.state}
+          zipcode={event.zipcode}
+          date={event.date}
+          url={event.url}
+        />
+        ))}
+      </div>
       <Footer />
     </div>
     )
