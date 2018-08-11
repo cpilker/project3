@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
+
+
+// TO DO: This needs to be moved out of this file and instead exported here...
+let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
+
 
 const recruiterSchema = new Schema({
     prefix: { 
@@ -73,6 +79,6 @@ const recruiterSchema = new Schema({
     ]
 });
 
-const Recruiter = mongoose.model("Recruiter", recruiterSchema);
+const Recruiter = conn.model("Recruiter", recruiterSchema);
 
 module.exports = Recruiter;
