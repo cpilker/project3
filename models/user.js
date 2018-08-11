@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
+
+// TO DO: This needs to be moved out of this file and instead exported here...
+let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
+
 const userSchema = new Schema({
   firstname: {
     type: String,
@@ -77,6 +81,7 @@ userSchema.plugin(passportLocalMongoose, {
   saltField: 'password'
 });
 
-const User = mongoose.model("User", userSchema);
+
+const User = conn.model("User", userSchema);
 
 module.exports = User;

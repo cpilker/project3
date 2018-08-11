@@ -1,0 +1,42 @@
+[
+    {
+      "id": 1,
+      "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F48126839%2F162268829908%2F1%2Foriginal.jpg?h=300&w=600&auto=compress&rect=0%2C100%2C800%2C400&s=dde16f628a5286b340f87693d26789f6",
+      "event": "Charlotte - GitLab Happy Hour",
+      "description": "You're invited to a GitLab sponsored Happy Hour! Whether you're visiting Charlotte for Southern Fried Agile or you're a local, we'd like to invite you to join us for a casual happy hour on Thursday. We'll have a reserved section in the bar area, just look for the GitLab banner.",
+      "location": "Rock Bottom Restaurant & Brewery",
+      "street": "401 N Tryon St",
+      "city": "Charlotte",
+      "state": "NC",
+      "zipcode": 28202,
+      "date": "Thursday September 13th from 5:30 PM - 7:30 PM",
+      "url": "https://www.eventbrite.com/e/charlotte-gitlab-happy-hour-tickets-48855180159?aff=ehomecard"
+    },
+    {
+      "id": 2,
+      "image": "https://gallery.mailchimp.com/9e449ba48fbf13257450cc0fc/images/12201dd3-6474-4e35-9cbd-333bd0a9cd3b.jpg",
+      "event": "Charlotte SQL Server User Group",
+      "description": "Latest and Greatest Features of SQL 2017. Sankar is a senior Premier Field Engineer at Microsoft with over 20+ years of experience in the industry in the areas of Business Intelligence, Database Development and Administration, and Application Development using Microsoft technologies. He helps customer with implementation and maintenance of high availability, disaster recovery, and high performance OLTP and DW systems and delivering SQL Azure offerings.",
+      "location": "Microsoft Offices",
+      "street": "8055 Microsoft Way",
+      "city": "Charlotte",
+      "state": "NC",
+      "zipcode": 28273,
+      "date": "Wed, August 15, 2018 5:30 PM – 7:30 PM EDT",
+      "url": "https://www.eventbrite.com/e/charlotte-sql-server-user-group-wed-august-15th-meeting-invitation-and-rsvp-registration-48836092066?aff=ebdssbdestsearch"
+    },
+    {
+      "id": 3,
+      "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F48291187%2F253710638063%2F1%2Foriginal.jpg?w=800&auto=compress&rect=0%2C1012%2C8000%2C4000&s=68573de85a60f2af7e778d8997458d77",
+      "event": "Blockchain Training in Charlotte,NC for Beginners-Bitcoin training-introduc...",
+      "description": "The course provides an overview of the Blockchain technology including its history, evolution and the future. Students learn about bitcoin, which is powered by blockchain technology, bitcoin mining, other cryptocurrencies such as Ethereum, Block, Hash, cryptography, how to develop a simple blockchain application.",
+      "location": "Remote Instructor led LIVE",
+      "street": "",
+      "city": "Charlotte",
+      "state": "NC",
+      "zipcode": 28202,
+      "date": "Sat, September 15, 2018 12:00 PM – 2:00 PM EDT",
+      "url": "https://www.eventbrite.com/e/blockchain-training-in-charlottenc-for-beginners-bitcoin-training-introduction-to-cryptocurrency-tickets-48980345532?aff=ebdssbdestsearch"
+    }    
+  ]
+  

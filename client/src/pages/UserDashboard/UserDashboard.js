@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import EventBrite from '../../components/Eventbrite';
+import events from './eventbrite.json';
+// import API from "../../utils/API";
+
 
 
 class UserDashboard extends Component {
@@ -13,13 +17,22 @@ class UserDashboard extends Component {
     newcity: '',
     newstate: '',
     newzip: '',
-    password: ''
+    password: '',
+
+    events
+
   }
 
   handleOnChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+
+  getEventBrite() {
+    console.log("hello")
+    return axios.get("https://www.eventbrite.com/d/" + this.state.state + "--" + this.state.city + "/science-and-tech--events--networking/technology-recruiting/?page=1");
   }
 
   render () {
@@ -46,11 +59,11 @@ class UserDashboard extends Component {
                 <input type='file' name='file' id='file' className='custom-file-input'/>
                 <label htmlFor='file' className='custom-file-label'>Choose File
                 </label>
-
-
               </div>
               <input type='submit' value='Submit' className='btn btn-primary btn-block'/>
             </form>
+            <hr/>
+
           </div>
         </div>
       </div>
@@ -70,6 +83,23 @@ class UserDashboard extends Component {
       <div className="col-xs-12 recruiter-return-info" display-toggle="none">
         <div className="accordion" id="recruiterAccordion"></div>	
       </div>
+      <hr/>
+      <h2 id='accordion-header'>Events in Your Area!</h2>
+      {this.state.events.map(event => (
+        <EventBrite
+        id={event.id}
+        image={event.image}
+        event={event.event}
+        description={event.description}
+        location={event.location}
+        street={event.street}
+        city={event.city}
+        state={event.state}
+        zipcode={event.zipcode}
+        date={event.date}
+        url={event.url}
+      />
+      ))}
       <Footer />
     </div>
     )
