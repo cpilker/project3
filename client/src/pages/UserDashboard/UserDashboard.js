@@ -3,6 +3,8 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
+// import API from "../../utils/API";
+
 
 
 class UserDashboard extends Component {
@@ -16,13 +18,21 @@ class UserDashboard extends Component {
     newstate: '',
     newzip: '',
     password: '',
+
     events
+
   }
 
   handleOnChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+
+  getEventBrite() {
+    console.log("hello")
+    return axios.get("https://www.eventbrite.com/d/" + this.state.state + "--" + this.state.city + "/science-and-tech--events--networking/technology-recruiting/?page=1");
   }
 
   render () {
@@ -90,7 +100,6 @@ class UserDashboard extends Component {
         url={event.url}
       />
       ))}
-      
       <Footer />
     </div>
     )

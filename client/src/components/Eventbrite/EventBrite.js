@@ -41,4 +41,5 @@ class EventBrite extends Component {
   }
 }
 
+
 export default EventBrite;
