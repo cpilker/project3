@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import EventBrite from '../../components/Eventbrite';
+import events from './eventbrite.json';
 
 
 class UserDashboard extends Component {
@@ -13,7 +15,8 @@ class UserDashboard extends Component {
     newcity: '',
     newstate: '',
     newzip: '',
-    password: ''
+    password: '',
+    events
   }
 
   handleOnChange(event) {
@@ -70,6 +73,24 @@ class UserDashboard extends Component {
       <div className="col-xs-12 recruiter-return-info" display-toggle="none">
         <div className="accordion" id="recruiterAccordion"></div>	
       </div>
+      <hr/>
+      <h2 id='accordion-header'>Events in Your Area!</h2>
+      {this.state.events.map(event => (
+        <EventBrite
+        id={event.id}
+        image={event.image}
+        event={event.event}
+        description={event.description}
+        location={event.location}
+        street={event.street}
+        city={event.city}
+        state={event.state}
+        zipcode={event.zipcode}
+        date={event.date}
+        url={event.url}
+      />
+      ))}
+      
       <Footer />
     </div>
     )
