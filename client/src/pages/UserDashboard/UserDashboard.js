@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import './UserDashboard.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
@@ -12,18 +13,32 @@ import * as utils from '../../utils/grid';
 
 class UserDashboard extends Component {
   state = {
-    username: '',
-    newfirstname: '',
-    newlastname: '',
-    newaddress1: '',
-    newaddress2: '',
-    newcity: '',
-    newstate: '',
-    newzip: '',
-    password: '',
+    id: null,
+    username: null,
+    firstname: null,
+    lastname: null,
+    address1: null,
+    address2: null,
+    city: null,
+    state: null,
+    zip: null,
+    loggedIn: false,
+    created: null,
+    lastLogin: null,
+    newusername: undefined,
+    newfirstname: undefined,
+    newlastname: undefined,
+    newaddress1: undefined,
+    newaddress2: undefined,
+    newcity: undefined,
+    newstate: undefined,
+    newzip: undefined,
+    newpassword: undefined,
+    newlastLogin: undefined,
     errorMessage: null,
+    statusText: null,
     events,
-    recruitersearch: ''
+    recruitersearch: null,
   }
 
   handleOnChange = this.handleOnChange.bind(this);
@@ -37,6 +52,32 @@ class UserDashboard extends Component {
 
   componentDidMount(){
     utils.gridFunction();
+
+    $.ajax({
+      url: '/api/getuser',
+      type: 'get',
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("@route GET /api/getuser response:");
+          console.log(response);
+          this.props.updateUser(response)   // Stores current user in App.js
+          this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.setState(response)   // Set state to current user
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          errorMessage: err.statusText
+        })
+      }
+    });
   }
 
   handleOnChange(event) {
@@ -45,19 +86,20 @@ class UserDashboard extends Component {
     });
   }
 
-saveProfile(e) {
+  saveProfile(e) {
     e.preventDefault();
     console.log("saveProfile has been fired!");
     const data = {
-      username: this.state.username,
-      newfirstname: this.state.newfirstname,
-      newlastname: this.state.newlastname,
-      newaddress1: this.state.newaddress1,
-      newaddress2: this.state.newaddress2,
-      newcity: this.state.newcity,
-      newstate: this.state.newstate,
-      newzip: this.state.newzip,
-      password: this.state.password
+      id: this.state.id,
+      newusername: this.state.newusername === undefined ? this.props.username : this.state.newusername,
+      newfirstname: this.state.newfirstname === undefined ? this.props.firstname : this.state.newfirstname,
+      newlastname: this.state.newlastname === undefined ? this.props.lastname : this.state.newlastname,
+      newaddress1: this.state.newaddress1 === undefined ? this.props.address1 : this.state.newaddress1,
+      newaddress2: this.state.newaddress2 === undefined ? this.props.address2 : this.state.newaddress2,
+      newcity: this.state.newcity === undefined ? this.props.city : this.state.newcity,
+      newstate: this.state.newstate === undefined ? this.props.state : this.state.newstate,
+      newzip: this.state.newzip === undefined ? this.props.zip : this.state.newzip,
+      newpassword: this.state.newpassword
     }
     $.ajax({
       url: '/api/saveprofile',
@@ -73,10 +115,11 @@ saveProfile(e) {
         } else {
           console.log("Success!");
           console.log(response);
-          this.props.updateUser({
-            loggedIn: true,
-            username: response.username
-          })
+          this.props.updateUser(response)   // Stores current user in App.js
+          this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.setState(response)   // Set state to current user
+          this.setState({statusText: "Success!"})
+          this.editProfileButton();
         }
       },
       error: (err) => {
@@ -86,6 +129,7 @@ saveProfile(e) {
         })
       }
     });
+
   }
 
   searchRecruiters(e){
@@ -120,46 +164,62 @@ saveProfile(e) {
     })
   }
 
+  editProfileButton(event){
+    $('#user').find(':input').each(function() {
+      $(this).toggleClass('hidden');
+    });
+    $('#editprofile').text(function(i, text){   // Toggle Edit button text
+      return text === "Edit" ? "Cancel" : "Edit";
+    });
+  }
+
   render () {
     return (
       <div className="UserDashboard container">
       {/* <GridLoader/> */}
       <Nav />
       <div className="profile-form">
+        <h3><img src="/images/army.jpg" width="150" height="150" alt="army.jpg" />{this.props.firstname}&nbsp;{this.props.lastname}</h3>
+        <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
+        <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit</button>{this.state.statusText}
           <form id="user" name="user-dashboard">
-            <h2>USER-DASHBOARD</h2>
-              <h5 className="statusmessage">{this.state.errorMessage ? `Error: ${this.state.errorMessage}` : null }</h5>
-              <h5 className="statusmessage">{this.state.statusMessage}</h5>
             <div className="form-row">
               <div className="form-group col-md-6">
-              <label htmlFor="username">{this.props.username}</label>
-                <input type="email" className="form-control" id="email" placeholder="Email" name="username" value={this.state.username} onChange={this.handleOnChange} required autoComplete="email"/>
+                <label htmlFor="username">{this.props.username}</label>
+                <input type="email" className="form-control hidden" id="email" placeholder="Email" name="newusername" value={this.state.newusername} onChange={this.handleOnChange} required autoComplete="email"/>
               </div>
               <div className="form-group col-md-6">
-                <input type="password" className="form-control" id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleOnChange} required autoComplete="new-password" />
+                <label htmlFor="password">&nbsp;</label>
+                <input type="password" className="form-control hidden" id="password" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required autoComplete="new-password" />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="newfirstname" placeholder="Jane" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required autoComplete="given-name" />
+                <label htmlFor="newfirstname">{this.props.firstname}</label>
+                <input type="text" className="form-control hidden" id="newfirstname" placeholder="Jane" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required autoComplete="given-name" />
               </div>
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="newlastname" placeholder="Smith" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required autoComplete="family-name" />
+                <label htmlFor="newlastname">{this.props.lastname}</label>
+                <input type="text" className="form-control hidden" id="newlastname" placeholder="Smith" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required autoComplete="family-name" />
               </div>
             </div>
-            <div className="form-group">    
-                <input type="text" className="form-control" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required autoComplete="address-line1" />
+            <div className="form-group">  
+                <label htmlFor="newaddress1">{this.props.address1}</label>
+                <input type="text" className="form-control hidden" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required autoComplete="address-line1" />
             </div>
             <div className="form-group">
-              <input type="text" className="form-control" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange} autoComplete="address-line2" />
+              <label htmlFor="newaddress2">{this.props.address2}</label>
+              <input type="text" className="form-control hidden" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange} autoComplete="address-line2" />
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="newcity" name="newcity" placeholder="City" value={this.state.newcity} onChange={this.handleOnChange} required autoComplete="address-level2" />
+                <label htmlFor="newcity">{this.props.city}</label>
+                <input type="text" className="form-control hidden" id="newcity" name="newcity" placeholder="City" value={this.state.newcity} onChange={this.handleOnChange} required autoComplete="address-level2" />
               </div>
               <div className="form-group col-md-4">
-                <select id="newstate" className="form-control" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required autoComplete="address-level1">
-                  <option disabled>Choose...</option>
+                <label htmlFor="newstate">{this.props.state}</label>
+                <select id="newstate" className="form-control hidden" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required autoComplete="address-level1">
+                  <option selected disabled>Choose...</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -214,7 +274,8 @@ saveProfile(e) {
                 </select>
               </div>
               <div className="form-group col-md-2">
-                <input type="text" className="form-control" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
+                <label htmlFor="newzip">{this.props.zip}</label>
+                <input type="text" className="form-control hidden" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
               </div>
               {/* <div className="custom-file">
                 <input type="file" className="custom-file-input" name="file" id="file" onChange={this.handleOnChange} />
@@ -224,17 +285,15 @@ saveProfile(e) {
                 <label id="technologiesWorkWith" htmlFor="skills-block">What technologies do you work with?</label>
                 <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                     {/* //Begin list of skills */}
-                    {this.state.skills}
+                    {this.props.skills}
                 </div>
               </div>
             </div>
             <div className="form-row" id="submit-btn-container">
               <input type="hidden" id="skill" name="skill" value=""/>
-              <button type="submit" className="btn btn-primary submitprofile" value="Create My Profile" onClick={this.saveProfile}>Update Profile</button>
+              <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
             </div>
           </form>
-        <h3>Logged In? = {this.props.loggedIn.toString()}</h3>
-        <h3>Username = {this.props.username}</h3>
         <div className='container'>
           <div className='row'>
             <div className='col-md-6 m-auto'>
@@ -274,6 +333,7 @@ saveProfile(e) {
         <div className="cards">
         {this.state.events.map(event => (
           <EventBrite
+          key={event.id}
           id={event.id}
           image={event.image}
           event={event.event}

@@ -18,7 +18,9 @@ class App extends Component {
     city: null,
     state: null,
     zip: null,
-    loggedIn: false
+    loggedIn: false,
+    created: null,
+    lastLogin: null
   }
 
   updateUser = this.updateUser.bind(this);
@@ -29,6 +31,7 @@ class App extends Component {
 
   updateUser (userObject) {
     console.log("Update user has fired!");
+    console.log(userObject)
     this.setState(userObject)
   }
 
