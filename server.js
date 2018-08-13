@@ -18,25 +18,31 @@ const
   routes = require("./routes"),
   db = require("./models"),
   app = express(),
+  MongoStore = require('connect-mongo')(session),
   PORT = process.env.PORT || 3000;
 
+// Connect to the Mongo DB
+let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
+mongoose.Promise = Promise;
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(session({
-  secret: 'random phrase', // session secret
-	resave: false,
-  saveUninitialized: false
-}));
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use((req, res, next) => {
-  // console.log('req.session:', req.session);
-  // return next();
-// }); // Used to display the current session info, debugging purposes only!
+app.use(session({
+  secret: 'random phrase', // session secret
+  resave: false,
+  cookie: {maxAge: 8*60*60*1000 },
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: conn })
+}));
+app.use((req, res, next) => {
+  console.log('req.session:', req.session);
+  return next();
+}); // Used to display the current session info, debugging purposes only!
 
 // Serve up static assets (usually on heroku)
 app.use('/images', express.static("client/public/images"));
@@ -55,9 +61,7 @@ passport.deserializeUser(User.deserializeUser());
 
 require('./routes/api/passport-routes')(app);
 
-// Connect to the Mongo DB
-let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
-mongoose.Promise = Promise;
+
 
 let gfs;
 
