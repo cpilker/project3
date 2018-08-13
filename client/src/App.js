@@ -18,7 +18,9 @@ class App extends Component {
     city: null,
     state: null,
     zip: null,
-    loggedIn: false
+    loggedIn: false,
+    created: null,
+    lastLogin: null
   }
 
   updateUser = this.updateUser.bind(this);

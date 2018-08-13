@@ -36,7 +36,17 @@ class Signin extends Component {
         console.log(response);
         this.props.updateUser({
           loggedIn: true,
-          username: response.username
+          id: response.id,
+          username: response.username,
+          firstname: response.firstname,
+          lastname: response.lastname,
+          address1: response.address1,
+          address2: response.address2,
+          city: response.city,
+          state: response.state,
+          zip: response.zip,
+          created: response.created,
+          lastLogin: response.lastLogin
         })
         this.setState({
           redirectTo: '/user-dashboard'

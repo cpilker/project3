@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import './EventBriteTile.css';
-import * as utils from '../../utils/grid';
+// import * as utils from '../../utils/grid';  commented out because defined but not used warning
 
 class EventBrite extends Component {
 
