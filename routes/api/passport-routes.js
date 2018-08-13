@@ -79,28 +79,61 @@ module.exports = function(app) {
   app.post('/api/saveprofile', (req, res) => {
     console.log("saveprofile post incoming...");
     console.log(req.body);
-    User.findOne({_id: mongojs.ObjectID(req.body.id)}, function(error, user) {
+    User.update({_id: mongojs.ObjectID(req.body.id)}, {$set: {   // First update the user profile
+      username: req.body.newusername,
+      firstname: req.body.newfirstname,
+      lastname: req.body.newlastname,
+      address1: req.body.newaddress1,
+      address2: req.body.newaddress2,
+      city: req.body.newcity,
+      state: req.body.newstate,
+      zip: req.body.newzip,
+    }}, 
+    function(error, result) {
       if (error) {
         console.log(error);
       }
       else {
-        console.log(user);
-        user.setPassword(req.body.newpassword, function(err) {
-          if (err) {
-            console.log(err);
-          } else {
-            user.save(function(err) {
+        console.log(result);
+        User.findOne({_id: mongojs.ObjectID(req.body.id)}, function(error, user) {
+          if (req.body.newpassword != null) {   // Second update the password if necessary
+            user.setPassword(req.body.newpassword, function(err) {
               if (err) {
-                console.log(err)
+                console.log(err);
               } else {
-                console.log("Password updated!")
+                user.save(function(err) {
+                  if (err) {
+                    console.log(err)
+                  } else {
+                    console.log("User updated!")
+                  }
+                })
               }
             })
           }
+          req.login(user, function(err) {   // Third refresh the session with new email address if changed
+            if (err) return next(err)
+            console.log(req.session)
+            console.log('User: ')
+            console.log(user)
+            res.send({
+              id:user._id,
+              username: user.username,
+              firstname: user.firstname,
+              lastname: user.lastname,
+              address1: user.address1,
+              address2: user.address2,
+              city: user.city,
+              state: user.state,
+              zip: user.zip,
+              created: user.created,
+              lastLogin: user.lastLogin
+            })
+          })
+
         })
-        res.send({user})
       }
-    });
+    });    
   })
 
 
@@ -164,7 +197,7 @@ module.exports = function(app) {
     console.log(req.session.passport.user)
     db.collection("users").find({username: req.session.passport.user}, function(error, response) {
       if (error) {
-        console.log(error);
+        console.log('Error: ', error);
       }
       // If there are no errors, send the data to the browser as json
       else {

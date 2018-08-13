@@ -36,6 +36,7 @@ class UserDashboard extends Component {
     newpassword: undefined,
     newlastLogin: undefined,
     errorMessage: null,
+    statusText: null,
     events,
     recruitersearch: null,
   }
@@ -90,14 +91,14 @@ class UserDashboard extends Component {
     console.log("saveProfile has been fired!");
     const data = {
       id: this.state.id,
-      newusername: this.state.newusername,
-      newfirstname: this.state.newfirstname,
-      newlastname: this.state.newlastname,
-      newaddress1: this.state.newaddress1,
-      newaddress2: this.state.newaddress2,
-      newcity: this.state.newcity,
-      newstate: this.state.newstate,
-      newzip: this.state.newzip,
+      newusername: this.state.newusername === undefined ? this.props.username : this.state.newusername,
+      newfirstname: this.state.newfirstname === undefined ? this.props.firstname : this.state.newfirstname,
+      newlastname: this.state.newlastname === undefined ? this.props.lastname : this.state.newlastname,
+      newaddress1: this.state.newaddress1 === undefined ? this.props.address1 : this.state.newaddress1,
+      newaddress2: this.state.newaddress2 === undefined ? this.props.address2 : this.state.newaddress2,
+      newcity: this.state.newcity === undefined ? this.props.city : this.state.newcity,
+      newstate: this.state.newstate === undefined ? this.props.state : this.state.newstate,
+      newzip: this.state.newzip === undefined ? this.props.zip : this.state.newzip,
       newpassword: this.state.newpassword
     }
     $.ajax({
@@ -114,10 +115,11 @@ class UserDashboard extends Component {
         } else {
           console.log("Success!");
           console.log(response);
-          this.props.updateUser({
-            loggedIn: true,
-            username: response.username
-          })
+          this.props.updateUser(response)   // Stores current user in App.js
+          this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.setState(response)   // Set state to current user
+          this.setState({statusText: "Success!"})
+          this.editProfileButton();
         }
       },
       error: (err) => {
@@ -162,17 +164,16 @@ class UserDashboard extends Component {
     })
   }
 
-  editProfile(event){
+  editProfileButton(event){
     $('#user').find(':input').each(function() {
       $(this).toggleClass('hidden');
     });
-    $(event.target).text(function(i, text){   // Toggle Edit button text
+    $('#editprofile').text(function(i, text){   // Toggle Edit button text
       return text === "Edit" ? "Cancel" : "Edit";
     });
   }
 
   render () {
-    console.log(this.state.newpassword);
     return (
       <div className="UserDashboard container">
       {/* <GridLoader/> */}
@@ -180,12 +181,12 @@ class UserDashboard extends Component {
       <div className="profile-form">
         <h3><img src="/images/army.jpg" width="150" height="150" alt="army.jpg" />{this.props.firstname}&nbsp;{this.props.lastname}</h3>
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
-        <button className="btn btn-primary" id="editprofile" onClick={this.editProfile}>Edit</button>
+        <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit</button>{this.state.statusText}
           <form id="user" name="user-dashboard">
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="username">{this.props.username}</label>
-                <input type="email" className="form-control hidden" id="email" placeholder="Email" name="username" value={this.state.newusername} onChange={this.handleOnChange} required autoComplete="email"/>
+                <input type="email" className="form-control hidden" id="email" placeholder="Email" name="newusername" value={this.state.newusername} onChange={this.handleOnChange} required autoComplete="email"/>
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="password">&nbsp;</label>

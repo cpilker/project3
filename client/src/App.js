@@ -31,6 +31,7 @@ class App extends Component {
 
   updateUser (userObject) {
     console.log("Update user has fired!");
+    console.log(userObject)
     this.setState(userObject)
   }
 
