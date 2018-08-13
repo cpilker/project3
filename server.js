@@ -39,10 +39,7 @@ app.use(session({
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: conn })
 }));
-app.use((req, res, next) => {
-  console.log('req.session:', req.session);
-  return next();
-}); // Used to display the current session info, debugging purposes only!
+
 
 // Serve up static assets (usually on heroku)
 app.use('/images', express.static("client/public/images"));
@@ -57,6 +54,10 @@ if (process.env.NODE_ENV === "production") {
 const User = require('./models/user');
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
+app.use((req, res, next) => {
+  console.log('req.session:', req.session);
+  return next();
+}); // Used to display the current session info, debugging purposes only!
 passport.deserializeUser(User.deserializeUser());
 
 require('./routes/api/passport-routes')(app);
