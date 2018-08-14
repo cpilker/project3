@@ -318,10 +318,11 @@ class UserDashboard extends Component {
               <input type="hidden" id="skill" name="skill" value=""/>
               <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
             </div>
-            <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
+
+          </form>
+          <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
               <input type='submit' value='Save' className='btn btn-primary btn-block'/>
             </form>
-          </form>
 
 
 
