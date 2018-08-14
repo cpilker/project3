@@ -81,13 +81,11 @@ conn.once('open', function () {
 
 
 
-
 // Create storage engine 
 const storage = new GridFsStorage({
   url: 'mongodb://localhost/main',
   file: (req, file) => {
     return new Promise((resolve, reject) => {
-     
       console.log(req.body)
       const fileInfo = {
         filename: req.body.file[0],
@@ -95,7 +93,6 @@ const storage = new GridFsStorage({
         metadata: [req.body.file[1]]
       };
       resolve(fileInfo);
-
     });
   }
 });
