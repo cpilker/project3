@@ -1,4 +1,3 @@
-
 const 
   express = require("express"),
   bodyParser = require("body-parser"),
@@ -91,11 +90,12 @@ const storage = new GridFsStorage({
           return reject(err);
         }
         const filename = buf.toString('hex') + path.extname(file.originalname);
-        console.log('file name is this: ////////// ' + filename)
+        console.log("Ryan Test: ")
+        console.log(req.body)
         const fileInfo = {
           filename: filename,
           bucketName: 'uploads',
-          metadata: ''
+          metadata: req.body.id
         };
         resolve(fileInfo);
       });
