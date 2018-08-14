@@ -59,7 +59,7 @@ class Signup extends Component {
       password: this.state.password
     }
     $.ajax({
-      url: '/api/signup',
+      url: '/api/Signup',
       type: 'post',
       data: data,
       success: (response) => {
