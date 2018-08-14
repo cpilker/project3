@@ -19,7 +19,8 @@ class App extends Component {
     zip: null,
     loggedIn: false,
     created: null,
-    lastLogin: null
+    lastLogin: null,
+    userPhotoID: null,    /////////////////////////
   }
 
   updateUser = this.updateUser.bind(this);
