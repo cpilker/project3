@@ -1,11 +1,14 @@
-const passport = require('passport');
-const User = require('../../models/user');
-const Recruiter = require('../../models/recruiter')
-mongoose = require('mongoose')
-mongojs = require('mongojs');
-multer = require('multer');
-crypto = require('crypto');
-GridFsStorage = require('multer-gridfs-storage');
+const 
+  passport = require('passport'),
+  User = require('../../models/user'),
+  Recruiter = require('../../models/recruiter'),
+  mongoose = require('mongoose'),
+  mongojs = require('mongojs'),
+  path = require('path'),
+  multer = require('multer'),
+  crypto = require('crypto'),
+  GridFsStorage = require('multer-gridfs-storage');
+
 // let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
 
 
@@ -20,29 +23,7 @@ module.exports = function(app) {
     console.log("Database Error:", error);
   });
 
-  const storage = new GridFsStorage({
-    url: 'mongodb://localhost/main',
-    file: (req, file) => {
-      return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
-          const filename = req.body.username[0];
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'uploads',
-            aliases: ['profilepic']
-          };
-          console.log(fileInfo)
-          resolve(fileInfo);
-        });
-      });
-    }
-  });
 
-  const upload = multer({ storage });
-  
   app.post('/api/signup', (req, res) => {
     console.log("Signup post incoming...");
     console.log(req.body);
@@ -137,6 +118,7 @@ module.exports = function(app) {
   })
 
 
+  //Search for all recruiters by a given city
   app.get('/recruitersearch', function(req, res){
     // console.log(req.query)
     // console.log("recruiter city")
@@ -153,8 +135,9 @@ module.exports = function(app) {
     });
   })
 
+  //Search for users by a given city [this is not for the data as a whole]
   app.get('/usersearch', function(req, res){
-    // console.log(req.query)
+    console.log(req.query)
     // console.log("recruiter city")
     db.collection("users").find({city: req.query.city}, function(error, response) {
       // Throw any errors to the console
@@ -168,6 +151,73 @@ module.exports = function(app) {
       }
     });
   })
+
+  //Search for total users in the database
+  app.get('/allusersavailable', function(req, res){
+    console.log(req.body)
+    // console.log("recruiter city")
+    db.collection("users").find({}, function(error, response) {
+      // Throw any errors to the console
+      if (error) {
+        console.log(error);
+      }
+      // If there are no errors, send the data to the browser as json
+      else {
+        console.log(response);
+        res.send({count: response.length})
+      }
+    });
+  });
+
+  //Route to get the number of users Actively Searching for opportunities
+  app.get('/activesearch', function(req, res){
+    console.log(req.query)
+    db.collection("users").find({skill: req.body.skill}, function(error, response) {
+      // Throw any errors to the console
+      if (error) {
+        console.log(error);
+      }
+      // If there are no errors, send the data to the browser as json
+      else {
+        console.log("Number of people actively searching")
+        console.log(response);
+        res.send({count: response.length})
+      }
+    })
+  })
+  //Route to get the number of users Open to Opportunities for job searching
+  app.get('/opentoopportunities', function(req, res) {
+    // console.log(req.query);
+    db.collection('users').find({skill: req.query.skill}, function(error, response) {
+      // Throw any errors to the console
+      if (error) {
+        console.log(error);
+      }
+      // If there are no errors, send the data to the browser as json
+      else {
+        console.log("Number of people Open to Opportunities")
+        console.log(response);
+        res.send({count: response.length})
+      }
+    })
+  })
+  //Route to get the number of users that are NOT searching for a job
+  app.get('/notsearching', function(req, res){
+    console.log(req.query.skill);
+    db.collection("users").find({skill: req.query.skill}, function(error, response) {
+      // Throw any errors to the console
+      if (error) {
+        console.log(error);
+      }
+      // If there are no errors, send the data to the browser as json
+      else {
+        console.log("Number of people not searching")
+        console.log(response);
+        res.send({count: response.length})
+      }
+    })
+  })
+
 
   app.post('/api/signin', function(req, res, next) {
     console.log("Signin post incoming...");

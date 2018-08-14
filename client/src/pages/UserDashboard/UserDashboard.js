@@ -39,12 +39,13 @@ class UserDashboard extends Component {
     statusText: null,
     events,
     recruitersearch: null,
+    userPhotoID: null,            
   }
 
   handleOnChange = this.handleOnChange.bind(this);
   saveProfile = this.saveProfile.bind(this);
   searchRecruiters = this.searchRecruiters.bind(this);
-  
+
 
   componentDidUpdate(){
     utils.gridFunction();
@@ -78,7 +79,28 @@ class UserDashboard extends Component {
         })
       }
     });
+
+    $.ajax({
+      url: '/upload',
+      type: 'post',
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
+          this.props.updateUser(response) 
+        }
+      }
+    })
+
+    
   }
+
+
 
   handleOnChange(event) {
     this.setState({
@@ -293,23 +315,35 @@ class UserDashboard extends Component {
               <input type="hidden" id="skill" name="skill" value=""/>
               <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
             </div>
+            <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
+              <input type='submit' value='Save' className='btn btn-primary btn-block'/>
+            </form>
           </form>
+
+
+
+        {/* ////////////////////     upload picture ////////////////// */}
         <div className='container'>
           <div className='row'>
             <div className='col-md-6 m-auto'>
               <h1 className='text-center display-4 my-4'>Profile Picture Upload</h1>
-              <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
+              <form action='/upload' method='POST' encType='multipart/form-data'>
                 <div className='custom-file mb-3'>
-                  <input type='file' name='profilepic' id='profilepic' className='custom-file-input'/>
-                  <label htmlFor='profilepic' className='custom-file-label'>Choose File
+                  <input type='file' name='file' id='file' className='custom-file-input'/>
+                  <label htmlFor='file' className='custom-file-label'>Choose File
                   </label>
                 </div>
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
+                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" +this.props.userPhotoID} alt=''/>
               </form>
               <hr/>
             </div>
           </div>
         </div>
+        {/* ////////////////////     upload picture ////////////////// */}
+
+
+
         <hr />
         <div className="row" id='agency_info'>
           <h2 id='accordion-header'>Your Local Recruiters!</h2>

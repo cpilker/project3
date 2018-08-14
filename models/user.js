@@ -65,6 +65,10 @@ const userSchema = new Schema({
     default: Date.now,
     required: true
   },
+  userPhotoID: {            //////////////////////////////////////////
+    type: String,           //////////////////////////////////////////
+    required: true,         //////////////////////////////////////////
+  },                        //////////////////////////////////////////
   savedRecruiter: [
     {
       // Store ObjectIds in the array
