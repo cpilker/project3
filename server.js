@@ -189,7 +189,7 @@ app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
 // 1) move routes to correct folders.
 // 2) move server connection to relative file/ remove from other files
 // 3) line 110-ish with "res.redirect('/user-dashboard')" needs to be corrected so that it doesn't refresh whole page
-//
+// 4) remove console logs
 //
 //
 //
