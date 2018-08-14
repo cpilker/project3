@@ -5,9 +5,9 @@ import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
 import $ from "jquery";
-import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
-// import GridLoader from "../../utils/GridLoader";
-import * as utils from '../../utils/grid';
+import ReactExpandableGrid from '../../components/RecruiterTile/ReactExpandableGrid';
+// import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
+// import * as utils from '../../utils/grid';
 // import API from "../../utils/API";
 
 
@@ -48,7 +48,7 @@ class UserDashboard extends Component {
 
 
   componentDidUpdate(){
-    utils.gridFunction();
+    // utils.gridFunction();
     
     $.ajax({
       url: '/upload',
@@ -72,7 +72,7 @@ class UserDashboard extends Component {
   }
 
   componentDidMount(){
-    utils.gridFunction();
+    // utils.gridFunction();
 
     $.ajax({
       url: '/api/getuser',
@@ -216,7 +216,6 @@ class UserDashboard extends Component {
   render () {
     return (
       <div className="UserDashboard container">
-      {/* <GridLoader/> */}
       <Nav />
       <div className="profile-form">
         <h3><img src="/images/army.jpg" width="150" height="150" alt="army.jpg" />{this.props.firstname}&nbsp;{this.props.lastname}</h3>
@@ -380,7 +379,8 @@ class UserDashboard extends Component {
         <div className="col-xs-12 recruiter-return-info" display-toggle="none">
           <div className="accordion" id="recruiterAccordion"></div>	
         </div>
-        <RecruiterTile recruiters={this.state.recruitersearch}/>
+        {/* <RecruiterTile recruiters={this.state.recruitersearch}/> */}
+        <ReactExpandableGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
 
       <hr/>
 

@@ -44,7 +44,7 @@ export function gridFunction() {
     expanders = expanders.concat(expandersTemp);
   }
   expanders.forEach(function(expander){
-    expander.addEventListener('click', function(event){
+    expander.addEventListener('click', function(){
       let thisCell = this.closest('.card');
   
       if(thisCell.classList.contains('is-collapsed')){
