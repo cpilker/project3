@@ -2,16 +2,143 @@ import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import GridLoader from '../../utils/GridLoader';
+import $ from "jquery";
+import UserTile from "../../components/UserTile/UserTile";
+// import * as utils from '../../utils/grid';
+import PopulationTile from '../../components/PopulationTile/PopulationTile';
+import * as utils from '../../utils/grid';
+
+
+
 
 class RecruiterDashboard extends Component {
   state = {
-    default: "Hello World"
+    default: "Hello World",
+    users: '',
+    availableusers: '',
+    activeusers: '',
+    opentoopportunities: '',
+    notsearching: ''
   }
 
+  
+  componentDidUpdate(){
+    utils.gridFunction();
+  }
+
+  componentDidMount(){
+    utils.gridFunction();
+  }
+  //This is to pull the users on the page loading (Total Active Users)
+  pullUsers(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/allusersavailable',
+      type: 'get',
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success at pulling all users on click (no filter or parameters)!");
+          console.log(response);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  //This is to pull users that are actively searching for a job
+  pullActiveSearch(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/activesearch',
+      type: 'get',
+      data: {
+        skill: "Actively Searching"
+      },
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success for Active Searchers");
+          console.log(response);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  //THis is to pull users that are OPEN TO OPPORTUNITIES
+  openToOpportunities(e){
+    e.preventDefault();
+    $.ajax({
+      url: '/opentoopportunities',
+      type: 'get',
+      data: {
+        skill: "Open to Opportunities"
+      },
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success for pulling those open to opportunities");
+          console.log(response);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+  //This is to pull users that are not currently in the job market
+  notSearching(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/notsearching',
+      type: 'get',
+      data: {
+        skill: "Not Searching"
+      },
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success for pulling those not looking for a job");
+          console.log(response);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+  //This is to search for Users by City
   searchUsers(e){
     e.preventDefault();
-    let city = $('#search-input').val()
-    console.log(city)
     $.ajax({
       url: '/usersearch',
       type: 'get',
@@ -40,8 +167,15 @@ class RecruiterDashboard extends Component {
   render () {
     return (
       <div className="RecruiterDashboard container">
-      <GridLoader />
+      <button id="testingallusers" onClick={this.pullUsers}>Pull count of all users</button>
+      <button id="activesearch" onClick={this.pullActiveSearch}>Pull Active User Count</button>
+      <button id="opentoopportunities" onClick={this.openToOpportunities}>Open to Opportunities</button>
+      <button id="notsearch" onClick={this.notSearching}>Not Searching</button>
+
+      
+      {/* <GridLoader /> */}
       <Nav />
+      
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
             <div class="thumbnail" id="profile_image">
@@ -171,6 +305,12 @@ class RecruiterDashboard extends Component {
       <div class="col-xs-12 recruiter-return-info" display-toggle="none">
         <div class="accordion" id="recruiterAccordion"></div>	
       </div>
+      
+      <UserTile users={this.state.usersearch}/>
+
+      {/* NEED HELP RENDERING */}
+      <PopulationTile availableusers={this.state.availableUsers}/>
+
       <Footer />
     </div>
     )
