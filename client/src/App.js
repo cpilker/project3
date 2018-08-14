@@ -4,8 +4,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import UserDashboard from './pages/UserDashboard';
-
-// import RecruiterDashboard from './pages/RecruiterDashboard';
+import RecruiterDashboard from './pages/RecruiterDashboard';
 
 class App extends Component {
   state = {
@@ -69,7 +68,9 @@ class App extends Component {
                 updateUser={this.updateUser}
               />}
             />
-            {/* <Route path='/recruiterdashboard' component={RecruiterDashboard} /> */}
+            <Route path='/recruiterdashboard' render={() =>
+            <RecruiterDashboard/>}
+            />
           </Switch>
         </div>
       </Router>
