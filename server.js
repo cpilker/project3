@@ -103,10 +103,10 @@ const upload = multer({ storage });
 
 // @route POST /upload
 // @desc Uploads file to DB
-// app.post('/upload', upload.single('file'), (req, res) => {
-//   // res.json({file: req.file})
-//   res.redirect('/user-dashboard')
-// })
+app.post('/upload', upload.single('file'), (req, res) => {
+  // res.json({file: req.file})
+  res.redirect('/user-dashboard')
+})
 
 
 // @route GET /files/:filename

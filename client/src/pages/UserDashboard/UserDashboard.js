@@ -44,7 +44,7 @@ class UserDashboard extends Component {
   handleOnChange = this.handleOnChange.bind(this);
   saveProfile = this.saveProfile.bind(this);
   searchRecruiters = this.searchRecruiters.bind(this);
-  
+
 
   componentDidUpdate(){
     utils.gridFunction();
@@ -78,6 +78,27 @@ class UserDashboard extends Component {
         })
       }
     });
+
+
+  }
+
+  updateProfilePic() {
+    $.ajax({
+      url: '/image/' + this.state.username,
+      type: 'get',
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("IMAGE GET: -->" + response)
+          console.log("<--- IMAGE GET.")
+        }
+      }
+    })
   }
 
   handleOnChange(event) {
@@ -294,6 +315,10 @@ class UserDashboard extends Component {
               <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
             </div>
           </form>
+
+
+
+        {/* ////////////////////     upload picture ////////////////// */}
         <div className='container'>
           <div className='row'>
             <div className='col-md-6 m-auto'>
@@ -305,11 +330,17 @@ class UserDashboard extends Component {
                   </label>
                 </div>
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
+                <input type='get' value='get' className='btn btn-primary btn-block' onClick={this.updateProfilePic}/>
+                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" +this.props.username} alt=''/>
               </form>
               <hr/>
             </div>
           </div>
         </div>
+        {/* ////////////////////     upload picture ////////////////// */}
+
+
+
         <hr />
         <div className="row" id='agency_info'>
           <h2 id='accordion-header'>Your Local Recruiters!</h2>

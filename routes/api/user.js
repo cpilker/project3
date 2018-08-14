@@ -47,15 +47,7 @@ module.exports = function(app) {
       if (!file || file.length === 0) {
         return res.redirect('/user-dashboard', {file: false})
       } else {
-        file.map(file => {
-          if  (file.contentType === 'image/jpeg' 
-              || file.contentType === 'image/png') 
-          {
-            file.isImage = true
-          } else {
-            file.isImage = false
-          }
-        }); 
+        console.log('else hit')
       }
 
       // Files exist
