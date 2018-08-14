@@ -146,6 +146,7 @@ module.exports = function(app) {
       }
       // If there are no errors, send the data to the browser as json
       else {
+        console.log("////////////////////////////////")
         console.log(response);
         res.send({response})
       }
@@ -172,7 +173,7 @@ module.exports = function(app) {
   //Route to get the number of users Actively Searching for opportunities
   app.get('/activesearch', function(req, res){
     console.log(req.query)
-    db.collection("users").find({skill: req.body.skill}, function(error, response) {
+    db.collection("users").find({jobSearchStatus: req.body.jobSearchStatus}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
@@ -188,7 +189,7 @@ module.exports = function(app) {
   //Route to get the number of users Open to Opportunities for job searching
   app.get('/opentoopportunities', function(req, res) {
     // console.log(req.query);
-    db.collection('users').find({skill: req.query.skill}, function(error, response) {
+    db.collection('users').find({jobSearchStatus: req.query.jobSearchStatus}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
@@ -204,7 +205,7 @@ module.exports = function(app) {
   //Route to get the number of users that are NOT searching for a job
   app.get('/notsearching', function(req, res){
     console.log(req.query.skill);
-    db.collection("users").find({skill: req.query.skill}, function(error, response) {
+    db.collection("users").find({jobSearchStatus: req.query.jobSearchStatus}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);

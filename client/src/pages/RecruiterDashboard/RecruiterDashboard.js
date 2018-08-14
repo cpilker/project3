@@ -21,6 +21,7 @@ class RecruiterDashboard extends Component {
     notsearching: ''
   }
 
+  searchUsers = this.searchUsers.bind(this)
   
   componentDidUpdate(){
     utils.gridFunction();
@@ -67,7 +68,7 @@ class RecruiterDashboard extends Component {
       url: '/activesearch',
       type: 'get',
       data: {
-        skill: "Actively Searching"
+        jobSearchStatus: "Actively Searching"
       },
       success: (response) => {
         // this.clearForm()
@@ -97,7 +98,7 @@ class RecruiterDashboard extends Component {
       url: '/opentoopportunities',
       type: 'get',
       data: {
-        skill: "Open to Opportunities"
+        jobSearchStatus: "Open to Opportunities"
       },
       success: (response) => {
         // this.clearForm()
@@ -126,7 +127,7 @@ class RecruiterDashboard extends Component {
       url: '/notsearching',
       type: 'get',
       data: {
-        skill: "Not Searching"
+        jobSearchStatus: "Not Searching"
       },
       success: (response) => {
         // this.clearForm()
@@ -169,6 +170,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success!");
           console.log(response);
+          this.setState({
+            users: response.response
+          })
         }
       },
       error: (err) => {
@@ -332,7 +336,7 @@ class RecruiterDashboard extends Component {
         <div class="accordion" id="recruiterAccordion"></div>	
       </div>
       
-      <UserTile users={this.state.usersearch}/>
+      <UserTile users={this.state.users}/>
 
       
 
