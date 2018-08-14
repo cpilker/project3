@@ -82,24 +82,7 @@ class UserDashboard extends Component {
 
   }
 
-  updateProfilePic() {
-    $.ajax({
-      url: '/image/' + this.state.username,
-      type: 'get',
-      success: (response) => {
-        if (response.err) {
-          console.log("Error!");
-          console.log(response.err);
-          this.setState({
-            errorMessage: response.err.message
-          })
-        } else {
-          console.log("IMAGE GET: -->" + response)
-          console.log("<--- IMAGE GET.")
-        }
-      }
-    })
-  }
+
 
   handleOnChange(event) {
     this.setState({
@@ -314,6 +297,9 @@ class UserDashboard extends Component {
               <input type="hidden" id="skill" name="skill" value=""/>
               <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
             </div>
+            <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
+              <input type='submit' value='Save' className='btn btn-primary btn-block'/>
+            </form>
           </form>
 
 
@@ -323,10 +309,11 @@ class UserDashboard extends Component {
           <div className='row'>
             <div className='col-md-6 m-auto'>
               <h1 className='text-center display-4 my-4'>Profile Picture Upload</h1>
-              <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
+
+              <form action='/upload' method='POST' encType='multipart/form-data'>
                 <div className='custom-file mb-3'>
-                  <input type='file' name='profilepic' id='profilepic' className='custom-file-input'/>
-                  <label htmlFor='profilepic' className='custom-file-label'>Choose File
+                  <input type='file' name='file' id='file' className='custom-file-input'/>
+                  <label htmlFor='file' className='custom-file-label'>Choose File
                   </label>
                 </div>
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
