@@ -99,6 +99,13 @@ const storage = new GridFsStorage({
         };
         resolve(fileInfo);
       });
+      console.log(req.body)
+      const fileInfo = {
+        filename: req.body.file[0],
+        bucketName: 'uploads',
+        metadata: [req.body.file[1]]
+      };
+      resolve(fileInfo);
     });
   }
 });
@@ -110,16 +117,22 @@ const upload = multer({ storage });
 // @route POST /upload
 // @desc Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
-  // gfs.files.findOne({filename: req.params._id}, (err, file) => {
-  //   if (!file || file.length === 0) {
-  //     return res.status(404).json({
-  //       err: "No file exist"
-  //     })
-  //   }
-  //   // Files exist
-  console.log("RESSSESSS" + res)
-    res.send({ userPhotoID: res._id});
+ res.redirect('/user-dashboard')
+})
 
+
+
+// @route DELETE /files/:id
+// @desc  Delete file
+app.delete('/files/:id', (req, res) => {
+  console.log('MATT TEST')
+  console.log(req.params)
+  gfs.remove({filename: req.params.id, root: 'uploads'}, (err, gridStore) => {
+    if (err) {
+      return res.status(404).json({err: err})
+    } 
+    res.redirect('/user-dashboard')
+  })
 })
 
 
@@ -185,9 +198,9 @@ app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
 // TO-DO:
 // 1) move routes to correct folders.
 // 2) move server connection to relative file/ remove from other files
-// 3) line 110 with "res.redirect('/user-dashboard')" needs to be corrected
-//
-//
+// 3) line 110-ish with "res.redirect('/user-dashboard')" needs to be corrected so that it doesn't refresh whole page
+// 4) remove console logs
+// 5) uninstall unused npm's
 //
 //
 //
