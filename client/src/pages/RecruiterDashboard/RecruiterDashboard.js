@@ -24,14 +24,18 @@ class RecruiterDashboard extends Component {
   
   componentDidUpdate(){
     utils.gridFunction();
+
   }
 
   componentDidMount(){
     utils.gridFunction();
+    this.pullUsers();
+    this.pullActiveSearch();
+    this.notSearching();
+    this.openToOpportunities();
   }
   //This is to pull the users on the page loading (Total Active Users)
   pullUsers(e) {
-    e.preventDefault();
     $.ajax({
       url: '/allusersavailable',
       type: 'get',
@@ -46,6 +50,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success at pulling all users on click (no filter or parameters)!");
           console.log(response);
+          this.setState({
+            availableusers: response.count + "Recruits available for contact"
+          })
         }
       },
       error: (err) => {
@@ -56,7 +63,6 @@ class RecruiterDashboard extends Component {
 
   //This is to pull users that are actively searching for a job
   pullActiveSearch(e) {
-    e.preventDefault();
     $.ajax({
       url: '/activesearch',
       type: 'get',
@@ -74,6 +80,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success for Active Searchers");
           console.log(response);
+          this.setState({
+            activeusers: response.count + "Recruits looking for a job"
+          })
         }
       },
       error: (err) => {
@@ -84,7 +93,6 @@ class RecruiterDashboard extends Component {
 
   //THis is to pull users that are OPEN TO OPPORTUNITIES
   openToOpportunities(e){
-    e.preventDefault();
     $.ajax({
       url: '/opentoopportunities',
       type: 'get',
@@ -102,6 +110,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success for pulling those open to opportunities");
           console.log(response);
+          this.setState({
+            opentoopportunities: response.count +"Recruits open to opportunities"
+          })
         }
       },
       error: (err) => {
@@ -111,7 +122,6 @@ class RecruiterDashboard extends Component {
   }
   //This is to pull users that are not currently in the job market
   notSearching(e) {
-    e.preventDefault();
     $.ajax({
       url: '/notsearching',
       type: 'get',
@@ -129,6 +139,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success for pulling those not looking for a job");
           console.log(response);
+          this.setState({
+            notsearching: response.count + "Recruits not searching for a job"
+          })
         }
       },
       error: (err) => {
@@ -166,15 +179,23 @@ class RecruiterDashboard extends Component {
 
   render () {
     return (
-      <div className="RecruiterDashboard container">
-      <button id="testingallusers" onClick={this.pullUsers}>Pull count of all users</button>
-      <button id="activesearch" onClick={this.pullActiveSearch}>Pull Active User Count</button>
-      <button id="opentoopportunities" onClick={this.openToOpportunities}>Open to Opportunities</button>
-      <button id="notsearch" onClick={this.notSearching}>Not Searching</button>
 
-      
+      <div className="RecruiterDashboard container">
+            
       {/* <GridLoader /> */}
       <Nav />
+
+      <div class="row" id="population-tiles">
+        <h2 id='accordion-header'>Talent Pool Available</h2>
+
+        {/* NEED HELP RENDERING */}
+        <div className="populateTile">
+        <PopulationTile popvalue={this.state.availableusers}/>
+        <PopulationTile popvalue={this.state.activeusers}/>
+        <PopulationTile popvalue={this.state.opentoopportunities}/>
+        <PopulationTile popvalue={this.state.notsearching}/>
+        </div>
+      </div>
       
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
@@ -290,6 +311,11 @@ class RecruiterDashboard extends Component {
           </div>
         </div>
       </div>
+      <hr/>
+
+      {/* PUT THE POPULATION TILE BACK HERE */}
+
+      
 
       <hr />
       <div class="row" id='agency_info'>
@@ -308,8 +334,7 @@ class RecruiterDashboard extends Component {
       
       <UserTile users={this.state.usersearch}/>
 
-      {/* NEED HELP RENDERING */}
-      <PopulationTile availableusers={this.state.availableUsers}/>
+      
 
       <Footer />
     </div>
