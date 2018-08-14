@@ -34,6 +34,7 @@ class RecruiterDashboard extends Component {
     this.pullActiveSearch();
     this.notSearching();
     this.openToOpportunities();
+    this.searchUsers();
   }
   //This is to pull the users on the page loading (Total Active Users)
   pullUsers(e) {
@@ -152,13 +153,13 @@ class RecruiterDashboard extends Component {
   }
   //This is to search for Users by City
   searchUsers(e){
-    e.preventDefault();
+    // e.preventDefault();
     $.ajax({
       url: '/usersearch',
       type: 'get',
-      data: {
-        city: $('#search-input').val()
-      },
+      // data: {
+      //   city: $('#search-input').val()
+      // },
       success: (response) => {
         // this.clearForm()
         if (response.err) {
@@ -188,19 +189,6 @@ class RecruiterDashboard extends Component {
             
       {/* <GridLoader /> */}
       <Nav />
-
-      <div class="row" id="population-tiles">
-        <h2 id='accordion-header'>Talent Pool Available</h2>
-
-        {/* NEED HELP RENDERING */}
-        <div className="populateTile">
-        <PopulationTile popvalue={this.state.availableusers}/>
-        <PopulationTile popvalue={this.state.activeusers}/>
-        <PopulationTile popvalue={this.state.opentoopportunities}/>
-        <PopulationTile popvalue={this.state.notsearching}/>
-        </div>
-      </div>
-      
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
             <div class="thumbnail" id="profile_image">
@@ -318,17 +306,28 @@ class RecruiterDashboard extends Component {
       <hr/>
 
       {/* PUT THE POPULATION TILE BACK HERE */}
+      <div class="row" id="population-tiles">
+        <h2 id='accordion-header'>Talent Pool Available</h2>
 
+        {/* NEED HELP RENDERING */}
+        <div className="populateTile">
+        <PopulationTile popvalue={this.state.availableusers}/>
+        <PopulationTile popvalue={this.state.activeusers}/>
+        <PopulationTile popvalue={this.state.opentoopportunities}/>
+        <PopulationTile popvalue={this.state.notsearching}/>
+        </div>
+      </div>
       
 
       <hr />
       <div class="row" id='agency_info'>
-      <h2 id='accordion-header'>Your Local Recruiters!</h2>
+      <h2 id='accordion-header'>Recruits</h2>
 
       <div class='col-xs-12 agency-locate'>
+      <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Find all</button>
         <form class="form-row">
-          <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" />
-          <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Search</button>
+          {/* <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" /> */}
+          {/* <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Search</button> */}
         </form>
       </div>
       </div>

@@ -10,6 +10,7 @@ class PopulationTile extends Component {
     return (
       // <div className="container">
         <div className="cards">
+           
           {this.props.popvalue}
         </div>
 

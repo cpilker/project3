@@ -138,8 +138,7 @@ module.exports = function(app) {
   //Search for users by a given city [this is not for the data as a whole]
   app.get('/usersearch', function(req, res){
     console.log(req.query)
-    // console.log("recruiter city")
-    db.collection("users").find({city: req.query.city}, function(error, response) {
+    db.collection("users").find({}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
