@@ -79,6 +79,8 @@ conn.once('open', function () {
     gfs.collection('uploads')
 })
 
+
+
 // Create storage engine 
 const storage = new GridFsStorage({
   url: 'mongodb://localhost/main',
@@ -103,11 +105,21 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 
+
+
 // @route POST /upload
 // @desc Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
-  // res.json({file: req.file})
-  res.redirect('/user-dashboard')
+  // gfs.files.findOne({filename: req.params._id}, (err, file) => {
+  //   if (!file || file.length === 0) {
+  //     return res.status(404).json({
+  //       err: "No file exist"
+  //     })
+  //   }
+  //   // Files exist
+  console.log("RESSSESSS" + res)
+    res.send({ userPhotoID: res._id});
+
 })
 
 
@@ -168,3 +180,16 @@ app.get('/image/:filename', (req, res) => {
 // Start the API server
 
 app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
+
+
+// TO-DO:
+// 1) move routes to correct folders.
+// 2) move server connection to relative file/ remove from other files
+// 3) line 110 with "res.redirect('/user-dashboard')" needs to be corrected
+//
+//
+//
+//
+//
+//
+//

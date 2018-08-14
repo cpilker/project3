@@ -41,19 +41,4 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/user-dashboard', isLoggedIn, function(req, res) {
-    gfs.files.findOne({filename: req.params.filename}, (err, file) => {
-      // Check if file
-      if (!file || file.length === 0) {
-        return res.redirect('/user-dashboard', {file: false})
-      } else {
-        console.log('else hit')
-      }
-
-      // Files exist
-      res.redirect('/user-dashboard', {file})
-    })
-  });
-
-
 };

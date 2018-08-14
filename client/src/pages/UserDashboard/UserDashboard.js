@@ -39,6 +39,7 @@ class UserDashboard extends Component {
     statusText: null,
     events,
     recruitersearch: null,
+    userPhotoID: null,            
   }
 
   handleOnChange = this.handleOnChange.bind(this);
@@ -79,7 +80,24 @@ class UserDashboard extends Component {
       }
     });
 
+    $.ajax({
+      url: '/upload',
+      type: 'post',
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
+          this.props.updateUser(response) 
+        }
+      }
+    })
 
+    
   }
 
 
@@ -309,7 +327,6 @@ class UserDashboard extends Component {
           <div className='row'>
             <div className='col-md-6 m-auto'>
               <h1 className='text-center display-4 my-4'>Profile Picture Upload</h1>
-
               <form action='/upload' method='POST' encType='multipart/form-data'>
                 <div className='custom-file mb-3'>
                   <input type='file' name='file' id='file' className='custom-file-input'/>
@@ -317,8 +334,7 @@ class UserDashboard extends Component {
                   </label>
                 </div>
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
-                <input type='get' value='get' className='btn btn-primary btn-block' onClick={this.updateProfilePic}/>
-                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" +this.props.username} alt=''/>
+                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" +this.props.userPhotoID} alt=''/>
               </form>
               <hr/>
             </div>

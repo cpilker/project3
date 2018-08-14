@@ -1,11 +1,14 @@
-const passport = require('passport');
-const User = require('../../models/user');
-const Recruiter = require('../../models/recruiter')
-mongoose = require('mongoose')
-mongojs = require('mongojs');
-multer = require('multer');
-crypto = require('crypto');
-GridFsStorage = require('multer-gridfs-storage');
+const 
+  passport = require('passport'),
+  User = require('../../models/user'),
+  Recruiter = require('../../models/recruiter'),
+  mongoose = require('mongoose'),
+  mongojs = require('mongojs'),
+  path = require('path'),
+  multer = require('multer'),
+  crypto = require('crypto'),
+  GridFsStorage = require('multer-gridfs-storage');
+
 // let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main")
 
 
@@ -20,29 +23,7 @@ module.exports = function(app) {
     console.log("Database Error:", error);
   });
 
-  const storage = new GridFsStorage({
-    url: 'mongodb://localhost/main',
-    file: (req, file) => {
-      return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
-          const filename = req.body.username[0];
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'uploads',
-            aliases: ['profilepic']
-          };
-          console.log(fileInfo)
-          resolve(fileInfo);
-        });
-      });
-    }
-  });
 
-  const upload = multer({ storage });
-  
   app.post('/api/signup', (req, res) => {
     console.log("Signup post incoming...");
     console.log(req.body);
