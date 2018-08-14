@@ -49,6 +49,26 @@ class UserDashboard extends Component {
 
   componentDidUpdate(){
     utils.gridFunction();
+    
+    $.ajax({
+      url: '/upload',
+      type: 'get',
+      datatype: 'multipart/form-data',
+      data: this.state.id,
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
+          this.props.updateUser(response) 
+        }
+      }
+    })
+
   }
 
   componentDidMount(){
@@ -96,8 +116,6 @@ class UserDashboard extends Component {
         }
       }
     })
-
-    
   }
 
 
@@ -315,10 +333,10 @@ class UserDashboard extends Component {
               <input type="hidden" id="skill" name="skill" value=""/>
               <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
             </div>
-            <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
+          </form>
+          <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
               <input type='submit' value='Save' className='btn btn-primary btn-block'/>
             </form>
-          </form>
 
 
 
@@ -327,14 +345,19 @@ class UserDashboard extends Component {
           <div className='row'>
             <div className='col-md-6 m-auto'>
               <h1 className='text-center display-4 my-4'>Profile Picture Upload</h1>
-              <form action='/upload' method='POST' encType='multipart/form-data'>
+              <form action="/upload" method='POST' encType='multipart/form-data'>
                 <div className='custom-file mb-3'>
+                  <input type='hidden' name='file' value={this.state.id} />
+                  <input type='hidden' name='file' value='profilePic' />
                   <input type='file' name='file' id='file' className='custom-file-input'/>
                   <label htmlFor='file' className='custom-file-label'>Choose File
                   </label>
                 </div>
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
-                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" +this.props.userPhotoID} alt=''/>
+                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" + this.state.id} alt=''/>
+              </form>
+              <form action={`/files/${this.state.id}?_method=DELETE`} method='POST' > 
+                <button className='btn btn-danger btn-block mt-4'>Delete</button>
               </form>
               <hr/>
             </div>
