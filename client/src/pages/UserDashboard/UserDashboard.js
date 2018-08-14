@@ -45,11 +45,11 @@ class UserDashboard extends Component {
   handleOnChange = this.handleOnChange.bind(this);
   saveProfile = this.saveProfile.bind(this);
   searchRecruiters = this.searchRecruiters.bind(this);
+  // updateProfilePic = this.updateProfilePic.bind(this);
 
 
   componentDidUpdate(){
     utils.gridFunction();
-    
     $.ajax({
       url: '/upload',
       type: 'get',
@@ -68,12 +68,11 @@ class UserDashboard extends Component {
         }
       }
     })
-
   }
 
-  componentDidMount(){
+  componentDidMount(){    // Is this a duplicate of above?
     utils.gridFunction();
-
+  
     $.ajax({
       url: '/api/getuser',
       type: 'get',
@@ -118,6 +117,26 @@ class UserDashboard extends Component {
     })
   }
 
+  // updateProfilePic() {
+  //   $.ajax({
+  //     url: '/upload',
+  //     type: 'post',
+  //     contentType: 'multipart/form-data',
+  //     data: {}
+  //     success: (response) => {
+  //       if (response.err) {
+  //         console.log("Error!");
+  //         console.log(response.err);
+  //         this.setState({
+  //           errorMessage: response.err.message
+  //         })
+  //       } else {
+  //         console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
+  //         this.props.updateUser(response) 
+  //       }
+  //     }
+  //   })
+  // }
 
 
   handleOnChange(event) {
@@ -352,6 +371,7 @@ class UserDashboard extends Component {
                   <input type='file' name='file' id='file' className='custom-file-input'/>
                   <label htmlFor='file' className='custom-file-label'>Choose File
                   </label>
+                  <input type="hidden" name="id" value={this.state.id} />
                 </div>
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
                 <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" + this.state.id} alt=''/>

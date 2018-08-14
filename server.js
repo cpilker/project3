@@ -1,4 +1,3 @@
-
 const 
   express = require("express"),
   bodyParser = require("body-parser"),
@@ -86,6 +85,20 @@ const storage = new GridFsStorage({
   url: 'mongodb://localhost/main',
   file: (req, file) => {
     return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString('hex') + path.extname(file.originalname);
+        console.log("Ryan Test: ")
+        console.log(req.body)
+        const fileInfo = {
+          filename: filename,
+          bucketName: 'uploads',
+          metadata: req.body.id
+        };
+        resolve(fileInfo);
+      });
       console.log(req.body)
       const fileInfo = {
         filename: req.body.file[0],
