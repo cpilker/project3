@@ -107,7 +107,22 @@ const upload = multer({ storage });
 // @route POST /upload
 // @desc Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
+ res.redirect('/user-dashboard')
+})
 
+
+
+// @route DELETE /files/:id
+// @desc  Delete file
+app.delete('/files/:id', (req, res) => {
+  console.log('MATT TEST')
+  console.log(req.params)
+  gfs.remove({filename: req.params.id, root: 'uploads'}, (err, gridStore) => {
+    if (err) {
+      return res.status(404).json({err: err})
+    } 
+    res.redirect('/user-dashboard')
+  })
 })
 
 
