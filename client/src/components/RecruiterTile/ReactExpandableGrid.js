@@ -1,4 +1,4 @@
-// Using ReactExpandableGrid from https://github.com/karthicashokan/react-expandable-grid
+// Using a modified version of ReactExpandableGrid from https://github.com/karthicashokan/react-expandable-grid
 
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
