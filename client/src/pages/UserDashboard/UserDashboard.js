@@ -5,9 +5,8 @@ import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
 import $ from "jquery";
-import ReactExpandableGrid from '../../components/RecruiterTile/ReactExpandableGrid';
-// import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
-// import * as utils from '../../utils/grid';
+import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
+import EventBriteGrid from '../../components/Eventbrite/';
 // import API from "../../utils/API";
 
 
@@ -404,11 +403,13 @@ class UserDashboard extends Component {
           <div className="accordion" id="recruiterAccordion"></div>	
         </div>
         {/* <RecruiterTile recruiters={this.state.recruitersearch}/> */}
-        <ReactExpandableGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
+        <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
 
       <hr/>
 
-      <div className="row" id='events'>
+      <EventBriteGrid gridData={JSON.stringify(this.state.events)}/>
+
+      {/* <div className="row" id='events'>
         <h2 id='accordion-header'>Events in Your Area!</h2>
         <div className="container">
         <div className="cards">
@@ -430,7 +431,9 @@ class UserDashboard extends Component {
         ))}
         </div>
         </div>
-      </div>
+      </div> */}
+
+
 
 
       <Footer />
