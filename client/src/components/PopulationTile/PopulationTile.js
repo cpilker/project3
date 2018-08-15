@@ -8,13 +8,9 @@ class PopulationTile extends Component {
 
   render () {
     return (
-      // <div className="container">
         <div className="cards">
-           
           {this.props.popvalue}
         </div>
-
-      // </div>
     )
   }
 }
