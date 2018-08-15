@@ -1,3 +1,4 @@
+
 // Requiring our dependencies 
 const
   passport = require('passport'),
@@ -5,6 +6,7 @@ const
   Recruiter = require('../../models/recruiter'),
   mongoose = require('mongoose'),
   mongojs = require('mongojs'),
+  Grid = require('gridfs-stream'),
   path = require('path'),
   multer = require('multer'),
   crypto = require('crypto'),
@@ -19,9 +21,20 @@ const
     tls:  false
   });
 
+// Database configuration
+const databaseUrl = "main";
+
+// Hook mongojs configuration to the db variable
+const db = mongojs(databaseUrl);
+db.on("error", function(error) {
+    console.log("Database Error:", error);
+});
+  
+
 module.exports = function(app) {
 
-    
+
+
   //Search for users by a given city [this is not for the data as a whole]
   app.get('/usersearch', function(req, res){
     console.log(req.query)

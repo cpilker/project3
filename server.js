@@ -13,7 +13,9 @@ const
   routes = require("./routes"),
   app = express(),
   MongoStore = require('connect-mongo')(session),
-  PORT = process.env.PORT || 3000;
+  PORT = process.env.PORT || 3000,
+  User = require('./models/user');
+
 
 // Connect to the Mongo DB
 let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
@@ -33,46 +35,62 @@ app.use(session({
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: conn })
 }));
+app.use((req, res, next) => {
+  // Used to display the current session info, debugging purposes only!
+  console.log('req.session:', req.session);
+  return next();
+});
 
 
-// Serve up static assets (usually on heroku)
+
+
+
+  // Passport middleware
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+// If not Heroku Serve up static assets 
 app.use('/images', express.static("client/public/images"));
+  // if on Heroku use this
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client"));
 }
 
-// Add routes, both API and view
-app.use(routes);
 
-// passport config
-const User = require('./models/user');
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-app.use((req, res, next) => {
-  console.log('req.session:', req.session);
-  return next();
-}); // Used to display the current session info, debugging purposes only!
-passport.deserializeUser(User.deserializeUser());
-
-
+// Init GridFs variable
 let gfs;
 
-//test connection
+// Test connection
 conn.on('error', function (err) {
-    console.log('Database Error: '+ err)
+  console.log('Database Error: '+ err)
 });
 
+// Make connection to the database
 conn.once('open', function () {
-    console.log('Mongo Connection Success!')
-
-    //Init our stream
-    gfs = Grid(conn.db, mongoose.mongo)
-    gfs.collection('uploads')
+  console.log('Mongo Connection Success!')
+  // Init our stream
+  gfs = Grid(conn.db, mongoose.mongo)
+  gfs.collection('uploads')
 })
 
-// Start the API server
 
+// Routes
+require('./routes/user')(app)
+
+// Start server
 app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
+
+
+
+
+
+
+
+
+
 
 
 // TO-DO:
