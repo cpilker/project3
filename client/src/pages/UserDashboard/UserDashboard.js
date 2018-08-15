@@ -196,13 +196,14 @@ class UserDashboard extends Component {
 
   searchRecruiters(e){
     e.preventDefault();
-    let city = $('#search-input').val()
+    let cityInput = $('#search-input').val()
+    let city = cityInput.charAt(0).toUpperCase() + cityInput.slice(1);
     console.log(city)
     $.ajax({
       url: '/recruitersearch',
       type: 'get',
       data: {
-        city: $('#search-input').val()
+        city: city
       },
       success: (response) => {
         // this.clearForm()
