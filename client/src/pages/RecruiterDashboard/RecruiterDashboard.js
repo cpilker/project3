@@ -21,17 +21,23 @@ class RecruiterDashboard extends Component {
     notsearching: ''
   }
 
+  searchUsers = this.searchUsers.bind(this)
   
   componentDidUpdate(){
     utils.gridFunction();
+
   }
 
   componentDidMount(){
     utils.gridFunction();
+    this.pullUsers();
+    this.pullActiveSearch();
+    this.notSearching();
+    this.openToOpportunities();
+    this.searchUsers();
   }
   //This is to pull the users on the page loading (Total Active Users)
   pullUsers(e) {
-    e.preventDefault();
     $.ajax({
       url: '/allusersavailable',
       type: 'get',
@@ -46,6 +52,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success at pulling all users on click (no filter or parameters)!");
           console.log(response);
+          this.setState({
+            availableusers: response.count + "Recruits available for contact"
+          })
         }
       },
       error: (err) => {
@@ -56,12 +65,11 @@ class RecruiterDashboard extends Component {
 
   //This is to pull users that are actively searching for a job
   pullActiveSearch(e) {
-    e.preventDefault();
     $.ajax({
       url: '/activesearch',
       type: 'get',
       data: {
-        skill: "Actively Searching"
+        jobSearchStatus: "Actively Searching"
       },
       success: (response) => {
         // this.clearForm()
@@ -74,6 +82,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success for Active Searchers");
           console.log(response);
+          this.setState({
+            activeusers: response.count + "Recruits looking for a job"
+          })
         }
       },
       error: (err) => {
@@ -84,12 +95,11 @@ class RecruiterDashboard extends Component {
 
   //THis is to pull users that are OPEN TO OPPORTUNITIES
   openToOpportunities(e){
-    e.preventDefault();
     $.ajax({
       url: '/opentoopportunities',
       type: 'get',
       data: {
-        skill: "Open to Opportunities"
+        jobSearchStatus: "Open to Opportunities"
       },
       success: (response) => {
         // this.clearForm()
@@ -102,6 +112,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success for pulling those open to opportunities");
           console.log(response);
+          this.setState({
+            opentoopportunities: response.count +"Recruits open to opportunities"
+          })
         }
       },
       error: (err) => {
@@ -111,12 +124,11 @@ class RecruiterDashboard extends Component {
   }
   //This is to pull users that are not currently in the job market
   notSearching(e) {
-    e.preventDefault();
     $.ajax({
       url: '/notsearching',
       type: 'get',
       data: {
-        skill: "Not Searching"
+        jobSearchStatus: "Not Searching"
       },
       success: (response) => {
         // this.clearForm()
@@ -129,6 +141,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success for pulling those not looking for a job");
           console.log(response);
+          this.setState({
+            notsearching: response.count + "Recruits not searching for a job"
+          })
         }
       },
       error: (err) => {
@@ -138,13 +153,13 @@ class RecruiterDashboard extends Component {
   }
   //This is to search for Users by City
   searchUsers(e){
-    e.preventDefault();
+    // e.preventDefault();
     $.ajax({
       url: '/usersearch',
       type: 'get',
-      data: {
-        city: $('#search-input').val()
-      },
+      // data: {
+      //   city: $('#search-input').val()
+      // },
       success: (response) => {
         // this.clearForm()
         if (response.err) {
@@ -156,6 +171,9 @@ class RecruiterDashboard extends Component {
         } else {
           console.log("Success!");
           console.log(response);
+          this.setState({
+            users: response.response
+          })
         }
       },
       error: (err) => {
@@ -166,16 +184,11 @@ class RecruiterDashboard extends Component {
 
   render () {
     return (
-      <div className="RecruiterDashboard container">
-      <button id="testingallusers" onClick={this.pullUsers}>Pull count of all users</button>
-      <button id="activesearch" onClick={this.pullActiveSearch}>Pull Active User Count</button>
-      <button id="opentoopportunities" onClick={this.openToOpportunities}>Open to Opportunities</button>
-      <button id="notsearch" onClick={this.notSearching}>Not Searching</button>
 
-      
+      <div className="RecruiterDashboard container">
+            
       {/* <GridLoader /> */}
       <Nav />
-      
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
             <div class="thumbnail" id="profile_image">
@@ -290,15 +303,31 @@ class RecruiterDashboard extends Component {
           </div>
         </div>
       </div>
+      <hr/>
+
+      {/* PUT THE POPULATION TILE BACK HERE */}
+      <div class="row" id="population-tiles">
+        <h2 id='accordion-header'>Talent Pool Available</h2>
+
+        {/* NEED HELP RENDERING */}
+        <div className="populateTile">
+        <PopulationTile popvalue={this.state.availableusers}/>
+        <PopulationTile popvalue={this.state.activeusers}/>
+        <PopulationTile popvalue={this.state.opentoopportunities}/>
+        <PopulationTile popvalue={this.state.notsearching}/>
+        </div>
+      </div>
+      
 
       <hr />
       <div class="row" id='agency_info'>
-      <h2 id='accordion-header'>Your Local Recruiters!</h2>
+      <h2 id='accordion-header'>Recruits</h2>
 
       <div class='col-xs-12 agency-locate'>
+      <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Find all</button>
         <form class="form-row">
-          <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" />
-          <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Search</button>
+          {/* <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" /> */}
+          {/* <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Search</button> */}
         </form>
       </div>
       </div>
@@ -306,10 +335,9 @@ class RecruiterDashboard extends Component {
         <div class="accordion" id="recruiterAccordion"></div>	
       </div>
       
-      <UserTile users={this.state.usersearch}/>
+      <UserTile users={this.state.users}/>
 
-      {/* NEED HELP RENDERING */}
-      <PopulationTile availableusers={this.state.availableUsers}/>
+      
 
       <Footer />
     </div>

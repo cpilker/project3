@@ -5,9 +5,9 @@ import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
 import events from './eventbrite.json';
 import $ from "jquery";
-import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
-// import GridLoader from "../../utils/GridLoader";
-import * as utils from '../../utils/grid';
+import ReactExpandableGrid from '../../components/RecruiterTile/ReactExpandableGrid';
+// import RecruiterTile from "../../components/RecruiterTile/RecruiterTile";
+// import * as utils from '../../utils/grid';
 // import API from "../../utils/API";
 
 
@@ -38,18 +38,19 @@ class UserDashboard extends Component {
     errorMessage: null,
     statusText: null,
     events,
-    recruitersearch: null,
-    userPhotoID: null,            
+    recruitersearch: null,        
   }
 
   handleOnChange = this.handleOnChange.bind(this);
   saveProfile = this.saveProfile.bind(this);
   searchRecruiters = this.searchRecruiters.bind(this);
+  // updateProfilePic = this.updateProfilePic.bind(this);
 
 
   componentDidUpdate(){
-    utils.gridFunction();
-    
+
+    // utils.gridFunction();
+
     $.ajax({
       url: '/upload',
       type: 'get',
@@ -68,11 +69,11 @@ class UserDashboard extends Component {
         }
       }
     })
-
   }
 
+
   componentDidMount(){
-    utils.gridFunction();
+    // utils.gridFunction();
 
     $.ajax({
       url: '/api/getuser',
@@ -101,8 +102,6 @@ class UserDashboard extends Component {
     });
 
   }
-
-
 
   handleOnChange(event) {
     this.setState({
@@ -158,13 +157,14 @@ class UserDashboard extends Component {
 
   searchRecruiters(e){
     e.preventDefault();
-    let city = $('#search-input').val()
+    let cityInput = $('#search-input').val()
+    let city = cityInput.charAt(0).toUpperCase() + cityInput.slice(1);
     console.log(city)
     $.ajax({
       url: '/recruitersearch',
       type: 'get',
       data: {
-        city: $('#search-input').val()
+        city: city
       },
       success: (response) => {
         // this.clearForm()
@@ -201,7 +201,6 @@ class UserDashboard extends Component {
     console.log(this.state.id)
     return (
       <div className="UserDashboard container">
-      {/* <GridLoader/> */}
       <Nav />
       <div className="profile-form">
         <h3><img src="/images/army.jpg" width="150" height="150" alt="army.jpg" />{this.props.firstname}&nbsp;{this.props.lastname}</h3>
@@ -337,6 +336,7 @@ class UserDashboard extends Component {
                   <input type='file' name='file' id='file' className='custom-file-input'/>
                   <label htmlFor='file' className='custom-file-label'>Choose File
                   </label>
+                  <input type="hidden" name="id" value={this.state.id} />
                 </div>
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
                 <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" + this.state.id} alt=''/>
@@ -365,7 +365,8 @@ class UserDashboard extends Component {
         <div className="col-xs-12 recruiter-return-info" display-toggle="none">
           <div className="accordion" id="recruiterAccordion"></div>	
         </div>
-        <RecruiterTile recruiters={this.state.recruitersearch}/>
+        {/* <RecruiterTile recruiters={this.state.recruitersearch}/> */}
+        <ReactExpandableGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
 
       <hr/>
 
