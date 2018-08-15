@@ -20,7 +20,6 @@ class App extends Component {
     loggedIn: false,
     created: null,
     lastLogin: null,
-    userPhotoID: null,    /////////////////////////
   }
 
   updateUser = this.updateUser.bind(this);

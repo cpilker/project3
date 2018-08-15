@@ -37,8 +37,7 @@ class UserDashboard extends Component {
     errorMessage: null,
     statusText: null,
     events,
-    recruitersearch: null,
-    userPhotoID: null,            
+    recruitersearch: null,        
   }
 
   handleOnChange = this.handleOnChange.bind(this);
@@ -101,45 +100,7 @@ class UserDashboard extends Component {
       }
     });
 
-    $.ajax({
-      url: '/upload',
-      type: 'post',
-      success: (response) => {
-        if (response.err) {
-          console.log("Error!");
-          console.log(response.err);
-          this.setState({
-            errorMessage: response.err.message
-          })
-        } else {
-          console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
-          this.props.updateUser(response) 
-        }
-      }
-    })
   }
-
-  // updateProfilePic() {
-  //   $.ajax({
-  //     url: '/upload',
-  //     type: 'post',
-  //     contentType: 'multipart/form-data',
-  //     data: {}
-  //     success: (response) => {
-  //       if (response.err) {
-  //         console.log("Error!");
-  //         console.log(response.err);
-  //         this.setState({
-  //           errorMessage: response.err.message
-  //         })
-  //       } else {
-  //         console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
-  //         this.props.updateUser(response) 
-  //       }
-  //     }
-  //   })
-  // }
-
 
   handleOnChange(event) {
     this.setState({
@@ -149,7 +110,7 @@ class UserDashboard extends Component {
 
   saveProfile(e) {
     e.preventDefault();
-    console.log("saveProfile has been fired!");
+    console.log("updateProfile has been fired!");
     const data = {
       id: this.state.id,
       newusername: this.state.newusername === undefined ? this.props.username : this.state.newusername,
@@ -163,7 +124,7 @@ class UserDashboard extends Component {
       newpassword: this.state.newpassword
     }
     $.ajax({
-      url: '/api/saveprofile',
+      url: '/api/update-user-profile',
       type: 'post',
       data: data,
       success: (response) => {
@@ -236,6 +197,7 @@ class UserDashboard extends Component {
   }
 
   render () {
+    console.log(this.state.id)
     return (
       <div className="UserDashboard container">
       <Nav />
