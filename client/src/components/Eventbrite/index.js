@@ -1,1 +1,1 @@
-export {default} from './EventBrite';
+export {default} from './EventBriteGrid';

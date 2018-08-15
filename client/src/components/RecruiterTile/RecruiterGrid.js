@@ -3,17 +3,16 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import SingleGridCell from './SingleGridCell';
-import './ReactExpandableGrid.css';
+import './RecruiterGrid.css';
 
-class ReactExpandableGrid extends Component {
+class RecruiterGrid extends Component {
 
   constructor (props) {
     super(props)
 
     this.state = {
       expanded: false,
-      selected_id: '',
-      // gridData: JSON.parse(this.props.gridData)
+      selected_id: ''
     }
   }
 
@@ -322,7 +321,7 @@ class ReactExpandableGrid extends Component {
   }
 }
 
-ReactExpandableGrid.propTypes = {
+RecruiterGrid.propTypes = {
   gridData: PropTypes.string,
   cellSize: PropTypes.number,
   cellMargin: PropTypes.number,
@@ -341,7 +340,7 @@ ReactExpandableGrid.propTypes = {
   show_mobile_style_from_width: PropTypes.number
 }
 
-ReactExpandableGrid.defaultProps = {
+RecruiterGrid.defaultProps = {
   
   cellSize: 240,
   cellMargin: 15,
@@ -361,4 +360,4 @@ ReactExpandableGrid.defaultProps = {
   show_mobile_style_from_width: 600,
 }
 
-export default ReactExpandableGrid;
+export default RecruiterGrid;
