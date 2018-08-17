@@ -42,14 +42,10 @@ app.use((req, res, next) => {
 });
 
 
-
-
-
   // Passport middleware
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 
 // If not Heroku Serve up static assets 
@@ -74,21 +70,13 @@ conn.once('open', function () {
   // Init our stream
   gfs = Grid(conn.db, mongoose.mongo)
   gfs.collection('uploads')
+  // Routes
+  require('./routes/user')(app, gfs)
 })
 
 
-// Routes
-require('./routes/user')(app)
-
 // Start server
 app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
-
-
-
-
-
-
-
 
 
 

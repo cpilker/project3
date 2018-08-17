@@ -1,1 +1,1 @@
-export {default} from './RecruiterTile';
+export {default} from './RecruiterGrid';
