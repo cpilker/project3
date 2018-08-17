@@ -3,7 +3,6 @@ import "./Home.css";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 
-
 class Home extends Component {
   state = {
     default: "Hello World"
@@ -13,7 +12,10 @@ class Home extends Component {
     return (
       <div className="Home">
         <header>
-          <Nav />
+          <Nav
+          sitepath={this.props.sitepath}
+          loggedIn={this.props.loggedIn}
+           />
 
             <section className="parallax-1 intro-text">
               <div className="flex-container">

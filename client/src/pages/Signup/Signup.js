@@ -94,7 +94,10 @@ class Signup extends Component {
     } else {
       return (
       <div>
-        <Nav />
+        <Nav
+          sitepath={this.props.sitepath}
+          loggedIn={this.props.loggedIn}
+        />
         <div id="signupbody">
             <section className="profile-container">
               <div className="profile-content">

@@ -88,7 +88,18 @@ module.exports = function(app, gfs) {
 
 
 
+
+//////////////// User routes ////////////////
+
+  app.get("/api/signout", function(req, res) {
+    console.log("Signout has been fired!");
+    console.log(req.body);
+    // req.logout();
+    res.redirect('/');
+  });
+
   //////////////// User routes ////////////////
+
  
   app.post("/api/sendmail", function(req, res) {
     console.log("Sendmail has been fired!");

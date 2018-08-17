@@ -66,7 +66,10 @@ class Signin extends Component {
     } else {
         return (
         <div>
-          <Nav />
+          <Nav
+            sitepath={this.props.sitepath}
+            loggedIn={this.props.loggedIn}
+          />
 
           <div className="signin-container">
             <div className="signin-content">
