@@ -4,10 +4,7 @@ const
   User = require('../models/user'),
   mongojs = require('mongojs'),
   multer = require('multer'),
-  Grid = require('gridfs-stream'),
   GridFsStorage = require('multer-gridfs-storage'),
-  mongoose = require("mongoose"),
-  db = require("../models"),
   email 	= require("emailjs"),
   server 	= email.server.connect({
     user: 'hello@ryanadiaz.com',
@@ -17,53 +14,32 @@ const
     tls:  false
   });
 
-const database = mongojs('main')
 
-// Create storage engine for files/images
-const storage = new GridFsStorage({
-  url: 'mongodb://localhost/main',
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      console.log("new picture object fired")
-      console.log(req.body)
-      const fileInfo = {
-        filename: req.body.file[0],
-        bucketName: 'uploads',
-        metadata: [req.body.file[1]]
-      };
-      resolve(fileInfo);
-    });
-  }
-});
+module.exports = function(app, gfs) {
 
-let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
-mongoose.Promise = Promise;
-const upload = multer({ storage });
+  const database = mongojs('main')
 
+  // Create storage engine for files/images
+  const storage = new GridFsStorage({
+    url: 'mongodb://localhost/main',
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        console.log("new picture object fired")
+        console.log(req.body)
+        const fileInfo = {
+          filename: req.body.file[0],
+          bucketName: 'uploads',
+          metadata: [req.body.file[1]]
+        };
+        resolve(fileInfo);
+      });
+    }
+  });
 
-let gfs;
-
-//test connection
-conn.on('error', function (err) {
-    console.log('Database Error: '+ err)
-});
-
-conn.once('open', function () {
-    console.log('Mongo Connection Success!')
-    //Init our stream
-    gfs = Grid(conn.db, mongoose.mongo)
-    gfs.collection('uploads')
-})
+  const upload = multer({ storage });
 
 
-database.on('error', function(err) {
-  console.log(err)
-})
-
-
-module.exports = function(app) {
-
-/////////////// Upload image routes ///////////////
+  /////////////// Upload image routes ///////////////
 
   // @route POST /upload
   // @desc Uploads file to DB
@@ -84,31 +60,32 @@ module.exports = function(app) {
     })
   })
 
-// @route GET /image/:filename
-// @desc Display Image
-app.get('/image/:filename', (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: "No file exist"
-      });
-    }
-    // Check if image
-    if (file.contentType === 'image/jpeg' 
-    || file.contentType === 'img/png') {
-      // Read output to browser 
-      const readstream = gfs.createReadStream(file.filename);
-      readstream.pipe(res);
-    } else {
-      res.status(404).json({
-        err: 'Not an image'
-      })
-    }
+  // @route GET /image/:filename
+  // @desc Display Image
+  app.get('/image/:filename', (req, res) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+      // Check if file
+      if (!file || file.length === 0) {
+        return res.status(404).json({
+          err: "No file exist"
+        });
+      }
+      // Check if image
+      if (file.contentType === 'image/jpeg' 
+      || file.contentType === 'img/png') {
+        // Read output to browser 
+        const readstream = gfs.createReadStream(file.filename);
+        readstream.pipe(res);
+      } else {
+        res.status(404).json({
+          err: 'Not an image'
+        })
+      }
+    })
   })
-})
 
-//////////////// Upload image routes //////////////
+  //////////////// Upload image routes //////////////
+
 
 
 
@@ -120,6 +97,9 @@ app.get('/image/:filename', (req, res) => {
     // req.logout();
     res.redirect('/');
   });
+
+  //////////////// User routes ////////////////
+
  
   app.post("/api/sendmail", function(req, res) {
     console.log("Sendmail has been fired!");
@@ -293,6 +273,6 @@ app.get('/image/:filename', (req, res) => {
     });
   });
 
-/////////////////// User routes ///////////////////
+  /////////////////// User routes ///////////////////
 
 };
