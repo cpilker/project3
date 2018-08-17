@@ -113,6 +113,13 @@ app.get('/image/:filename', (req, res) => {
 
 
 //////////////// User routes ////////////////
+
+  app.get("/api/signout", function(req, res) {
+    console.log("Signout has been fired!");
+    console.log(req.body);
+    // req.logout();
+    res.redirect('/');
+  });
  
   app.post("/api/sendmail", function(req, res) {
     console.log("Sendmail has been fired!");

@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import "./Home.css";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import RecruiterTile from '../../components/RecruiterTile';
 
 class Home extends Component {
   state = {
@@ -13,7 +12,10 @@ class Home extends Component {
     return (
       <div className="Home">
         <header>
-          <Nav />
+          <Nav
+          sitepath={this.props.sitepath}
+          loggedIn={this.props.loggedIn}
+           />
 
             <section className="parallax-1 intro-text">
               <div className="flex-container">
@@ -67,7 +69,6 @@ class Home extends Component {
           </section>
         </section>
 
-        <RecruiterTile />
 
         <div className="text-center">
           <Footer />

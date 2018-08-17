@@ -200,7 +200,10 @@ class UserDashboard extends Component {
     console.log(this.state.id)
     return (
       <div className="UserDashboard container">
-      <Nav />
+      <Nav
+        sitepath={this.props.sitepath}
+        loggedIn={this.props.loggedIn}
+      />
       <div className="profile-form">
         <h3><img src="/images/army.jpg" width="150" height="150" alt="army.jpg" />{this.props.firstname}&nbsp;{this.props.lastname}</h3>
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>

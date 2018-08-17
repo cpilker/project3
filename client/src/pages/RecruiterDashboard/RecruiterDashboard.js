@@ -188,7 +188,10 @@ class RecruiterDashboard extends Component {
       <div className="RecruiterDashboard container">
             
       {/* <GridLoader /> */}
-      <Nav />
+      <Nav
+        sitepath={this.props.sitepath}
+        loggedIn={this.props.loggedIn}
+      />
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
             <div class="thumbnail" id="profile_image">
