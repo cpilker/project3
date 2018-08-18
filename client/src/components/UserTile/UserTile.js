@@ -5,10 +5,10 @@ import React, {Component} from "react";
 class UserTile extends Component {
   render () {
     let users = this.props.users;
-    console.log(users);
+    // console.log(users);
 
     function renderGrid(users, i) {
-      console.log(users.firstname)
+      // console.log(users.firstname)
       return(
         <div className=" card [ is-collapsed ]" key={i}>
           <div className="card__inner [ js-expander ]">
