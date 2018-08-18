@@ -3,11 +3,13 @@ import './UserDashboard.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import EventBrite from '../../components/Eventbrite';
+import ProfileInfo from '../../components/ProfileInfo'
 import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
 import EventBriteGrid from '../../components/Eventbrite/';
 // import API from "../../utils/API";
+
 
 
 class UserDashboard extends Component {
@@ -219,8 +221,21 @@ class UserDashboard extends Component {
         sitepath={this.props.sitepath}
         loggedIn={this.props.loggedIn}
       />
+      <ProfileInfo 
+        id={this.state.id} 
+        firstname={this.props.firstname} 
+        lastname={this.props.lastname}
+      />
       <div className="profile-form">
-        <h3><img src="/images/army.jpg" width="150" height="150" alt="army.jpg" />{this.props.firstname}&nbsp;{this.props.lastname}</h3>
+
+       
+       
+     
+       
+       
+       
+       
+       
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
         <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit</button>{this.state.statusText}
           <form id="user" name="user-dashboard">
@@ -341,34 +356,7 @@ class UserDashboard extends Component {
 
 
 
-        {/* ////////////////////     upload picture ////////////////// */}
-        <div className='container'>
-          <div className='row'>
-            <div className='col-md-6 m-auto'>
-              <h1 className='text-center display-4 my-4'>Profile Picture Upload</h1>
-              <form action="/upload" method='POST' encType='multipart/form-data'>
-                <div className='custom-file mb-3'>
-                  <input type='hidden' name='file' value={this.state.id} />
-                  <input type='hidden' name='file' value='profilePic' />
-                  <input type='file' name='file' id='file' className='custom-file-input'/>
-                  <label htmlFor='file' className='custom-file-label'>Choose File
-                  </label>
-                  <input type="hidden" name="id" value={this.state.id} />
-                </div>
-                <input type='submit' value='Save' className='btn btn-primary btn-block'/>
-                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" + this.state.id + "/profilePic"} alt=''/>
-              </form>
-              <form action={`/files/${this.state.id}?_method=DELETE`} method='POST' > 
-                <button className='btn btn-danger btn-block mt-4'>Delete</button>
-              </form>
-              <form action={`/download/${this.state.id}/profilePic?_method=GET`} method='POST' > 
-                <button className='btn btn-danger btn-block mt-4'>Download</button>
-              </form>
-              <hr/>
-            </div>
-          </div>
-        </div>
-        {/* ////////////////////     upload picture ////////////////// */}
+
 
 
 
