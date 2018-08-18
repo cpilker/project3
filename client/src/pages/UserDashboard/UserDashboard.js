@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import './UserDashboard.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import EventBrite from '../../components/Eventbrite';
-import ProfileInfo from '../../components/ProfileInfo'
+// import EventBrite from '../../components/Eventbrite';
+import ProfilePic from '../../components/ProfilePic'
 import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
@@ -52,24 +52,6 @@ class UserDashboard extends Component {
 
     // utils.gridFunction();
 
-    $.ajax({
-      url: '/upload',
-      type: 'get',
-      datatype: 'multipart/form-data',
-      data: this.state.id,
-      success: (response) => {
-        if (response.err) {
-          console.log("Error!");
-          console.log(response.err);
-          this.setState({
-            errorMessage: response.err.message
-          })
-        } else {
-          console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
-          this.props.updateUser(response) 
-        }
-      }
-    })
   }
 
 
@@ -216,25 +198,20 @@ class UserDashboard extends Component {
     console.log(this.state.id)
     return (
       <div className="UserDashboard container">
+
       <Nav
         updateUser={this.props.updateUser}
         sitepath={this.props.sitepath}
         loggedIn={this.props.loggedIn}
       />
-      <ProfileInfo 
+
+      <ProfilePic 
         id={this.state.id} 
         firstname={this.props.firstname} 
         lastname={this.props.lastname}
       />
-      <div className="profile-form">
 
-       
-       
-     
-       
-       
-       
-       
+      <div className="profile-form">
        
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
         <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit</button>{this.state.statusText}
