@@ -37,7 +37,7 @@ module.exports = function(app) {
   app.get('/usersearch', function(req, res){
     console.log(req.query)
     // console.log("recruiter city")
-    db.collection("users").find({city: req.query.city}, function(error, response) {
+    db.collection("users").find({}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
@@ -71,8 +71,8 @@ module.exports = function(app) {
 
   //Route to get the number of users Actively Searching for opportunities
   app.get('/activesearch', function(req, res){
-    console.log(req.query)
-    db.collection("users").find({skill: req.body.skill}, function(error, response) {
+    // console.log(req.query)
+    db.collection("users").find({jobSearchStatus: req.query.jobSearchStatus}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
@@ -90,7 +90,7 @@ module.exports = function(app) {
   //Route to get the number of users Open to Opportunities for job searching
   app.get('/opentoopportunities', function(req, res) {
     // console.log(req.query);
-    db.collection('users').find({skill: req.query.skill}, function(error, response) {
+    db.collection('users').find({jobSearchStatus: req.query.jobSearchStatus}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
@@ -107,8 +107,8 @@ module.exports = function(app) {
 
   //Route to get the number of users that are NOT searching for a job
   app.get('/notsearching', function(req, res){
-    console.log(req.query.skill);
-    db.collection("users").find({skill: req.query.skill}, function(error, response) {
+    console.log(req.query.jobSearchStatus);
+    db.collection("users").find({jobSearchStatus: req.query.jobSearchStatus}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
