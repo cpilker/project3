@@ -188,6 +188,7 @@ class RecruiterDashboard extends Component {
       <Nav
         sitepath={this.props.sitepath}
         loggedIn={this.props.loggedIn}
+        updateUser={this.props.updateUser}
       />
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
