@@ -62,9 +62,9 @@ module.exports = function(app, gfs) {
  
   // @route DELETE /files/:id
   // @desc  Delete file
-  app.delete('/files/:id', (req, res) => {
+  app.delete('/files/:filename/:purpose', (req, res) => {
     console.log("picture delete fired")
-    gfs.remove({filename: req.params.id, root: 'uploads'}, (err, gridStore) => {
+    gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, gridStore) => {
       if (err) {
         return res.status(404).json({err: err})
       } 
@@ -75,7 +75,7 @@ module.exports = function(app, gfs) {
   // @route GET /image/:filename
   // @desc Display Image
   app.get('/image/:filename/:purpose', (req, res) => {
-    console.log(req.params)
+  
     gfs.files.findOne({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, file) => {
       // Check if file
       if (!file || file.length === 0) {
@@ -314,7 +314,7 @@ module.exports = function(app, gfs) {
     //   db.collection("users").findOneandUpdate({email})
     //   console.log("complete")
     //   res.send(savedRecruiter.newSavedRecruiter + " added to db")
-    // })
+    })
 
   app.get("/api/signout", function(req, res) {
     console.log("Signout has been fired!");

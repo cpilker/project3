@@ -358,7 +358,7 @@ class UserDashboard extends Component {
                 <input type='submit' value='Save' className='btn btn-primary btn-block'/>
                 <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" + this.state.id + "/profilePic"} alt=''/>
               </form>
-              <form action={`/files/${this.state.id}?_method=DELETE`} method='POST' > 
+              <form action={`/files/${this.state.id}/profilePic?_method=DELETE`} method='POST' > 
                 <button className='btn btn-danger btn-block mt-4'>Delete</button>
               </form>
               <form action={`/download/${this.state.id}/profilePic?_method=GET`} method='POST' > 
