@@ -2,8 +2,7 @@
 // Requiring our dependencies 
 const
   passport = require('passport'),
-  User = require('../../models/user'),
-  Recruiter = require('../../models/recruiter'),
+  Recruiter = require('../models/recruiter'),
   mongoose = require('mongoose'),
   mongojs = require('mongojs'),
   Grid = require('gridfs-stream'),
@@ -11,7 +10,6 @@ const
   multer = require('multer'),
   crypto = require('crypto'),
   GridFsStorage = require('multer-gridfs-storage'),
-  db = require("../models")
   email 	= require("emailjs")
   server 	= email.server.connect({
     user: 'hello@ryanadiaz.com',

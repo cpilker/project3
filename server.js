@@ -72,7 +72,15 @@ conn.once('open', function () {
   gfs.collection('uploads')
   // Routes
   require('./routes/user')(app, gfs)
+  require('./routes/recruiter')(app, gfs)
 })
+
+app.get("/api/signout", function(req, res) {
+  console.log("Signout has been fired!");
+  // console.log(req);
+  req.logout();
+  res.redirect('/');
+});
 
 
 // Start server
