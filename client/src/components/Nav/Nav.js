@@ -9,31 +9,31 @@ class Nav extends Component {
     default: "Hello World",
   }
 
-  // signout = this.signout.bind(this);
+  signout = this.signout.bind(this);
 
-  // signout() {
-  //   console.log("Signout get has been fired!");
-  //   $.ajax({
-  //     url: '/api/signout',
-  //     type: 'get',
-  //     success: (response) => {
-  //       // this.clearForm()
-  //       if (response.err) {
-  //         console.log("Signout Error!");
-  //         console.log(response.err);
-  //         this.setState({
-  //           errorMessage: response.err.message
-  //         })
-  //       } else {
-  //         console.log("Signout response:");
-  //         console.log(response);
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     }
-  //   })
-  // }
+  signout() {
+    console.log("Signout ajax get has been fired!");
+    $.ajax({
+      url: '/api/signout',
+      type: 'get',
+      success: (response) => {
+        // this.clearForm()
+        if (response.err) {
+          console.log("Signout Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Signout completed, now redirecting to index");
+          window.location.assign('/')
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
 
   render () {
       console.log(this.props.sitepath)
@@ -57,7 +57,7 @@ class Nav extends Component {
                 </li>
               {this.props.sitepath == "user-dashboard" && this.props.loggedIn ? 
                 <li className="nav-item">
-                  <a className="logout-link" href="/api/signout">Sign Out</a>
+                  <button className="logout-link" onClick={this.signout}>Sign Out</button>
                 </li>
                 :
                 <li className="nav-item">
