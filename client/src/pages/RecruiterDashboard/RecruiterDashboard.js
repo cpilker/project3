@@ -63,6 +63,29 @@ class RecruiterDashboard extends Component {
     })
   }
 
+  saveUser(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/saveuser',
+      type: 'post',
+      data: {
+        saveUser: this.val()
+      },
+      success: (response) => {
+        if (response.err) {
+          console.log("error on saving User");
+          console.log(response.err);
+        }
+        else {
+          console.log("Success at saving this user!!");
+          console.log(response)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
   //This is to pull users that are actively searching for a job
   pullActiveSearch(e) {
     $.ajax({
@@ -178,6 +201,8 @@ class RecruiterDashboard extends Component {
       }
     })
   }
+  
+  
 
   render () {
     return (

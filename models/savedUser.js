@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var savedUser = new Schema({
   // `savedUser` is of type String
+  // savedName: String,
   savedUser: String,
 });
 

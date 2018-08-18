@@ -6,6 +6,7 @@ const
   multer = require('multer'),
   GridFsStorage = require('multer-gridfs-storage'),
   email 	= require("emailjs"),
+  savedRecruiter = require("../models/savedRecruiter"),
   server 	= email.server.connect({
     user: 'hello@ryanadiaz.com',
     password: 'testpassword',
@@ -14,6 +15,14 @@ const
     tls:  false
   });
 
+// Database configuration
+const databaseUrl = "main";
+
+// Hook mongojs configuration to the db variable
+const db = mongojs(databaseUrl);
+db.on("error", function(error) {
+    console.log("Database Error:", error);
+});  
 
 module.exports = function(app, gfs) {
 
@@ -271,6 +280,21 @@ module.exports = function(app, gfs) {
         })
       }
     });
+  });
+
+  // Save the recruiter to your database
+  app.post('/saverecruiter', function(req, res){
+    const newSavedRecruiter = new savedRecruiter(req.body)
+    console.log(newSavedRecruiter)
+
+    //NEED TO PASS IN THE the USER ID to UPDATE THE USER THAT IT HAS A SAVED USER
+    // db.collection("savedRecruiters").insert(newSavedRecruiter).then(function(savedRecruiter) {
+    //   //WE NEED CODE TO PUSH IT TO THE LOGGED IN RECRUITER BY ID AND PUSH TO THAT ARRAY
+      
+    //   db.collection("users").findOneandUpdate({email})
+    //   console.log("complete")
+    //   res.send(savedRecruiter.newSavedRecruiter + " added to db")
+    // })
   });
 
   /////////////////// User routes ///////////////////
