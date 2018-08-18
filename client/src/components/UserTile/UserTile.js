@@ -40,30 +40,6 @@ class UserTile extends Component {
   
     }
 
-    function saveUser(e) {
-      // e.preventDefault();
-      $.ajax({
-        url: '/saveuser',
-        type: 'POST',
-        data: {
-          savedUser: $('#user-tile-id').attr('data-type')
-        },
-        success: (response) => {
-          if (response.err) {
-            console.log("error on saving User");
-            console.log(response.err);
-          }
-          else {
-            console.log("Success at saving this user!!");
-            console.log(response)
-          }
-        },
-        error: (err) => {
-          console.log(err)
-        }
-      })
-  
-    }
 
     function renderGrid(users, i) {
       // console.log(users.firstname)

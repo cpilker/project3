@@ -18,15 +18,15 @@ class EventBriteGrid extends Component {
 
   handleResize () {
     if (this.state.expanded) {
-      var target = document.getElementById(this.state.selected_id)
+      let target = document.getElementById(this.state.selected_id)
       this.renderExpandedDetail(target)
     }
     this.makeItMobileFriendly()
   }
 
   makeItMobileFriendly () {
-    var leftPanel = document.getElementById('ExpandedDetail_leftEB')
-    var rightPanel = document.getElementById('ExpandedDetail_rightEB')
+    let leftPanel = document.getElementById('ExpandedDetail_leftEB')
+    let rightPanel = document.getElementById('ExpandedDetail_rightEB')
     if (window.innerWidth < this.props.show_mobile_style_from_width) {
       leftPanel.style.display = 'none'
       rightPanel.style.width = '100%'
@@ -44,18 +44,18 @@ class EventBriteGrid extends Component {
   componentWillUnmount () { }
 
   renderExpandedDetail (target) {
-    var thisId = target.id
-    var thisIdNumber = parseInt(thisId.substring(10))
-    var detail = document.getElementById('expandedDetailEB')
-    var ol = target.parentNode
-    var lengthOfList = parseInt(ol.childNodes.length)
-    var startingIndex = thisIdNumber + 1
+    let thisId = target.id
+    let thisIdNumber = parseInt(thisId, 10) // <----MATT MADE AN EDIT HERE FROM "thisId.substring(10)" to "thisId, 10"
+    let detail = document.getElementById('expandedDetailEB')
+    let ol = target.parentNode
+    let lengthOfList = parseInt(ol.childNodes.length, ol.childNodes.length) // <----MATT MADE AN EDIT HERE FROM "ol.childNodes.length" to "(ol.childNodes.length, ol.childNodes.length)"
+    let startingIndex = thisIdNumber + 1
 
-    var insertedFlag = false
+    let insertedFlag = false
 
     ol.insertBefore(detail, ol.childNodes[lengthOfList])
 
-    for (var i = startingIndex; i < lengthOfList; i++) {
+    for (let i = startingIndex; i < lengthOfList; i++) {
       if (ol.childNodes[i].className === 'SingleGridCell') {
         if (ol.childNodes[i].offsetTop !== ol.childNodes[thisIdNumber].offsetTop) {
           ol.childNodes[i].insertAdjacentElement('beforebegin', detail)
@@ -69,8 +69,8 @@ class EventBriteGrid extends Component {
       ol.childNodes[lengthOfList - 1].insertAdjacentElement('afterend', detail)
     }
 
-    var cell = document.getElementById(thisId)
-    var arrow = document.getElementById('selected_arrowEB')
+    let cell = document.getElementById(thisId)
+    let arrow = document.getElementById('selected_arrowEB')
     cell.append(arrow)
     arrow.style.display = 'block'
   }
@@ -80,16 +80,16 @@ class EventBriteGrid extends Component {
       expanded: false,
       selected_id: ''
     }, function afterStateChange () {
-      var detail = document.getElementById('expandedDetailEB')
+      let detail = document.getElementById('expandedDetailEB')
       detail.style.display = 'none'
-      var arrow = document.getElementById('selected_arrowEB')
+      let arrow = document.getElementById('selected_arrowEB')
       arrow.style.display = 'none'
     })
   }
 
   handleCellClick (event) {
-    var target = event.target
-    var thisIdNumber = parseInt(event.target.id.substring(10))
+    let target = event.target
+    let thisIdNumber = parseInt(event.target.id, 10) // <----MATT MADE AN EDIT HERE FROM "event.target.id.substring(10)" to "event.target.id, 10"
 
     if (this.state.expanded) { // expanded == true
       if (this.state.selected_id === event.target.id) { // Clicking on already opened detail
@@ -100,13 +100,13 @@ class EventBriteGrid extends Component {
           expanded: true,
           selected_id: event.target.id
         }, function afterStateChange () {
-          var detail = document.getElementById('expandedDetailEB')
-          var description = document.getElementById('ExpandedDetailDescriptionEB')
-          var title = document.getElementById('ExpandedDetailTitleEB')
-          var img = document.getElementById('ExpandedDetailImageEB')
-          var DescriptionLink = document.getElementById('ExpandedDetailDescriptionLinkEB')
-          var ImageLink = document.getElementById('ExpandedDetailImageLinkEB')
-          var parsedData = JSON.parse(this.props.gridData)
+          let detail = document.getElementById('expandedDetailEB')
+          let description = document.getElementById('ExpandedDetailDescriptionEB')
+          let title = document.getElementById('ExpandedDetailTitleEB')
+          let img = document.getElementById('ExpandedDetailImageEB')
+          let DescriptionLink = document.getElementById('ExpandedDetailDescriptionLinkEB')
+          let ImageLink = document.getElementById('ExpandedDetailImageLinkEB')
+          let parsedData = JSON.parse(this.props.gridData)
           description.innerHTML = `${parsedData[thisIdNumber]['date']}<br/><br/>${parsedData[thisIdNumber]['description']}<br/><br/>${parsedData[thisIdNumber]['location']}<br/>${parsedData[thisIdNumber]['street']}<br/>${parsedData[thisIdNumber]['city']}, ${parsedData[thisIdNumber]['state']} ${parsedData[thisIdNumber]['zipcode']}`
           title.innerHTML = parsedData[thisIdNumber]['event']
           img.src = parsedData[thisIdNumber]['image']
@@ -123,13 +123,13 @@ class EventBriteGrid extends Component {
         expanded: true,
         selected_id: event.target.id
       }, function afterStateChange () {
-        var detail = document.getElementById('expandedDetailEB')
-        var description = document.getElementById('ExpandedDetailDescriptionEB')
-        var title = document.getElementById('ExpandedDetailTitleEB')
-        var img = document.getElementById('ExpandedDetailImageEB')
-        var DescriptionLink = document.getElementById('ExpandedDetailDescriptionLinkEB')
-        var ImageLink = document.getElementById('ExpandedDetailImageLinkEB')
-        var parsedData = JSON.parse(this.props.gridData)
+        let detail = document.getElementById('expandedDetailEB')
+        let description = document.getElementById('ExpandedDetailDescriptionEB')
+        let title = document.getElementById('ExpandedDetailTitleEB')
+        let img = document.getElementById('ExpandedDetailImageEB')
+        let DescriptionLink = document.getElementById('ExpandedDetailDescriptionLinkEB')
+        let ImageLink = document.getElementById('ExpandedDetailImageLinkEB')
+        let parsedData = JSON.parse(this.props.gridData)
         description.innerHTML = `${parsedData[thisIdNumber]['date']}<br/><br/>${parsedData[thisIdNumber]['description']}<br/><br/>${parsedData[thisIdNumber]['location']}<br/>${parsedData[thisIdNumber]['street']}<br/>${parsedData[thisIdNumber]['city']}, ${parsedData[thisIdNumber]['state']} ${parsedData[thisIdNumber]['zipcode']}`
         title.innerHTML = parsedData[thisIdNumber]['event']
         img.src = parsedData[thisIdNumber]['image']
@@ -144,18 +144,18 @@ class EventBriteGrid extends Component {
   }
 
   generateGrid () {
-    var grid = []
-    var idCounter = -1 // To help simplify mapping to object array indices. For example, <li> with 0th id corresponds to 0th child of <ol>
-    var gridData = JSON.parse(this.props.gridData)
+    let grid = []
+    let idCounter = -1 // To help simplify mapping to object array indices. For example, <li> with 0th id corresponds to 0th child of <ol>
+    let gridData = JSON.parse(this.props.gridData)
     console.log(gridData);
 
-    for (var i in gridData) {
+    for (let i in gridData) {
       idCounter = idCounter + 1
-      var thisUniqueKey = 'grid_cell_' + idCounter.toString()
+      let thisUniqueKey = 'grid_cell_' + idCounter.toString()
       grid.push(<SingleGridCell handleCellClick={this.handleCellClick.bind(this)} key={thisUniqueKey} id={thisUniqueKey} cellMargin={this.props.cellMargin} SingleGridCellData={gridData[i]} cellSize={this.props.cellSize} />)
     }
 
-    var cssforExpandedDetail = {
+    let cssforExpandedDetail = {
       backgroundColor: this.props.detailBackgroundColor,
       height: this.props.detailHeight,
       display: 'none',
@@ -165,7 +165,7 @@ class EventBriteGrid extends Component {
       borderRadius: '10px'
     }
 
-    var cssforExpandedDetailImage = {
+    let cssforExpandedDetailImage = {
       display: 'inline-block',
       maxWidth: this.props.ExpandedDetail_image_size,
       width: '100%',
@@ -179,14 +179,14 @@ class EventBriteGrid extends Component {
       margin: 'auto'
     }
 
-    var cssforExpandedDetailTitle = {
+    let cssforExpandedDetailTitle = {
       backgroundColor: this.props.ExpandedDetail_title_bgColor,
       width: '100%',
       height: 'auto',
       marginBottom: '15px'
     }
 
-    var cssforExpandedDetailDescription = {
+    let cssforExpandedDetailDescription = {
       backgroundColor: this.props.ExpandedDetail_description_bgColor,
       color: this.props.ExpandedDetail_font_color,
       width: 'auto%',
@@ -196,21 +196,21 @@ class EventBriteGrid extends Component {
       textAlign: 'justify'
     }
 
-    var cssforExpandedDetailLeft = {
+    let cssforExpandedDetailLeft = {
       width: this.props.ExpandedDetail_left_width,
       height: '100%',
       float: 'left',
       position: 'relative'
     }
 
-    var cssforExpandedDetailRight = {
+    let cssforExpandedDetailRight = {
       width: this.props.ExpandedDetail_right_width,
       height: '100%',
       float: 'right',
       position: 'relative'
     }
 
-    var cssForDescriptionLink = {
+    let cssForDescriptionLink = {
       textDecoration: 'none',
       position: 'relative',
       float: 'bottom',
@@ -218,11 +218,11 @@ class EventBriteGrid extends Component {
       cursor: 'pointer'
     }
 
-    var cssForImageLink = {
+    let cssForImageLink = {
       cursor: 'pointer'
     }
 
-    var cssforExpandedDetailClose = {
+    let cssforExpandedDetailClose = {
       textDecoration: 'none',
       position: 'relative',
       float: 'right',
@@ -249,7 +249,7 @@ class EventBriteGrid extends Component {
       }
     }
 
-    var closeX
+    let closeX
     if (this.props.ExpandedDetail_closeX_bool) {
       closeX = 'X'
     } else {
@@ -260,7 +260,7 @@ class EventBriteGrid extends Component {
       <li style={cssforExpandedDetail} key='expandedDetailEB' id='expandedDetailEB'>
         <div id='ExpandedDetail_leftEB'className='ExpandedDetail_left' style={cssforExpandedDetailLeft}>
           <a id='ExpandedDetailImageLinkEB' style={cssForImageLink}>
-            <img id='ExpandedDetailImageEB' className='ExpandedDetailImage' style={cssforExpandedDetailImage} />
+            <img id='ExpandedDetailImageEB' className='ExpandedDetailImage' style={cssforExpandedDetailImage} alt='' />
           </a>
         </div>
         <div id='ExpandedDetail_rightEB' className='ExpandedDetail_right' style={cssforExpandedDetailRight}>
@@ -276,27 +276,27 @@ class EventBriteGrid extends Component {
   }
 
   render () {
-    var rows = this.generateGrid()
+    let rows = this.generateGrid()
 
-    var cssForGridDetailExpansion = {
+    let cssForGridDetailExpansion = {
       width: '100%',
       position: 'relative'
     }
 
-    var cssForGridList = {
+    let cssForGridList = {
       listStyle: 'none',
       padding: 0,
       display: 'inline-block'
     }
 
-    var cssForTheGridHolder = {
+    let cssForTheGridHolder = {
       width: '100%',
       backgroundColor: this.props.bgColor,
       margin: 0,
       textAlign: 'center'
     }
 
-    var cssForSelectedArrow = {
+    let cssForSelectedArrow = {
       width: 0,
       height: 0,
       borderLeft: '20px solid transparent',

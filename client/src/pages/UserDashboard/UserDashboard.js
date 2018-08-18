@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import './UserDashboard.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import EventBrite from '../../components/Eventbrite';
+// import EventBrite from '../../components/Eventbrite';
 import ProfileInfo from '../../components/ProfileInfo'
 import events from './eventbrite.json';
 import $ from "jquery";
@@ -226,15 +226,8 @@ class UserDashboard extends Component {
         firstname={this.props.firstname} 
         lastname={this.props.lastname}
       />
-      <div className="profile-form">
 
-       
-       
-     
-       
-       
-       
-       
+      <div className="profile-form">
        
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
         <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit</button>{this.state.statusText}
