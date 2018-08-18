@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Redirect } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import styles from './Signin.css';
 import $ from 'jquery';
 
 class Signin extends Component {
@@ -73,8 +74,8 @@ class Signin extends Component {
           />
 
           <div className="signin-container">
-            <div className="signin-content">
-                <img id="logo-signin" src="/images/Logo-top-left.gif" alt="Logo-top-left.gif" />
+            <div className={styles.signinContent}>
+                <img className={styles.logoSignin} src="/images/Logo-top-left.gif" alt="Logo-top-left.gif" />
               <div className="flex-item">
                 <div className="container">
                   <div className="frontbox">
