@@ -75,13 +75,6 @@ conn.once('open', function () {
   require('./routes/recruiter')(app, gfs)
 })
 
-app.get("/api/signout", function(req, res) {
-  console.log("Signout has been fired!");
-  // console.log(req);
-  req.logout();
-  res.redirect('/');
-});
-
 
 // Start server
 app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
