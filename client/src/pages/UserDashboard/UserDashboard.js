@@ -73,7 +73,21 @@ class UserDashboard extends Component {
 
   componentDidMount(){
     // utils.gridFunction();
-
+    this.setState({
+      id: null,
+      username: null,
+      firstname: null,
+      lastname: null,
+      address1: null,
+      address2: null,
+      city: null,
+      state: null,
+      zip: null,
+      loggedIn: false,
+      created: null,
+      lastLogin: null,
+    })
+    
     $.ajax({
       url: '/api/getuser',
       type: 'get',
@@ -201,6 +215,7 @@ class UserDashboard extends Component {
     return (
       <div className="UserDashboard container">
       <Nav
+        updateUser={this.props.updateUser}
         sitepath={this.props.sitepath}
         loggedIn={this.props.loggedIn}
       />

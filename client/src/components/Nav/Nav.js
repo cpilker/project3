@@ -25,6 +25,19 @@ class Nav extends Component {
             errorMessage: response.err.message
           })
         } else {
+          this.props.updateUser({
+            id: null,
+            username: null,
+            firstname: null,
+            lastname: null,
+            address1: null,
+            address2: null,
+            city: null,
+            state: null,
+            zip: null,
+            loggedIn: false,
+            created: null
+          })   // Stores logged in status in App.js
           console.log("Signout completed, now redirecting to index");
           window.location.assign('/')
         }
@@ -46,16 +59,16 @@ class Nav extends Component {
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul className="navbar-nav">
-              {this.props.sitepath == "index" ? 
+              {this.props.sitepath === "index" ? 
                 <li className="nav-item">
-                  <a className="main-menu-links" href="#two">How It Works</a>
+                  <a className="main-menu-links" href="#what-we-do-title">How It Works</a>
                 </li>
                 : ""
               }
                 <li className="nav-item">
                   <a className="main-menu-links" href="" data-toggle="modal" data-target="#myModal" id="showContactModal">Contact Us</a>
                 </li>
-              {this.props.sitepath == "user-dashboard" && this.props.loggedIn ? 
+              {this.props.sitepath === "user-dashboard" && this.props.loggedIn ? 
                 <li className="nav-item">
                   <button className="logout-link" onClick={this.signout}>Sign Out</button>
                 </li>
