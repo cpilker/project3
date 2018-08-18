@@ -25,11 +25,14 @@ module.exports = function(app, gfs) {
     file: (req, file) => {
       return new Promise((resolve, reject) => {
         console.log("new picture object fired")
+        console.log('//////////////////')
         console.log(req.body)
+        console.log(file.originalname)
+        console.log('//////////////////')
         const fileInfo = {
-          filename: req.body.file[0],
+          filename: file.originalname,
           bucketName: 'uploads',
-          metadata: [req.body.file[1]]
+          metadata: {filename:req.body.file[0], purpose: req.body.file[1]}
         };
         resolve(fileInfo);
       });
@@ -62,8 +65,9 @@ module.exports = function(app, gfs) {
 
   // @route GET /image/:filename
   // @desc Display Image
-  app.get('/image/:filename', (req, res) => {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+  app.get('/image/:filename/:purpose', (req, res) => {
+    console.log(req.params)
+    gfs.files.findOne({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, file) => {
       // Check if file
       if (!file || file.length === 0) {
         return res.status(404).json({
@@ -82,6 +86,31 @@ module.exports = function(app, gfs) {
         })
       }
     })
+  })
+
+  app.get('/download/:filename/:purpose', (req, res) => {
+    console.log('download fired')
+    gfs.files.findOne({metadata: {filename: req.params.filename, purpose: req.params.purpose}}, function (err, file) {
+      
+      if (err) {
+          return res.status(400).send(err);
+      }
+      else if (!file) {
+          return res.status(404).send('Error on the database looking for the file.');
+      }
+
+      res.set('Content-Type', file.contentType);
+      res.set('Content-Disposition', 'attachment; filename="' + file.filename + '"');
+
+      let readstream = gfs.createReadStream({
+        filename: file.filename
+      });
+
+      readstream.on("error", function(err) { 
+          res.end();
+      });
+      readstream.pipe(res);
+    });
   })
 
   //////////////// Upload image routes //////////////
