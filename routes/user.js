@@ -64,7 +64,7 @@ module.exports = function(app, gfs) {
   // @desc  Delete file
   app.delete('/files/:filename/:purpose', (req, res) => {
     console.log("picture delete fired")
-    gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, gridStore) => {
+    gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
       if (err) {
         return res.status(404).json({err: err})
       } 
@@ -89,6 +89,7 @@ module.exports = function(app, gfs) {
         // Read output to browser 
         const readstream = gfs.createReadStream(file.filename);
         readstream.pipe(res);
+        
       } else {
         res.status(404).json({
           err: 'Not an image'
@@ -241,6 +242,7 @@ module.exports = function(app, gfs) {
 
   // Search for all recruiters by a given city
   app.get('/recruitersearch', function(req, res){
+    console.log('/recruitersearch route fired')
     database.collection("recruiters").find({city1: req.query.city}, function(error, response) {
       // Throw any errors to the console
       if (error) {
