@@ -10,8 +10,6 @@ class UserTile extends Component {
   }
 
 
-  
-  
   render () {
     let users = this.props.users;
     // console.log(users);
@@ -24,6 +22,31 @@ class UserTile extends Component {
         type: 'post',
         data: {
           saveUser: $('#user-tile-id').attr('data-type')
+        },
+        success: (response) => {
+          if (response.err) {
+            console.log("error on saving User");
+            console.log(response.err);
+          }
+          else {
+            console.log("Success at saving this user!!");
+            console.log(response)
+          }
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
+  
+    }
+
+    function saveUser(e) {
+      // e.preventDefault();
+      $.ajax({
+        url: '/saveuser',
+        type: 'POST',
+        data: {
+          savedUser: $('#user-tile-id').attr('data-type')
         },
         success: (response) => {
           if (response.err) {

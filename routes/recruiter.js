@@ -7,6 +7,7 @@ const
   mongojs = require('mongojs'),
   Grid = require('gridfs-stream'),
   path = require('path'),
+  savedUser = require("../models/savedUser")
   multer = require('multer'),
   crypto = require('crypto'),
   GridFsStorage = require('multer-gridfs-storage'),
@@ -30,8 +31,6 @@ db.on("error", function(error) {
   
 
 module.exports = function(app) {
-
-
 
   //Search for users by a given city [this is not for the data as a whole]
   app.get('/usersearch', function(req, res){
@@ -122,4 +121,15 @@ module.exports = function(app) {
     })
   })
 
-};
+  app.post('/saveuser', function(req, res){
+    const newSavedUser = new savedUser(req.body)
+    console.log(newSavedUser)
+    console.log(req.body.savedUser)
+
+    db.collection("savedUsers").insert(newSavedUser).then(function(savedUser) {
+      //WE NEED CODE TO PUSH IT TO THE LOGGED IN RECRUITER BY ID AND PUSH TO THAT ARRAY
+      console.log("complete")
+      res.send(savedUser.newSavedUser + " added to db")
+    })
+  });
+}

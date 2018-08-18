@@ -4,6 +4,7 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import SingleGridCell from './SingleGridCell';
 import './RecruiterGrid.css';
+import $ from "jquery";
 
 class RecruiterGrid extends Component {
 
@@ -87,6 +88,32 @@ class RecruiterGrid extends Component {
     })
   }
 
+  //SAVE RECRUITER AJAX...need to sett <a> to the id of the recruiter
+  saveRecruiter(e) {
+    e.preventDefault()
+    console.log(e.target.getAttribute('value'))
+    $.ajax({
+      url: '/saverecruiter',
+      type: 'POST',
+      data: {
+        savedRecruiter: e.target.getAttribute('value'),
+      },
+      success: (response) => {
+        if (response.err) {
+          console.log("error on saving User");
+          console.log(response.err);
+        }
+        else {
+          console.log("Success at saving this user!!");
+          console.log(response)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
   handleCellClick (event) {
     var target = event.target
     var thisIdNumber = parseInt(event.target.id.substring(10))
@@ -106,12 +133,14 @@ class RecruiterGrid extends Component {
           var img = document.getElementById('ExpandedDetailImage')
           var DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
           var ImageLink = document.getElementById('ExpandedDetailImageLink')
+          var saveRecruiter = document.getElementById('saveRecruiter')
           var parsedData = JSON.parse(this.props.gridData)
           description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}<br/>${parsedData[thisIdNumber]['unit1']}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
           title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
           img.src = parsedData[thisIdNumber]['img']
           DescriptionLink.href = parsedData[thisIdNumber]['website']
           ImageLink.href = parsedData[thisIdNumber]['website']
+          saveRecruiter.value =parsedData[thisIdNumber]['_id']
 
           this.renderExpandedDetail(target)
 
@@ -126,6 +155,7 @@ class RecruiterGrid extends Component {
         var detail = document.getElementById('expandedDetail')
         var description = document.getElementById('ExpandedDetailDescription')
         var title = document.getElementById('ExpandedDetailTitle')
+        var savedRecruiter = document.getElementById('saveRecruiter')
         var img = document.getElementById('ExpandedDetailImage')
         var DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
         var ImageLink = document.getElementById('ExpandedDetailImageLink')
@@ -135,6 +165,7 @@ class RecruiterGrid extends Component {
         img.src = parsedData[thisIdNumber]['img']
         DescriptionLink.href = parsedData[thisIdNumber]['website']
         ImageLink.href = parsedData[thisIdNumber]['website']
+        savedRecruiter.value = parsedData[thisIdNumber]['_id']
 
         this.renderExpandedDetail(target)
 
@@ -147,12 +178,17 @@ class RecruiterGrid extends Component {
     var grid = []
     var idCounter = -1 // To help simplify mapping to object array indices. For example, <li> with 0th id corresponds to 0th child of <ol>
     var gridData = JSON.parse(this.props.gridData)
-    console.log(gridData);
+    // console.log('.............................')
+    // console.log(gridData[i]._id)
+    // console.log('.............................')
+
 
     for (var i in gridData) {
+      console.log('show me ids')
+      console.log(gridData[i]._id)
       idCounter = idCounter + 1
       var thisUniqueKey = 'grid_cell_' + idCounter.toString()
-      grid.push(<SingleGridCell handleCellClick={this.handleCellClick.bind(this)} key={thisUniqueKey} id={thisUniqueKey} cellMargin={this.props.cellMargin} SingleGridCellData={gridData[i]} cellSize={this.props.cellSize} />)
+      grid.push(<SingleGridCell handleCellClick={this.handleCellClick.bind(this)} key={thisUniqueKey} id={thisUniqueKey} cellMargin={this.props.cellMargin} recruiterId={gridData[i]._id} SingleGridCellData={gridData[i]} cellSize={this.props.cellSize} />)
     }
 
     var cssforExpandedDetail = {
@@ -268,6 +304,7 @@ class RecruiterGrid extends Component {
           <div id='ExpandedDetailTitle' className='ExpandedDetailTitle' style={cssforExpandedDetailTitle}> Title </div>
           <div id='ExpandedDetailDescription' className='ExpandedDetailDescription' style={cssforExpandedDetailDescription}> Some Description</div>
           <a id='ExpandedDetailDescriptionLink' style={cssForDescriptionLink}> → Link </a>
+          <button id='saveRecruiter' value={this.props.recruiterId} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}>saveRecruiter</button>
         </div>
       </li>
      )

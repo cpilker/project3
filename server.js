@@ -37,7 +37,7 @@ app.use(session({
 }));
 app.use((req, res, next) => {
   // Used to display the current session info, debugging purposes only!
-  console.log('req.session:', req.session);
+  // console.log('req.session:', req.session);
   return next();
 });
 
