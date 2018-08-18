@@ -99,16 +99,6 @@ module.exports = function(app, gfs) {
 
 
 //////////////// User routes ////////////////
-
-  app.get("/api/signout", function(req, res) {
-    console.log("Signout has been fired!");
-    console.log(req);
-    req.logout();
-    res.redirect('/');
-  });
-
-  //////////////// User routes ////////////////
-
  
   app.post("/api/sendmail", function(req, res) {
     console.log("Sendmail has been fired!");
@@ -282,6 +272,7 @@ module.exports = function(app, gfs) {
     });
   });
 
+
   // Save the recruiter to your database
   app.post('/saverecruiter', function(req, res){
     const newSavedRecruiter = new savedRecruiter(req.body)
@@ -295,6 +286,15 @@ module.exports = function(app, gfs) {
     //   console.log("complete")
     //   res.send(savedRecruiter.newSavedRecruiter + " added to db")
     // })
+
+  app.get("/api/signout", function(req, res) {
+    console.log("Signout has been fired!");
+    console.log(req.session.passport);
+    req.session.destroy(function (err) {
+      console.log(req.session.passport);
+    });
+    
+
   });
 
   /////////////////// User routes ///////////////////

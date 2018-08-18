@@ -69,6 +69,7 @@ class Signin extends Component {
           <Nav
             sitepath={this.props.sitepath}
             loggedIn={this.props.loggedIn}
+            updateUser={this.props.updateUser}
           />
 
           <div className="signin-container">
