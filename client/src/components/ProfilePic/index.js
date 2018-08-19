@@ -1,1 +1,1 @@
-export {default} from './ProfileInfo';
+export {default} from './ProfilePic';
