@@ -98,6 +98,8 @@ module.exports = function(app, gfs) {
     })
   })
 
+  // @route GET /image/:filename
+  // @desc Download Image
   app.get('/download/:filename/:purpose', (req, res) => {
     console.log('download fired')
     gfs.files.findOne({metadata: {filename: req.params.filename, purpose: req.params.purpose}}, function (err, file) {
