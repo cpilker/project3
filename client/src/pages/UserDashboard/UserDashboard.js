@@ -4,6 +4,7 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 // import EventBrite from '../../components/Eventbrite';
 import ProfilePic from '../../components/ProfilePic'
+import Resume from '../../components/Resume'
 import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
@@ -206,6 +207,11 @@ class UserDashboard extends Component {
       />
 
       <ProfilePic 
+        id={this.state.id} 
+        firstname={this.props.firstname} 
+        lastname={this.props.lastname}
+      />
+      <Resume
         id={this.state.id} 
         firstname={this.props.firstname} 
         lastname={this.props.lastname}
