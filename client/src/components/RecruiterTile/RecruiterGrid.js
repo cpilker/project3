@@ -338,7 +338,7 @@ class RecruiterGrid extends Component {
       height: 0,
       borderLeft: '20px solid transparent',
       borderRight: '20px solid transparent',
-      borderBottom: '32px solid' + this.props.detailBackgroundColor,
+      borderBottom: '31px solid' + this.props.detailBackgroundColor,
       marginTop: this.props.cellSize,
       marginLeft: this.props.cellSize / 2 - 20,
       display: 'none',

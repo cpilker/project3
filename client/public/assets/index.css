@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Din Regular';
+    src: url('./fonts/din-regular-alternate.eot') format('eot'),
+         url('./fonts/din-regular-alternate.ttf') format('ttf'),
+         url('./fonts/din-regular-alternate.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Din Bold';
+    src: url('./fonts/DIN-Alternate-Bold.eot') format('eot'),
+         url('./fonts/DIN-Alternate-Bold.ttf') format('ttf'),
+         url('./fonts/DIN-Alternate-Bold.woff') format('woff'),
+         url('./fonts/DIN-Alternate-Bold.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Acier';
+    src: url('./fonts/acier.woff2') format('woff2'),
+        url('./fonts/acier.woff') format('woff'),
+        url('./fonts/acier.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }

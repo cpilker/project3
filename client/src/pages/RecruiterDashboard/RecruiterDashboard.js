@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-// import GridLoader from '../../utils/GridLoader';
 import $ from "jquery";
 import UserTile from "../../components/UserTile/UserTile";
 // import * as utils from '../../utils/grid';
