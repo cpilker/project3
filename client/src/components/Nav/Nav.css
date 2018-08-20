@@ -1,3 +1,7 @@
+.navbar {
+  height: 60px;
+}
+
 .navbar-brand {
   font-family: sans-serif;
 }
@@ -8,6 +12,10 @@
 
 .navbar-brand {
   font-family: sans-serif;
+  line-height: 30px;
+  vertical-align: bottom;
+  font-size: 1.5em;
+  font-family: Arial, Helvetica, sans-serif
 }
 
 .nav-item {
@@ -31,22 +39,24 @@
 }
 
 .main-menu-links, .login-link {
-  padding-right: 2rem;
-  padding-left: 2rem;
-  font-family: Segoe UI Symbol;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  font-family: Acier;
+  letter-spacing: 1px;
 }
 
 .main-menu-links:hover {
-  color: orangered;
+  color: rgb(253, 130, 85);
   text-decoration: none;
 }
 
 .login-link {
-  color: orangered;
+  color: rgb(253, 130, 85);
   padding: 5px;
   padding-left: 25px;
   padding-right: 25px;
   border: 2px solid rgb(253, 130, 85);
+  border-radius: 10px;
 }
 
 .login-link:hover {
@@ -57,7 +67,7 @@
 
 #log-in-header {
   right: 5%;
-  color: orangered;
+  color: rgb(253, 130, 85);
   padding: 5px;
   padding-left: 25px;
   padding-right: 25px;

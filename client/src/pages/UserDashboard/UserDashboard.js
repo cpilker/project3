@@ -8,7 +8,7 @@ import Resume from '../../components/Resume'
 import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
-import EventBriteGrid from '../../components/Eventbrite/';
+import EventBriteGrid2 from '../../components/Eventbrite/EventBriteGrid2';
 // import API from "../../utils/API";
 
 
@@ -361,7 +361,10 @@ class UserDashboard extends Component {
 
       <hr/>
 
-      <EventBriteGrid gridData={JSON.stringify(this.state.events)}/>
+      <div className="row" id="events">
+        <h2 id='accordion-header'>Events in Your Area!</h2>
+        <EventBriteGrid2 gridData={this.state.events} />
+      </div>
 
       {/* <div className="row" id='events'>
         <h2 id='accordion-header'>Events in Your Area!</h2>
@@ -393,6 +396,7 @@ class UserDashboard extends Component {
       <Footer />
     </div>
     </div>
+
 
     )
   }
