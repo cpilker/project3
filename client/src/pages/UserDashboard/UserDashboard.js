@@ -73,7 +73,7 @@ class UserDashboard extends Component {
       lastLogin: null,
     })
     
-    $.ajax({
+    $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
       url: '/api/getuser',
       type: 'get',
       success: (response) => {

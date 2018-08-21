@@ -1,11 +1,43 @@
 :local(.logoSignup) {
-    width: 95px;
-    height: 95px;
-    border-radius: 14px;
-    padding: 10px;
-    border: 2px solid rgb(253, 130, 85);
-    margin-right: 5px;
+  width: 95px;
+  height: 95px;
+  border-radius: 14px;
+  padding: 10px;
+  border: 2px solid rgb(253, 130, 85);
+  margin-right: 5px;
   }
+
+:local(.signupContent) {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: 100%;
+}
+
+:local(.signupContainer) {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#signupbody {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  max-width: 895px;
+  width: 100%;
+}
+
+.profile-container {
+  width: 100%;
+}
+
+#submit-btn-container {
+  justify-content: center;
+}
 
 
 
