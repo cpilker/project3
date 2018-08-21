@@ -220,7 +220,7 @@ class UserDashboard extends Component {
       <div className="profile-form">
        
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
-        <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit</button>{this.state.statusText}
+        <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit Profile</button>{this.state.statusText}
           <form id="user" name="user-dashboard">
             <div className="form-row">
               <div className="form-group col-md-6">
@@ -235,11 +235,11 @@ class UserDashboard extends Component {
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="newfirstname">{this.props.firstname}</label>
-                <input type="text" className="form-control hidden" id="newfirstname" placeholder="Jane" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required autoComplete="given-name" />
+                <input type="text" className="form-control hidden" id="newfirstname" placeholder="First name" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required autoComplete="given-name" />
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="newlastname">{this.props.lastname}</label>
-                <input type="text" className="form-control hidden" id="newlastname" placeholder="Smith" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required autoComplete="family-name" />
+                <input type="text" className="form-control hidden" id="newlastname" placeholder="Last name" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required autoComplete="family-name" />
               </div>
             </div>
             <div className="form-group">  
