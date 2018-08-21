@@ -50,15 +50,6 @@ class ProfilePic extends Component {
           <input type='submit' value='TESTING' className='' onClick={this.uploadPicture}/>
       </form>
 
-      <form action={`/upload/${this.props.id}/profilePic`} method='POST' encType='multipart/form-data'>
-        <div className='custom-file mb-3'>
-          <input type='file' name='file' id='file' className='custom-file-input'/>
-          <label htmlFor='file' className='custom-file-label'> </label>
-        </div>
-        <input type='submit' value='Save' className=''/>
-      </form>
-
-
       <form action={`/files/${this.props.id}/profilePic?_method=DELETE`} method='POST' > 
         <input type='submit' value='Delete' className=''/>
       </form>
