@@ -78,7 +78,7 @@ class UserDashboard extends Component {
           console.log("@route GET /api/getuser response:");
           console.log(response);
           this.props.updateUser(response)   // Stores current user in App.js
-          // this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
           this.setState(response)   // Set state to current user
         }
       },

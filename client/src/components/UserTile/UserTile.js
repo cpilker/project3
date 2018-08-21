@@ -13,7 +13,7 @@ import './UserTile.css';
 
 const RowDetail = ({ row }) => (
   <div>
-    <div className="userTileImgDiv"><img src='https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg' className="userTileImgStyle" alt=''/></div>
+    <div className="userTileImgDiv"><img src={row.image} className="userTileImgStyle" alt=''/></div>
     <div className="userTileDetailStyle">
       <p><b>{row.name}</b><br/>
       {row.email}</p>
@@ -53,6 +53,8 @@ export default class userTileBriteGrid2 extends React.PureComponent {
     temp['email'] = data[i]['username'];
     temp['address'] = data[i]['address1'];
     temp['zipcode'] = data[i]['zip'];
+    temp['id'] = data[i]['_id'];
+    temp['image'] = `./images/${data[i]['_id']}/profilePic`
     rows.push(temp);
   }
   return rows
