@@ -14,7 +14,8 @@ const
   app = express(),
   MongoStore = require('connect-mongo')(session),
   PORT = process.env.PORT || 3000,
-  User = require('./models/user');
+  User = require('./models/user'),
+  Recruiter = require('./models/recruiter');
 
 
 // Connect to the Mongo DB
@@ -43,7 +44,8 @@ app.use((req, res, next) => {
 
 
   // Passport middleware
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use('user', new LocalStrategy(User.authenticate()));
+passport.use('recruiter', new LocalStrategy(Recruiter.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

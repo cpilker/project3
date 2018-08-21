@@ -24,7 +24,7 @@ class UserDashboard extends Component {
     city: null,
     state: null,
     zip: null,
-    loggedIn: false,
+    // loggedIn: false,
     created: null,
     lastLogin: null,
     newusername: undefined,
@@ -59,7 +59,7 @@ class UserDashboard extends Component {
       city: null,
       state: null,
       zip: null,
-      loggedIn: false,
+      // loggedIn: false,
       created: null,
       lastLogin: null,
     })
@@ -78,7 +78,7 @@ class UserDashboard extends Component {
           console.log("@route GET /api/getuser response:");
           console.log(response);
           this.props.updateUser(response)   // Stores current user in App.js
-          this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          // this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
           this.setState(response)   // Set state to current user
         }
       },
@@ -182,7 +182,7 @@ class UserDashboard extends Component {
       $(this).toggleClass('hidden');
     });
     $('#editprofile').text(function(i, text){   // Toggle Edit button text
-      return text === "Edit" ? "Cancel" : "Edit";
+      return text === "Edit Profile" ? "Cancel" : "Edit Profile";
     });
   }
 
@@ -217,7 +217,7 @@ class UserDashboard extends Component {
         lastname={this.props.lastname}
       />
 
-      <div className="profile-form paperCard">
+      <div className="profile-form paperCard row">
        
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
         <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit Profile</button>{this.state.statusText}
@@ -333,12 +333,9 @@ class UserDashboard extends Component {
               <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
             </div>
           </form>
-          <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
-              <input type='submit' value='Save' className='btn btn-primary btn-block'/>
-            </form>
             </div>
 
-
+{/* Recruiter Grid */}
         <hr />
         <div className="row paperCard" id='agencyInfo'>
           <h2>&nbsp;Your Local Recruiters</h2>

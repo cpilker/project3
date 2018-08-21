@@ -2,6 +2,7 @@
 const
   passport = require('passport'),
   User = require('../models/user'),
+  Recruiter = require('../models/recruiter'),
   mongojs = require('mongojs'),
   mongoose = require('mongoose'),
   multer = require('multer'),
@@ -271,25 +272,42 @@ module.exports = function(app, gfs) {
     });
   })
 
-  // Sign in route
-  app.post('/api/signin', function(req, res, next) {
-    console.log("Signin post incoming...");
-    next();
-  },
-    passport.authenticate('local'),(req, res) => {
-      res.json({
-        id:req.user._id,
-        username: req.user.username,
-        firstname: req.user.firstname,
-        lastname: req.user.lastname,
-        address1: req.user.address1,
-        address2: req.user.address2,
-        city: req.user.city,
-        state: req.user.state,
-        zip: req.user.zip,
-        created: req.user.created,
-        lastLogin: req.user.lastLogin
-      });
+  // Sign in route, detects if user or recruiter and redirects accordingly
+  app.post('/api/signin',
+    passport.authenticate(['user', 'recruiter']),function(req, res) {
+      console.log("Passport has fired!");
+      console.log(req.user)
+      if (req.user.prefix === 'R') {
+        res.json({
+          id: req.user._id,
+          username: req.user.username,
+          firstname: req.user.firstname,
+          lastname: req.user.lastname,
+          address1: req.user.address1,
+          address2: req.user.address2,
+          city: req.user.city,
+          state: req.user.state,
+          zip: req.user.zip,
+          created: req.user.created,
+          lastLogin: req.user.lastLogin,
+          redirectTo: '/recruiterdashboard'
+        });
+      } else {
+        res.json({
+          id: req.user._id,
+          username: req.user.username,
+          firstname: req.user.firstname,
+          lastname: req.user.lastname,
+          address1: req.user.address1,
+          address2: req.user.address2,
+          city: req.user.city,
+          state: req.user.state,
+          zip: req.user.zip,
+          created: req.user.created,
+          lastLogin: req.user.lastLogin,
+          redirectTo: '/user-dashboard'
+        });
+      }
     }
   )
   

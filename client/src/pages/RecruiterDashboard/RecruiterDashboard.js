@@ -5,7 +5,7 @@ import $ from "jquery";
 import UserTile from "../../components/UserTile/UserTile";
 import PopulationTile from '../../components/PopulationTile/PopulationTile';
 import * as utils from '../../utils/grid';
-
+import './RecruiterDashboard.css';
 
 
 
@@ -205,7 +205,7 @@ class RecruiterDashboard extends Component {
   render () {
     return (
 
-      <div className="RecruiterDashboard container">
+      <div className="RecruiterDashboard">
             
       {/* <GridLoader /> */}
       <Nav
@@ -213,6 +213,7 @@ class RecruiterDashboard extends Component {
         loggedIn={this.props.loggedIn}
         updateUser={this.props.updateUser}
       />
+      <div className="container">
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
             <div class="thumbnail" id="profile_image">
@@ -344,24 +345,27 @@ class RecruiterDashboard extends Component {
       
 
       <hr />
-      <div class="row" id='agency_info'>
-      <h2 id='accordion-header'>Recruits</h2>
+      <div class="row paperCard" id='agency_info'>
+      <h2 id='accordion-header'>&nbsp;Recruits</h2>
 
-      <div class='col-xs-12 agency-locate'>
+      {/* <div class='col-xs-12 agency-locate'> */}
       <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Find all</button>
-        <form class="form-row">
+        {/* <form class="form-row"> */}
           {/* <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" /> */}
           {/* <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Search</button> */}
-        </form>
+        {/* </form>
       </div>
       </div>
       <div class="col-xs-12 recruiter-return-info" display-toggle="none">
         <div class="accordion" id="recruiterAccordion"></div>	
+      </div> */}
+      
+      {this.state.users !== '' ?
+        <UserTile users={this.state.users}/>
+        : ""
+      }
       </div>
-      
-      <UserTile users={this.state.users}/>
-
-      
+      </div>
 
       <Footer />
     </div>

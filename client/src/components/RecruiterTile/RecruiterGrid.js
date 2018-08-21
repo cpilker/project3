@@ -91,7 +91,7 @@ class RecruiterGrid extends Component {
   //SAVE RECRUITER AJAX...need to sett <a> to the id of the recruiter
   saveRecruiter(e) {
     e.preventDefault()
-    console.log(this)
+
     console.log(e.target.getAttribute('data-value'))
     $.ajax({
       url: '/saverecruiter',
@@ -99,6 +99,7 @@ class RecruiterGrid extends Component {
       data: {
         savedRecruiter: e.target.getAttribute('data-value'),
         userID: e.target.getAttribute('data-id')
+
       },
       success: (response) => {
         if (response.err) {
@@ -142,7 +143,9 @@ class RecruiterGrid extends Component {
           img.src = parsedData[thisIdNumber]['img']
           DescriptionLink.href = parsedData[thisIdNumber]['website']
           ImageLink.href = parsedData[thisIdNumber]['website']
+
           savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id'])
+
 
           this.renderExpandedDetail(target)
 
@@ -167,7 +170,9 @@ class RecruiterGrid extends Component {
         img.src = parsedData[thisIdNumber]['img']
         DescriptionLink.href = parsedData[thisIdNumber]['website']
         ImageLink.href = parsedData[thisIdNumber]['website']
-        savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id'])
+
+        savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id']);
+
 
         this.renderExpandedDetail(target)
 

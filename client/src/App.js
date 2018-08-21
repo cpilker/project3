@@ -24,9 +24,9 @@ class App extends Component {
 
   updateUser = this.updateUser.bind(this);
 
-  componentDidMount() {
-    // this.getUser();
-  }
+  // componentDidMount() {
+  //   // this.getUser();
+  // }
 
   updateUser (userObject) {
     console.log("Update user has fired!");
@@ -35,14 +35,15 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.loggedIn);
     return (
       <Router>
           <Switch>
             <Route exact path='/' render={() =>
               <Home
-              sitepath={"index"}
-              loggedIn={this.state.loggedIn}
-              /> } 
+                sitepath={"index"}
+                loggedIn={this.state.loggedIn}
+              />} 
             />
             <Route path='/signin' render={() =>
               <Signin

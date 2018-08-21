@@ -6,6 +6,10 @@
   background: #fafafa;
 }
 
+.profile-form {
+  display: block;
+}
+
 #profileImage{
   border-radius: 50%;
 }
