@@ -91,12 +91,14 @@ class RecruiterGrid extends Component {
   //SAVE RECRUITER AJAX...need to sett <a> to the id of the recruiter
   saveRecruiter(e) {
     e.preventDefault()
-    console.log(e.target.getAttribute('value'))
+    console.log(this)
+    console.log(e.target.getAttribute('data-value'))
     $.ajax({
       url: '/saverecruiter',
       type: 'POST',
       data: {
-        savedRecruiter: e.target.getAttribute('value'),
+        savedRecruiter: e.target.getAttribute('data-value'),
+        userID: e.target.getAttribute('data-id')
       },
       success: (response) => {
         if (response.err) {
@@ -133,14 +135,14 @@ class RecruiterGrid extends Component {
           let img = document.getElementById('ExpandedDetailImage')
           let DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
           let ImageLink = document.getElementById('ExpandedDetailImageLink')
-          let saveRecruiter = document.getElementById('saveRecruiter')
+          let savedRecruiter = document.getElementById('saveRecruiter')
           let parsedData = JSON.parse(this.props.gridData)
           description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}<br/>${parsedData[thisIdNumber]['unit1']}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
           title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
           img.src = parsedData[thisIdNumber]['img']
           DescriptionLink.href = parsedData[thisIdNumber]['website']
           ImageLink.href = parsedData[thisIdNumber]['website']
-          saveRecruiter.value =parsedData[thisIdNumber]['_id']
+          savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id'])
 
           this.renderExpandedDetail(target)
 
@@ -165,7 +167,7 @@ class RecruiterGrid extends Component {
         img.src = parsedData[thisIdNumber]['img']
         DescriptionLink.href = parsedData[thisIdNumber]['website']
         ImageLink.href = parsedData[thisIdNumber]['website']
-        savedRecruiter.value = parsedData[thisIdNumber]['_id']
+        savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id'])
 
         this.renderExpandedDetail(target)
 
@@ -304,7 +306,7 @@ class RecruiterGrid extends Component {
           <div id='ExpandedDetailTitle' className='ExpandedDetailTitle' style={cssforExpandedDetailTitle}> Title </div>
           <div id='ExpandedDetailDescription' className='ExpandedDetailDescription' style={cssforExpandedDetailDescription}> Some Description</div>
           <a id='ExpandedDetailDescriptionLink' style={cssForDescriptionLink}> Website </a>
-          <a id="saveRecruiter" value={this.props.recruiterId} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}> Save Recruiter </a>
+          <a id="saveRecruiter" data-id={this.props.userID} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}> Save Recruiter </a>
         </div>
       </li>
      )

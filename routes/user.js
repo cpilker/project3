@@ -3,6 +3,7 @@ const
   passport = require('passport'),
   User = require('../models/user'),
   mongojs = require('mongojs'),
+  mongoose = require('mongoose'),
   multer = require('multer'),
   GridFsStorage = require('multer-gridfs-storage'),
   email 	= require("emailjs"),
@@ -321,8 +322,18 @@ module.exports = function(app, gfs) {
 
   // Save the recruiter to your database
   app.post('/saverecruiter', function(req, res){
-    const newSavedRecruiter = new savedRecruiter(req.body)
-    console.log(newSavedRecruiter)
+    // const newSavedRecruiter = new savedRecruiter(req.body)
+    let x = req.body.savedRecruiter
+
+    console.log(req.body.savedRecruiter)
+    console.log(req.body.userID)
+
+    db.collection("savedRecruiters").insert({savedRecruiter: x}),
+ 
+    db.collection("users").find({_id: req.body.userID},{$set: {'savedRecruiter': x}},
+      console.log("newly added recruiter: " + x) 
+    ),
+    res.send(x + " added to the db")
 
     //NEED TO PASS IN THE the USER ID to UPDATE THE USER THAT IT HAS A SAVED USER
     // db.collection("savedRecruiters").insert(newSavedRecruiter).then(function(savedRecruiter) {
