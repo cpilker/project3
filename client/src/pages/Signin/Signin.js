@@ -2,7 +2,7 @@ import React, {Component, Fragment} from "react";
 import { Redirect } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import styles from './signin.css';
+import styles from './Signin.css';
 import $ from 'jquery';
 
 class Signin extends Component {
