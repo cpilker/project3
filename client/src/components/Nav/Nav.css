@@ -38,11 +38,12 @@
   margin-right: 5px;
 }
 
-.main-menu-links, .login-link {
+.main-menu-links, .login-link, .logout-link {
   margin-right: 2rem;
   margin-left: 2rem;
   font-family: Acier;
   letter-spacing: 1px;
+  background: white;
 }
 
 .main-menu-links:hover {
@@ -50,16 +51,15 @@
   text-decoration: none;
 }
 
-.login-link {
+.login-link, .logout-link {
   color: rgb(253, 130, 85);
   padding: 5px;
   padding-left: 25px;
   padding-right: 25px;
   border: 2px solid rgb(253, 130, 85);
-  border-radius: 10px;
 }
 
-.login-link:hover {
+.login-link:hover, .logout-link:hover {
   text-decoration: none;
   color: white;
   background: rgb(253, 130, 85);
