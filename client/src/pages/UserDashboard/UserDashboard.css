@@ -15,7 +15,6 @@
 #orangeBarDogDiv {
   position: absolute;
   z-index: 1;
-  width: 100%;
   left: 23%;
   clip: rect(0px,175px,100px,0px);
 }
