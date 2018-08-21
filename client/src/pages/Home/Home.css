@@ -1,5 +1,6 @@
-.fontOrange {
-  color: rgb(253, 130, 85);
+body {
+  background: white;
+  padding-top: 60px;
 }
 
 .error-text {
@@ -7,13 +8,20 @@
   font-style: italic;
 }
 
-.mediumBold {
-  font-weight: 500;
+.fontOrange {
+  color: rgb(253, 130, 85);
 }
 
-body {
-  background: white;
-  padding-top: 60px;
+.horizontal-orange {
+  border-bottom: 2px solid rgb(253, 130, 85);
+  width: 100%;
+  animation-name: horizontal-orange;
+  animation-duration: 2s;
+  margin: 0 auto;
+}
+
+.mediumBold {
+  font-weight: 500;
 }
 
 #what-we-do {
@@ -26,14 +34,6 @@ body {
 #what-we-do-title, #what-we-do-message {
   align-self: center;
   margin-bottom: 15px;
-}
-
-.horizontal-orange {
-  border-bottom: 2px solid rgb(253, 130, 85);
-  width: 100%;
-  animation-name: horizontal-orange;
-  animation-duration: 2s;
-  margin: 0 auto;
 }
 
 #what-we-do-message {

@@ -1,0 +1,61 @@
+.eventBriteGrid {
+  width: 100%;
+  border-radius: 10px;
+  border: 0;
+  overflow: hidden;
+}
+
+/* Column widths */
+
+.eventBriteGrid table tr th,
+.eventBriteGrid table tr td {
+  width: 100%;
+  border-color: rgb(167,183,198);
+}
+
+.eventBriteGrid table tr th:nth-child(2),
+.eventBriteGrid table tr td:nth-child(2) {
+  width: 35%;
+
+}
+
+.eventBriteGrid table tr th:nth-child(3),
+.eventBriteGrid table tr td:nth-child(3) {
+  width: 45%;
+
+}
+
+.eventBriteGrid table tr th:nth-child(4),
+.eventBriteGrid table tr td:nth-child(4) {
+  width: 20%;
+}
+
+/* Row coloring */
+.eventBriteGrid table thead tr {
+  background: rgb(167,183,198);
+  border: 0;
+}
+
+.eventBriteGrid table tbody tr {
+  background: rgb(207,218,227);
+}
+
+.eventBriteGrid .table-active {
+  background: rgb(234,241,246);
+}
+
+.eventImgDiv {
+  display: table-cell;
+  width: 25%;
+  vertical-align: middle;
+}
+
+.eventImgStyle {
+  width: 90%;
+}
+
+.eventDetailStyle {
+  display: table-cell;
+  width: 75%;
+  vertical-align: middle;
+}

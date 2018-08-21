@@ -6,10 +6,6 @@
   font-family: sans-serif;
 }
 
-.nav-item {
-  outline: none;
-}
-
 .navbar-brand {
   font-family: sans-serif;
   line-height: 30px;
@@ -26,6 +22,7 @@
 .nav-item:focus, .nav-item:active, a:focus, a:active {
   outline: 0;
   border: none;
+  outline-style: none;
   -moz-outline-style: none;
 }
 
@@ -41,7 +38,9 @@
 .main-menu-links, .login-link, .logout-link {
   margin-right: 2rem;
   margin-left: 2rem;
-  font-family: Segoe UI Symbol;
+  font-family: 'Acier';
+  color: rgb(83,116,147);
+  letter-spacing: 1px;
   background: white;
 }
 
@@ -56,6 +55,7 @@
   padding-left: 25px;
   padding-right: 25px;
   border: 2px solid rgb(253, 130, 85);
+  border-radius: 10px;
 }
 
 .login-link:hover, .logout-link:hover {

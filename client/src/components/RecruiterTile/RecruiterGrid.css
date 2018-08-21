@@ -22,7 +22,6 @@
 
 /* Text/Description for the expanded detail */
 .ExpandedDetailDescription {
-	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	color: #333;
 }
@@ -62,16 +61,23 @@
 
 /* unvisited link */
 #ExpandedDetailDescriptionLink {
-    color: #008ed7;
-    border: 2px solid #008ed7;
+    color: rgb(253, 130, 85);
+    border: 2px solid rgb(253, 130, 85);
+    background: #fff;
+    font-family: 'Din Bold';
+    border-radius: 10px;
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    margin-right: 20px;
 }
 
 #saveRecruiter {
-    color: #008ed7;
-    border: 2px solid #008ed7;
+    color: rgb(253, 130, 85);
+    border: 2px solid rgb(253, 130, 85);
+    background: #fff;
+    font-family: 'Din Bold';
+    border-radius: 10px;
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
@@ -85,13 +91,24 @@
 /* mouse over link */
 #ExpandedDetailDescriptionLink:hover {
     color: white;
-    background: #008ed7;
+    background: rgb(253, 130, 85);
+}
+
+#saveRecruiter:hover {
+    color: white;
+    background: rgb(253, 130, 85);
 }
 
 /* selected link */
 #ExpandedDetailDescriptionLink:active {
     color: white;
-    background: #008ed7;
+    background: rgb(253, 130, 85);
+    border: 2px solid white;
+}
+
+#saveRecruiter:active {
+    color: white;
+    background: rgb(253, 130, 85);
     border: 2px solid white;
 }
 
@@ -104,8 +121,3 @@
         opacity: 1;
     }
 }
-
-/* .SingleGridCell:hover {
-	-webkit-transform: scale(1.05);
-	transform: scale(1.05);
-} */
