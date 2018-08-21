@@ -13,9 +13,9 @@ class Home extends Component {
       <Fragment>
         <header>
           <Nav
-          sitepath={this.props.sitepath}
-          loggedIn={this.props.loggedIn}
-           />
+            sitepath={this.props.sitepath}
+            loggedIn={this.props.loggedIn}
+          />
 
             <section className="parallax-1 intro-text">
               <div className="flex-container">

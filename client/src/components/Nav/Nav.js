@@ -66,7 +66,7 @@ class Nav extends Component {
                 <li className="nav-item">
                   <a className="main-menu-links" href="" data-toggle="modal" data-target="#myModal" id="showContactModal">Contact Us</a>
                 </li>
-              {this.props.sitepath === "user-dashboard" && this.props.loggedIn ? 
+              {this.props.loggedIn ? 
                 <li className="nav-item">
                   <a className="logout-link" href="#" onClick={this.signout}>Sign Out</a>
                 </li>

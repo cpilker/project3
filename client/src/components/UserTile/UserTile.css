@@ -1,0 +1,94 @@
+.userTileGrid {
+  width: 100%;
+  border-radius: 10px;
+  border: 0;
+  overflow: hidden;
+}
+
+/* Column widths */
+
+.userTileGrid table tr th,
+.userTileGrid table tr td {
+  width: 100%;
+  border-color: rgb(167,183,198);
+}
+
+.userTileGrid table tr th:nth-child(2),
+.userTileGrid table tr td:nth-child(2) {
+  width: 75%;
+
+}
+
+.userTileGrid table tr th:nth-child(3),
+.userTileGrid table tr td:nth-child(3) {
+  width: 15%;
+
+}
+
+.userTileGrid table tr th:nth-child(4),
+.userTileGrid table tr td:nth-child(4) {
+  width: 10%;
+}
+
+/* Row coloring */
+.userTileGrid table thead tr {
+  background: rgb(167,183,198);
+  border: 0;
+}
+
+.userTileGrid table tbody tr {
+  background: rgb(207,218,227);
+}
+
+.userTileGrid .table-active {
+  background: rgb(234,241,246);
+}
+
+/* Base grid styling */
+
+.userTileImgDiv {
+  display: table-cell;
+  width: 25%;
+  vertical-align: middle;
+}
+
+.userTileImgStyle {
+  width: 90%;
+}
+
+.userTileDetailStyle {
+  display: table-cell;
+  width: 75%;
+  vertical-align: middle;
+}
+
+@media only screen and (max-width : 415px) {
+  .userTileImgDiv {
+    display: none;
+  }
+  .userTileDetailStyle {
+    width: 100%;
+    display: block;
+  }
+
+  .userTileGrid table {
+    min-width: 100% !important;
+  }
+
+  .userTileGrid table tr th:nth-child(2),
+  .userTileGrid table tr td:nth-child(2) {
+    width: 100%;
+
+  }
+
+  .userTileGrid table tr th:nth-child(3),
+  .userTileGrid table tr td:nth-child(3) {
+    display: none;
+
+  }
+
+  .userTileGrid table tr th:nth-child(4),
+  .userTileGrid table tr td:nth-child(4) {
+    display: none;
+  }
+} 
