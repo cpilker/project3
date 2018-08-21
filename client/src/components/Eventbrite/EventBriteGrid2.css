@@ -44,6 +44,8 @@
   background: rgb(234,241,246);
 }
 
+/* Base grid styling */
+
 .eventImgDiv {
   display: table-cell;
   width: 25%;
@@ -59,3 +61,34 @@
   width: 75%;
   vertical-align: middle;
 }
+
+@media only screen and (max-width : 415px) {
+  .eventImgDiv {
+    display: none;
+  }
+  .eventDetailStyle {
+    width: 100%;
+    display: block;
+  }
+
+  .eventBriteGrid table {
+    min-width: 100% !important;
+  }
+
+  .eventBriteGrid table tr th:nth-child(2),
+  .eventBriteGrid table tr td:nth-child(2) {
+    width: 100%;
+
+  }
+
+  .eventBriteGrid table tr th:nth-child(3),
+  .eventBriteGrid table tr td:nth-child(3) {
+    display: none;
+
+  }
+
+  .eventBriteGrid table tr th:nth-child(4),
+  .eventBriteGrid table tr td:nth-child(4) {
+    display: none;
+  }
+} 

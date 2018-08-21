@@ -10,7 +10,7 @@
   border-radius: 50%;
 }
 
-/* Orange Bar */
+/************* Orange Bar *************/
 
 #orangeBarDogDiv {
   position: absolute;
@@ -50,7 +50,7 @@
   top: 115px;
 }
 
-/* Recruiter search */
+/************* Recruiter search *************/
 
 #agencyLocate {
   margin-left: 20px;
@@ -65,3 +65,68 @@
   margin-left: 20px;
 }
 
+/************* Media queries *************/
+
+@media only screen and (max-width : 770px) {
+  #agencyLocate {
+    margin-left: 10px;
+    width: 100%
+  }
+
+  #agencyLocate form input {
+    width: 80%;
+  }
+} 
+
+@media only screen and (max-width : 700px) {
+  #orangeBarDogDiv {
+    left: 10%;
+
+  }
+
+  #dashboardTitle {
+    left: calc(10% + 175px);
+    font-size: 1.8em;
+  }
+} 
+
+@media only screen and (max-width : 522px) {
+  #orangeBarDogDiv {
+    left: 0;
+  }
+
+  #dashboardTitle {
+    left: 175px;
+    font-size: 1.8em;
+  }
+
+  #agencyLocate {
+    margin-left: 10px;
+    width: 100%
+  }
+
+  #agencyLocate form input {
+    width: 60%;
+  }
+} 
+
+@media only screen and (max-width : 380px) {
+  #orangeBarDogDiv {
+    left: 0;
+    clip: rect(0px,120px,75px,0px);
+  }
+
+  #orangeBarDogImg {
+    width: 120px;
+  }
+
+  #orangeBar {
+    height: 75px;
+  }
+
+  #dashboardTitle {
+    left: 120px;
+    top: 100px;
+    font-size: 1.5em;
+  }
+} 

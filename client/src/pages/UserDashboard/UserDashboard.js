@@ -217,7 +217,7 @@ class UserDashboard extends Component {
         lastname={this.props.lastname}
       />
 
-      <div className="profile-form">
+      <div className="profile-form paperCard">
        
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
         <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit Profile</button>{this.state.statusText}
