@@ -41,8 +41,7 @@
 .main-menu-links, .login-link, .logout-link {
   margin-right: 2rem;
   margin-left: 2rem;
-  font-family: Acier;
-  letter-spacing: 1px;
+  font-family: Segoe UI Symbol;
   background: white;
 }
 
