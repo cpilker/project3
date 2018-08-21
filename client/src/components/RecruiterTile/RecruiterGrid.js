@@ -46,10 +46,10 @@ class RecruiterGrid extends Component {
 
   renderExpandedDetail (target) {
     let thisId = target.id
-    let thisIdNumber = parseInt(thisId, 10)
+    let thisIdNumber = parseInt(thisId.substring(10)) 
     let detail = document.getElementById('expandedDetail')
     let ol = target.parentNode
-    let lengthOfList = parseInt(ol.childNodes.length, ol.childNodes.length)
+    let lengthOfList = parseInt(ol.childNodes.length)  
     let startingIndex = thisIdNumber + 1
 
     let insertedFlag = false
@@ -116,7 +116,7 @@ class RecruiterGrid extends Component {
 
   handleCellClick (event) {
     let target = event.target
-    let thisIdNumber = parseInt(event.target.id, 10)
+    let thisIdNumber = parseInt(event.target.id.substring(10)) 
 
     if (this.state.expanded) { // expanded == true
       if (this.state.selected_id === event.target.id) { // Clicking on already opened detail

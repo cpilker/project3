@@ -2,7 +2,7 @@ import React, {Component, Fragment} from "react";
 import { Redirect } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import styles from './Signup.css';
+import styles from './signup.css';
 import $ from 'jquery';
 
 class Signup extends Component {
