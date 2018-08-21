@@ -336,11 +336,7 @@ class UserDashboard extends Component {
           <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
               <input type='submit' value='Save' className='btn btn-primary btn-block'/>
             </form>
-
-
-
-
-
+            </div>
 
 
         <hr />
@@ -395,7 +391,7 @@ class UserDashboard extends Component {
 
 
       <Footer />
-    </div>
+
     </div>
     </div>
 
