@@ -78,7 +78,7 @@ class Signin extends Component {
               <img className={styles.logoSignin} src="/images/Logo-top-left.gif" alt="Logo-top-left.gif" />
                 <div className={styles.loginBox}>
                   <h3>SIGN IN</h3>
-                  <h3>{this.state.error}</h3>
+                  <p className="error-text">{this.state.error ? `Error: ${this.state.error}` : ""}</p>
                   <form id="signin" name="signin" method="post" action="signin">
                     <input className="form-control" type="text" name="username" placeholder="EMAIL" required value={this.state.username} onChange={this.handleChange} autoComplete="email" />
                     <input className="form-control" type="password" name="password" placeholder="Password" required value={this.state.password} onChange={this.handleChange} autoComplete="current-password" />

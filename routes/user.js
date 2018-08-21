@@ -324,7 +324,9 @@ module.exports = function(app, gfs) {
     console.log("Signout has been fired!");
     console.log(req.session.passport);
     req.session.destroy(function (err) {
-      console.log(req.session.passport);
+      console.log(req.session);
+      console.log("Signout completed, now redirecting to index");
+      res.redirect('/')
     });
     
 

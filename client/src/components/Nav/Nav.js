@@ -38,8 +38,6 @@ class Nav extends Component {
             loggedIn: false,
             created: null
           })   // Stores logged in status in App.js
-          console.log("Signout completed, now redirecting to index");
-          window.location.assign('/')
         }
       },
       error: (err) => {

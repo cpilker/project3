@@ -5,7 +5,6 @@ import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import UserDashboard from './pages/UserDashboard';
 import RecruiterDashboard from './pages/RecruiterDashboard';
-import styles from './index.css';
 
 class App extends Component {
   state = {
