@@ -350,7 +350,7 @@ class UserDashboard extends Component {
           <div className="accordion" id="recruiterAccordion"></div>	
         </div> */}
         {/* <RecruiterTile recruiters={this.state.recruitersearch}/> */}
-        <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
+        <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)} userID={this.state.id}/>
         </div>
 
       <hr/>

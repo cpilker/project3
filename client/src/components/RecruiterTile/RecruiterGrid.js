@@ -91,12 +91,15 @@ class RecruiterGrid extends Component {
   //SAVE RECRUITER AJAX...need to sett <a> to the id of the recruiter
   saveRecruiter(e) {
     e.preventDefault()
+
     console.log(e.target.getAttribute('data-value'))
     $.ajax({
       url: '/saverecruiter',
       type: 'POST',
       data: {
         savedRecruiter: e.target.getAttribute('data-value'),
+        userID: e.target.getAttribute('data-id')
+
       },
       success: (response) => {
         if (response.err) {
@@ -140,7 +143,9 @@ class RecruiterGrid extends Component {
           img.src = parsedData[thisIdNumber]['img']
           DescriptionLink.href = parsedData[thisIdNumber]['website']
           ImageLink.href = parsedData[thisIdNumber]['website']
-          savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id']);
+
+          savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id'])
+
 
           this.renderExpandedDetail(target)
 
@@ -165,8 +170,9 @@ class RecruiterGrid extends Component {
         img.src = parsedData[thisIdNumber]['img']
         DescriptionLink.href = parsedData[thisIdNumber]['website']
         ImageLink.href = parsedData[thisIdNumber]['website']
+
         savedRecruiter.setAttribute('data-value', parsedData[thisIdNumber]['_id']);
-        console.log(parsedData[thisIdNumber]['_id']);
+
 
         this.renderExpandedDetail(target)
 
@@ -305,7 +311,7 @@ class RecruiterGrid extends Component {
           <div id='ExpandedDetailTitle' className='ExpandedDetailTitle' style={cssforExpandedDetailTitle}> Title </div>
           <div id='ExpandedDetailDescription' className='ExpandedDetailDescription' style={cssforExpandedDetailDescription}> Some Description</div>
           <a id='ExpandedDetailDescriptionLink' style={cssForDescriptionLink}> Website </a>
-          <a id="saveRecruiter" value={this.props.recruiterId} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}> Save Recruiter </a>
+          <a id="saveRecruiter" data-id={this.props.userID} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}> Save Recruiter </a>
         </div>
       </li>
      )
