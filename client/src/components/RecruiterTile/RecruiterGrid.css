@@ -121,3 +121,26 @@
         opacity: 1;
     }
 }
+
+/* ----------------- Media Queries ----------------- */
+
+@media only screen and (max-width : 767px) {
+    .ExpandedDetailDescription {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        font-size: 0.8em;
+    }
+    #expandedDetail {
+        /* height: 80vh !important; */
+        padding: 10px !important;
+    }
+} 
+
+@media only screen and (max-width : 440px) {
+    .ExpandedDetailDescription {
+        font-size: 0.6em;
+    }
+    #expandedDetail {
+        /* height: 80vh !important; */
+    }
+} 
