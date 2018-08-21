@@ -35,7 +35,18 @@ text-align: center;
 width: 100%;
 }
 
-.inputbox > input {
+#signin > input {
   margin: 5px;
+}
+
+#signin > a > p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+:local(.footerRow) {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 

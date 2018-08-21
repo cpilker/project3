@@ -1,7 +1,8 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import { Redirect } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import styles from './Signup.css';
 import $ from 'jquery';
 
 class Signup extends Component {
@@ -93,7 +94,7 @@ class Signup extends Component {
       return <Redirect to={{ pathname: this.state.redirectTo }} />
     } else {
       return (
-      <div>
+        <Fragment>
         <Nav
           sitepath={this.props.sitepath}
           loggedIn={this.props.loggedIn}
@@ -103,7 +104,7 @@ class Signup extends Component {
             <section className="profile-container">
               <div className="profile-content">
                 <div className="thumbnail" >
-                  <img id="logo-signin"src="./images/Logo-top-left.gif" alt="recruit hound logo"/>
+                  <img className={styles.logoSignup} src="./images/Logo-top-left.gif" alt="recruit hound logo"/>
                 </div>
         
                 <div className="profile-form">
@@ -218,8 +219,10 @@ class Signup extends Component {
             </section>
             {/* <h1>{this.state.default}</h1> */}
         </div>
-      <Footer/>
-      </div>
+        <div className={styles.footerRow}>
+          <Footer/>
+        </div>
+      </Fragment>
       )
     }
   }
