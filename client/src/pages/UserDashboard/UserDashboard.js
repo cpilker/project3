@@ -48,16 +48,7 @@ class UserDashboard extends Component {
   searchRecruiters = this.searchRecruiters.bind(this);
   // updateProfilePic = this.updateProfilePic.bind(this);
 
-
-  componentDidUpdate(){
-
-    // utils.gridFunction();
-
-  }
-
-
   componentDidMount(){
-    // utils.gridFunction();
     this.setState({
       id: null,
       username: null,
@@ -198,13 +189,22 @@ class UserDashboard extends Component {
   render () {
     console.log(this.state.id)
     return (
-      <div className="UserDashboard container">
+      <div className="UserDashboard">
 
       <Nav
         updateUser={this.props.updateUser}
         sitepath={this.props.sitepath}
         loggedIn={this.props.loggedIn}
       />
+
+      <div id="orangeBar">
+        <span id="dashboardTitle">User Dashboard</span>
+        <div id="orangeBarDogDiv">
+          <img src="./images/dog-dashboard.png" id="orangeBarDogImg"/>
+        </div>
+      </div>
+
+      <div className="container">
 
       <ProfilePic 
         id={this.state.id} 
@@ -344,25 +344,26 @@ class UserDashboard extends Component {
 
 
         <hr />
-        <div className="row" id='agency_info'>
-          <h2 id='accordion-header'>Your Local Recruiters!</h2>
-          <div className='col-xs-12 agency-locate'>
+        <div className="row paperCard" id='agencyInfo'>
+          <h2>&nbsp;Your Local Recruiters</h2>
+          <div className='col-xs-12' id="agencyLocate">
             <form className="form-row">
               <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
               <button className="btn btn-primary" id="search-button" onClick={this.searchRecruiters}>Search</button>
             </form>
           </div>
-        </div>
-        <div className="col-xs-12 recruiter-return-info" display-toggle="none">
+        
+        {/* <div className="col-xs-12 recruiter-return-info" display-toggle="none">
           <div className="accordion" id="recruiterAccordion"></div>	
-        </div>
+        </div> */}
         {/* <RecruiterTile recruiters={this.state.recruitersearch}/> */}
         <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
+        </div>
 
       <hr/>
 
-      <div className="row" id="events">
-        <h2 id='accordion-header'>Events in Your Area!</h2>
+      <div className="row paperCard" id="eventsCard">
+        <h2>&nbsp;Events in Your Area</h2>
         <EventBriteGrid2 gridData={this.state.events} />
       </div>
 
@@ -394,6 +395,7 @@ class UserDashboard extends Component {
 
 
       <Footer />
+    </div>
     </div>
     </div>
 

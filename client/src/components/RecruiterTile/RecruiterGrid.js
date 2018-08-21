@@ -303,8 +303,8 @@ class RecruiterGrid extends Component {
           <div id='ExpandedDetail_close' key='ExpandedDetail_close' style={cssforExpandedDetailClose} onClick={this.closeExpandedDetail.bind(this)}>{closeX}</div>
           <div id='ExpandedDetailTitle' className='ExpandedDetailTitle' style={cssforExpandedDetailTitle}> Title </div>
           <div id='ExpandedDetailDescription' className='ExpandedDetailDescription' style={cssforExpandedDetailDescription}> Some Description</div>
-          <a id='ExpandedDetailDescriptionLink' style={cssForDescriptionLink}> → Link </a>
-          <button id='saveRecruiter' value={this.props.recruiterId} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}>saveRecruiter</button>
+          <a id='ExpandedDetailDescriptionLink' style={cssForDescriptionLink}> Website </a>
+          <a id="saveRecruiter" value={this.props.recruiterId} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}> Save Recruiter </a>
         </div>
       </li>
      )
@@ -384,14 +384,14 @@ RecruiterGrid.defaultProps = {
   bgColor: 'rgba(0,0,0,0)',
   detailWidth: '100%',
   detailHeight: 350,
-  detailBackgroundColor: '#D9D9D9',
+  detailBackgroundColor: '#eaf1f6',
   ExpandedDetail_right_width: '70%',
   ExpandedDetail_left_width: '30%',
   ExpandedDetail_image_size: 300,
-  ExpandedDetail_description_bgColor: '#D9D9D9',
-  ExpandedDetail_title_bgColor: '#D9D9D9',
-  ExpandedDetail_img_bgColor: '#D9D9D9',
-  ExpandedDetail_link_text: '→ Link',
+  ExpandedDetail_description_bgColor: '#eaf1f6',
+  ExpandedDetail_title_bgColor: '#eaf1f6',
+  ExpandedDetail_img_bgColor: '#eaf1f6',
+  ExpandedDetail_link_text: 'Website',
   ExpandedDetail_font_color: '#434343',
   ExpandedDetail_closeX_bool: false,
   show_mobile_style_from_width: 600,

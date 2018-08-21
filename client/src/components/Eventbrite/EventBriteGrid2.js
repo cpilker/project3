@@ -1,3 +1,5 @@
+// Using modified version of DevExtreme React Grid https://devexpress.github.io/devextreme-reactive/react/grid/
+
 import * as React from 'react';
 import { Card } from 'reactstrap';
 import { RowDetailState } from '@devexpress/dx-react-grid';
@@ -7,27 +9,12 @@ import {
   TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-bootstrap4';
-
-const imgDiv = {
-  display: 'table-cell',
-  width: '25%',
-  verticalAlign: 'middle'
-}
-
-const imgStyle = {
-  width: '90%'
-}
-
-const detailStyle = {
-  display: 'table-cell',
-  width: '75%',
-  verticalAlign: 'middle'
-}
+import './EventBriteGrid2.css';
 
 const RowDetail = ({ row }) => (
   <div>
-    <div style={imgDiv}><img src={row.image} style={imgStyle} alt=''/></div>
-    <div style={detailStyle}>
+    <div className="eventImgDiv"><img src={row.image} className="eventImgStyle" alt=''/></div>
+    <div className="eventDetailStyle">
       <p><b>{row.event}</b><br/>
       {row.date}</p>
       <p>{row.description}</p>
@@ -50,8 +37,7 @@ export default class EventBriteGrid2 extends React.PureComponent {
       columns: [
         { name: 'event', title: 'Event Name' },
         { name: 'date', title: 'Date' },
-        { name: 'city', title: 'City' },
-        { name: 'state', title: 'State' }
+        { name: 'city', title: 'City' }
       ],
       rows: this.generateRows(this.props.gridData),
     };
@@ -79,10 +65,9 @@ export default class EventBriteGrid2 extends React.PureComponent {
 
   render() {
     const { rows, columns } = this.state;
-    var style = {'width':'100%'}
 
     return (
-      <Card style={style}>
+      <Card className="eventBriteGrid">
         <Grid
           rows={rows}
           columns={columns}

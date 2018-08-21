@@ -3,7 +3,6 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import $ from "jquery";
 import UserTile from "../../components/UserTile/UserTile";
-// import * as utils from '../../utils/grid';
 import PopulationTile from '../../components/PopulationTile/PopulationTile';
 import * as utils from '../../utils/grid';
 

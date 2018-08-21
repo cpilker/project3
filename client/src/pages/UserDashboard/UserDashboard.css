@@ -2,31 +2,34 @@
   display: none;
 }
 
-.dashboardTitle {
-  font-family: 'Din Bold';
-  color: #fff;
-  font-size: 2em;
-  z-index: 2;
-  vertical-align: top;
-  line-height: 150px;
+.UserDashboard {
+  background: #fafafa;
 }
 
-.dogDiv {
-  position: relative;
+#profileImage{
+  border-radius: 50%;
+}
+
+/* Orange Bar */
+
+#orangeBarDogDiv {
+  position: absolute;
   z-index: 1;
   width: 100%;
-  height: 300px;
   left: 23%;
+  clip: rect(0px,175px,100px,0px);
 }
 
-.dogImg {
+#orangeBarDogImg {
   width: 175px;
+
 }
 
-.orangeBar {
+#orangeBar {
   width: 100vw;
   height: 100px;
   float: left;
+  margin-bottom: 20px;
   background: #f77650;
   background: -moz-linear-gradient(left, #f77650 0%, #d84d23 100%);
   background: -webkit-linear-gradient(left, #f77650 0%,#d84d23 100%);
@@ -34,14 +37,32 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f77650', endColorstr='#d84d23',GradientType=1 );
   overflow: hidden;
   -webkit-box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
--moz-box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
-box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
+  -moz-box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
+  box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
 }
 
-.UserDashboard {
-  /* background: #fafafa; */
+#dashboardTitle {
+  font-family: 'Din Bold';
+  color: #fff;
+  font-size: 2em;
+  z-index: 2;
+  position: absolute;
+  left: calc(23% + 175px);
+  top: 115px;
 }
 
-#profileImage{
-  border-radius: 50%;
+/* Recruiter search */
+
+#agencyLocate {
+  margin-left: 20px;
+  width: 50%;
 }
+
+#agencyLocate form input {
+  width: 70%;
+}
+
+#search-button {
+  margin-left: 20px;
+}
+
