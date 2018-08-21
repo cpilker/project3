@@ -70,7 +70,7 @@ module.exports = function(app, gfs) {
       console.log("3: successful multer upload")
     }) 
   
-    res.send('yay!')
+    res.send('hello')
   })
  
   // @route DELETE /files/:id
