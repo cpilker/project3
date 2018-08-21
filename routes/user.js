@@ -34,30 +34,43 @@ module.exports = function(app, gfs) {
     file: (req, file) => {
       return new Promise((resolve, reject) => {
         console.log("new picture object fired")
-        console.log('//////////////////')
-        console.log(req.body)
-        console.log(file.originalname)
-        console.log('//////////////////')
         const fileInfo = {
           filename: file.originalname,
           bucketName: 'uploads',
-          metadata: {filename:req.body.file[0], purpose: req.body.file[1]}
+          metadata: {filename: req.params.filename, purpose: req.params.purpose}
         };
         resolve(fileInfo);
       });
     }
   });
 
-  const upload = multer({ storage });
+  const upload = multer({ storage }).single('file');
 
 
   /////////////// Upload image routes ///////////////
 
   // @route POST /upload
   // @desc Uploads file to DB
-  app.post('/upload', upload.single('file'), (req, res) => {
-    console.log("new picture upload fired")
-    res.redirect('/user-dashboard')
+  app.post('/upload/:filename/:purpose', (req, res) => {
+    console.log("1: new picture upload fired")
+    console.log(req.data)
+    gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
+      if (err) {
+        return res.status(404).json({err: err})
+      } 
+      // res.redirect('/user-dashboard')
+      console.log('2: delete fired')
+    })
+
+    upload(req, res, function (err) {
+      if (err) {
+        return ("Multer err: " + err)
+      }
+      
+      console.log("3: successful multer upload")
+    }) 
+  
+    res.send('yay!')
   })
  
   // @route DELETE /files/:id
@@ -68,7 +81,7 @@ module.exports = function(app, gfs) {
       if (err) {
         return res.status(404).json({err: err})
       } 
-      res.redirect('/user-dashboard')
+      res.sendStatus()
     })
   })
 
