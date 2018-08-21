@@ -213,6 +213,14 @@ class RecruiterDashboard extends Component {
         loggedIn={this.props.loggedIn}
         updateUser={this.props.updateUser}
       />
+
+      {/* <div id="orangeBar">
+        <span id="dashboardTitle">User Dashboard</span>
+        <div id="orangeBarDogDiv">
+          <img src="./images/dog-dashboard.png" id="orangeBarDogImg"/>
+        </div>
+      </div> */}
+
       <div className="container">
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">

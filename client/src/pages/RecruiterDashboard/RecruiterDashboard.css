@@ -1,3 +1,43 @@
 .RecruiterDashboard {
     background: #fafafa;
   }
+
+/************* Orange Bar *************/
+
+#orangeBarDogDiv {
+    position: absolute;
+    z-index: 1;
+    left: 23%;
+    clip: rect(0px,175px,100px,0px);
+  }
+  
+  #orangeBarDogImg {
+    width: 175px;
+  
+  }
+  
+  #orangeBar {
+    width: 100vw;
+    height: 100px;
+    float: left;
+    margin-bottom: 20px;
+    background: #f77650;
+    background: -moz-linear-gradient(left, #f77650 0%, #d84d23 100%);
+    background: -webkit-linear-gradient(left, #f77650 0%,#d84d23 100%);
+    background: linear-gradient(to right, #f77650 0%,#d84d23 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f77650', endColorstr='#d84d23',GradientType=1 );
+    overflow: hidden;
+    -webkit-box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
+    -moz-box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
+    box-shadow: inset 0px -13px 41px -22px rgba(0,0,0,0.38);
+  }
+  
+  #dashboardTitle {
+    font-family: 'Din Bold';
+    color: #fff;
+    font-size: 2em;
+    z-index: 2;
+    position: absolute;
+    left: calc(23% + 175px);
+    top: 115px;
+  }
