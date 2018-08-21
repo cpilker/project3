@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import UserDashboard from './pages/UserDashboard';
 import RecruiterDashboard from './pages/RecruiterDashboard';
+import styles from './index.css';
 
 class App extends Component {
   state = {
@@ -37,7 +38,6 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
           <Switch>
             <Route exact path='/' render={() =>
               <Home
@@ -83,7 +83,6 @@ class App extends Component {
               />}
             />
           </Switch>
-        </div>
       </Router>
     );
   }

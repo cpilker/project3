@@ -1,3 +1,11 @@
+:local(html), :local(body){
+  height: 100%;
+}
+
+:local(.signin-container) {
+  height: 100%;
+}
+
 :local(.logoSignin) {
   width: 95px;
   height: 95px;
@@ -13,5 +21,21 @@
   flex-direction: column;
   align-items: center;
   height: auto;
-  max-width: 1000px;
+  width: 350px;
 }
+
+:local(.signinContainer) {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+:local(.loginBox) {
+text-align: center;
+width: 100%;
+}
+
+.inputbox > input {
+  margin: 5px;
+}
+

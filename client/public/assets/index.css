@@ -25,3 +25,7 @@
     font-weight: normal;
     font-style: normal;
   }
+
+  #root {
+      height: 100%;
+  }
