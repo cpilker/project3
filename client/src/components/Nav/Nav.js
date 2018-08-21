@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import './Nav.css';
 import ContactUs from '../ContactUs';
 import $ from 'jquery';
@@ -38,8 +38,6 @@ class Nav extends Component {
             loggedIn: false,
             created: null
           })   // Stores logged in status in App.js
-          console.log("Signout completed, now redirecting to index");
-          window.location.assign('/')
         }
       },
       error: (err) => {
@@ -51,7 +49,7 @@ class Nav extends Component {
   render () {
       console.log(this.props.sitepath)
     return (
-        <div>
+        <Fragment>
       <nav className="navbar navbar-expand-md navbar-light bg-white fixed-top">
         <img id="logo-header"src="/images/Logo-top-left.gif" alt="recruit hound logo" /><a className="navbar-brand" href="/">Recruit<span className="fontOrange">Hound</span></a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +81,7 @@ class Nav extends Component {
         <div>
             <ContactUs />
         </div>
-      </div>
+      </Fragment>
     )
   }
 }

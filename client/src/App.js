@@ -37,7 +37,6 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
           <Switch>
             <Route exact path='/' render={() =>
               <Home
@@ -83,7 +82,6 @@ class App extends Component {
               />}
             />
           </Switch>
-        </div>
       </Router>
     );
   }

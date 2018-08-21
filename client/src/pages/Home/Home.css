@@ -2,6 +2,11 @@
   color: rgb(253, 130, 85);
 }
 
+.error-text {
+  color: red;
+  font-style: italic;
+}
+
 .mediumBold {
   font-weight: 500;
 }

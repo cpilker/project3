@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import "./Home.css";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
@@ -10,7 +10,7 @@ class Home extends Component {
 
   render () {
     return (
-      <div className="Home">
+      <Fragment>
         <header>
           <Nav
           sitepath={this.props.sitepath}
@@ -69,12 +69,9 @@ class Home extends Component {
           </section>
         </section>
 
+        <Footer />
 
-        <div className="text-center">
-          <Footer />
-        </div>
-
-      </div>
+      </Fragment>
     )
   }
 }
