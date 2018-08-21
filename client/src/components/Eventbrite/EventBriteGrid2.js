@@ -26,7 +26,7 @@ const detailStyle = {
 
 const RowDetail = ({ row }) => (
   <div>
-    <div style={imgDiv}><img src={row.image} style={imgStyle}/></div>
+    <div style={imgDiv}><img src={row.image} style={imgStyle} alt=''/></div>
     <div style={detailStyle}>
       <p><b>{row.event}</b><br/>
       {row.date}</p>
