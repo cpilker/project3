@@ -21,6 +21,7 @@ const userSeed = [
         city: "Charlotte",
         state: "NC",
         zip: 28202,
+        jobSearchStatus: "Not Searching",
         password: "password",
         email: "test1@test.com",
         date: new Date(Date.now()),
@@ -41,8 +42,7 @@ const userSeed = [
         date: new Date(Date.now()),
         skill: [
             "HTML", "Python", "CSS", "jQuery", "ReactJS", "Express"
-        ],
-        jobSearchStatus: "Not searching"
+        ]
     },
     {
         firstname: "Ryan",
@@ -51,13 +51,13 @@ const userSeed = [
         city: "Charlotte",
         state: "NC",
         zip: 28202,
+        jobSearchStatus: "Open to Opportunities",
         password: "password",
         email: "test3@test.com",
         date: new Date(Date.now()),
         skill: [
             "HTML", "JavaScript", "Handlebars", "CSS", "jQuery", "C#"
-        ],
-        jobSearchStatus: "Open to opportunities"
+        ]
     },
     {
         firstname: "Jimmie",
@@ -71,8 +71,7 @@ const userSeed = [
         date: new Date(Date.now()),
         skill: [
             "HTML", "CSS", "jQuery", "C#", "algorithms"
-        ],
-        jobSearchStatus: "Open to opportunities"
+        ]
     },
     {
         firstname: "Christian",
@@ -81,13 +80,268 @@ const userSeed = [
         city: "Charlotte",
         state: "NC",
         zip: 28202,
+        jobSearchStatus: "Actively Searching",
         password: "password",
         email: "test5@test.com",
         date: new Date(Date.now()),
         skill: [
             "HTML", "PHP", "Python", "CSS", "jQuery", "Javascript", "C#", "Express", "Sequel", "Mongoose"
-        ],
-        jobSearchStatus: "Not searching"
+        ]
+    },
+    {
+        firstname: "John",
+        lastname: "Doe",
+        address1: "123 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test6@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "PHP", "Python", "CSS", "jQuery", "Javascript", "C#", "Express", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jane",
+        lastname: "Doe",
+        address1: "123 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test7@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "Python", "CSS", "jQuery", "Javascript", "C#", "Express", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Janey",
+        lastname: "Doe",
+        address1: "1234 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test8@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "Python", "CSS", "jQuery", "Javascript", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jonathan",
+        lastname: "Doe",
+        address1: "1234 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Open to Opportunities",
+        password: "password",
+        email: "test9@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "Java", "Python", "CSS", "jQuery", "Javascript", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jonathan",
+        lastname: "D",
+        address1: "12324 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Open to Opportunities",
+        password: "password",
+        email: "test9@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "Java", "Python", "CSS", "jQuery", "Javascript", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jonathan",
+        lastname: "Dkjkj",
+        address1: "1324 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Open to Opportunities",
+        password: "password",
+        email: "test9@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "Java", "CSS", "jQuery", "Javascript", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jack be Nimble",
+        lastname: "Dkjkj",
+        address1: "1324 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Open to Opportunities",
+        password: "password",
+        email: "test11@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "CSS", "jQuery", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jack be Nimble",
+        lastname: "Quam",
+        address1: "24 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Open to Opportunities",
+        password: "password",
+        email: "test10@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "CSS", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jack be Nimble",
+        lastname: "Quatro",
+        address1: "214 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test14@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Howdy",
+        lastname: "Quatro",
+        address1: "90 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test12@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Howdy",
+        lastname: "Ho",
+        address1: "94 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test13@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jimmy",
+        lastname: "Crickets",
+        address1: "49 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test15@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "HTML", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Jimmy",
+        lastname: "Elephant",
+        address1: "74 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Not Searching",
+        password: "password",
+        email: "test16@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Ryan the",
+        lastname: "Man",
+        address1: "76 Main St",
+        city: "Charlotte",
+        state: "NC",
+        zip: 28202,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test17@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "jquery", "C#", "Sequel", "Mongoose"
+        ]
+    },
+    {
+        firstname: "Chad the",
+        lastname: "Plan",
+        address1: "5 West St",
+        city: "Huntersville",
+        state: "NC",
+        zip: 28078,
+        jobSearchStatus: "Actively Searching",
+        password: "password",
+        email: "test19@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "jquery", "C#", "Sequel", "HTML"
+        ]
+    },
+    {
+        firstname: "Matt the",
+        lastname: "One",
+        address1: "5 East St",
+        city: "Huntersville",
+        state: "NC",
+        zip: 28078,
+        jobSearchStatus: "Not Searching",
+        password: "password",
+        email: "test18@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "jquery", "C#", "Sequel", "HTML"
+        ]
+    },
+    {
+        firstname: "Christian the",
+        lastname: "Only",
+        address1: "5 South St",
+        city: "Huntersville",
+        state: "NC",
+        zip: 28078,
+        jobSearchStatus: "Open to Opportunities",
+        password: "password",
+        email: "test20@test.com",
+        date: new Date(Date.now()),
+        skill: [
+            "express", "jquery", "C#", "Sequel", "HTML"
+        ]
     }
 ]
 

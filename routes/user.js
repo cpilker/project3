@@ -4,11 +4,9 @@ const
   User = require('../models/user'),
   mongojs = require('mongojs'),
   multer = require('multer'),
-  Grid = require('gridfs-stream'),
   GridFsStorage = require('multer-gridfs-storage'),
-  mongoose = require("mongoose"),
-  db = require("../models"),
   email 	= require("emailjs"),
+  savedRecruiter = require("../models/savedRecruiter"),
   server 	= email.server.connect({
     user: 'hello@ryanadiaz.com',
     password: 'testpassword',
@@ -17,98 +15,131 @@ const
     tls:  false
   });
 
-const database = mongojs('main')
+// Database configuration
+const databaseUrl = "main";
 
-// Create storage engine for files/images
-const storage = new GridFsStorage({
-  url: 'mongodb://localhost/main',
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      console.log("new picture object fired")
-      console.log(req.body)
-      const fileInfo = {
-        filename: req.body.file[0],
-        bucketName: 'uploads',
-        metadata: [req.body.file[1]]
-      };
-      resolve(fileInfo);
-    });
-  }
-});
+// Hook mongojs configuration to the db variable
+const db = mongojs(databaseUrl);
+db.on("error", function(error) {
+    console.log("Database Error:", error);
+});  
 
-let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
-mongoose.Promise = Promise;
-const upload = multer({ storage });
+module.exports = function(app, gfs) {
 
+  const database = mongojs('main')
 
-let gfs;
+  // Create storage engine for files/images
+  const storage = new GridFsStorage({
+    url: 'mongodb://localhost/main',
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        console.log("new picture object fired")
+        const fileInfo = {
+          filename: file.originalname,
+          bucketName: 'uploads',
+          metadata: {filename: req.params.filename, purpose: req.params.purpose}
+        };
+        resolve(fileInfo);
+      });
+    }
+  });
 
-//test connection
-conn.on('error', function (err) {
-    console.log('Database Error: '+ err)
-});
-
-conn.once('open', function () {
-    console.log('Mongo Connection Success!')
-    //Init our stream
-    gfs = Grid(conn.db, mongoose.mongo)
-    gfs.collection('uploads')
-})
+  const upload = multer({ storage }).single('file');
 
 
-database.on('error', function(err) {
-  console.log(err)
-})
-
-
-module.exports = function(app) {
-
-/////////////// Upload image routes ///////////////
+  /////////////// Upload image routes ///////////////
 
   // @route POST /upload
   // @desc Uploads file to DB
-  app.post('/upload', upload.single('file'), (req, res) => {
-    console.log("new picture upload fired")
-    res.redirect('/user-dashboard')
+  app.post('/upload/:filename/:purpose', (req, res) => {
+    console.log("1: new picture upload fired")
+    console.log(req.data)
+    gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
+      if (err) {
+        return res.status(404).json({err: err})
+      } 
+      // res.redirect('/user-dashboard')
+      console.log('2: delete fired')
+    })
+
+    upload(req, res, function (err) {
+      if (err) {
+        return ("Multer err: " + err)
+      }
+      
+      console.log("3: successful multer upload")
+    }) 
+  
+    res.send('yay!')
   })
  
   // @route DELETE /files/:id
   // @desc  Delete file
-  app.delete('/files/:id', (req, res) => {
+  app.delete('/files/:filename/:purpose', (req, res) => {
     console.log("picture delete fired")
-    gfs.remove({filename: req.params.id, root: 'uploads'}, (err, gridStore) => {
+    gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
       if (err) {
         return res.status(404).json({err: err})
       } 
-      res.redirect('/user-dashboard')
+      res.sendStatus()
     })
   })
 
-// @route GET /image/:filename
-// @desc Display Image
-app.get('/image/:filename', (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: "No file exist"
-      });
-    }
-    // Check if image
-    if (file.contentType === 'image/jpeg' 
-    || file.contentType === 'img/png') {
-      // Read output to browser 
-      const readstream = gfs.createReadStream(file.filename);
-      readstream.pipe(res);
-    } else {
-      res.status(404).json({
-        err: 'Not an image'
-      })
-    }
+  // @route GET /image/:filename
+  // @desc Display Image
+  app.get('/image/:filename/:purpose', (req, res) => {
+  
+    gfs.files.findOne({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, file) => {
+      // Check if file
+      if (!file || file.length === 0) {
+        return res.status(404).json({
+          err: "No file exist"
+        });
+      }
+      // Check if image
+      if (file.contentType === 'image/jpeg' 
+      || file.contentType === 'img/png') {
+        // Read output to browser 
+        const readstream = gfs.createReadStream(file.filename);
+        readstream.pipe(res);
+        
+      } else {
+        res.status(404).json({
+          err: 'Not an image'
+        })
+      }
+    })
   })
-})
 
-//////////////// Upload image routes //////////////
+  // @route GET /image/:filename
+  // @desc Download Image
+  app.get('/download/:filename/:purpose', (req, res) => {
+    console.log('download fired')
+    gfs.files.findOne({metadata: {filename: req.params.filename, purpose: req.params.purpose}}, function (err, file) {
+      
+      if (err) {
+          return res.status(400).send(err);
+      }
+      else if (!file) {
+          return res.status(404).send('Error on the database looking for the file.');
+      }
+
+      res.set('Content-Type', file.contentType);
+      res.set('Content-Disposition', 'attachment; filename="' + file.filename + '"');
+
+      let readstream = gfs.createReadStream({
+        filename: file.filename
+      });
+
+      readstream.on("error", function(err) { 
+          res.end();
+      });
+      readstream.pipe(res);
+    });
+  })
+
+  //////////////// Upload image routes //////////////
+
 
 
 
@@ -226,6 +257,7 @@ app.get('/image/:filename', (req, res) => {
 
   // Search for all recruiters by a given city
   app.get('/recruitersearch', function(req, res){
+    console.log('/recruitersearch route fired')
     database.collection("recruiters").find({city1: req.query.city}, function(error, response) {
       // Throw any errors to the console
       if (error) {
@@ -286,6 +318,33 @@ app.get('/image/:filename', (req, res) => {
     });
   });
 
-/////////////////// User routes ///////////////////
+
+  // Save the recruiter to your database
+  app.post('/saverecruiter', function(req, res){
+    const newSavedRecruiter = new savedRecruiter(req.body)
+    console.log(newSavedRecruiter)
+
+    //NEED TO PASS IN THE the USER ID to UPDATE THE USER THAT IT HAS A SAVED USER
+    // db.collection("savedRecruiters").insert(newSavedRecruiter).then(function(savedRecruiter) {
+    //   //WE NEED CODE TO PUSH IT TO THE LOGGED IN RECRUITER BY ID AND PUSH TO THAT ARRAY
+      
+    //   db.collection("users").findOneandUpdate({email})
+    //   console.log("complete")
+    //   res.send(savedRecruiter.newSavedRecruiter + " added to db")
+    })
+
+  app.get("/api/signout", function(req, res) {
+    console.log("Signout has been fired!");
+    console.log(req.session.passport);
+    req.session.destroy(function (err) {
+      console.log(req.session);
+      console.log("Signout completed, now redirecting to index");
+      res.redirect('/')
+    });
+    
+
+  });
+
+  /////////////////// User routes ///////////////////
 
 };

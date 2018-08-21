@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import GridLoader from '../../utils/GridLoader';
 import $ from "jquery";
 import UserTile from "../../components/UserTile/UserTile";
 // import * as utils from '../../utils/grid';
@@ -51,9 +50,9 @@ class RecruiterDashboard extends Component {
           })
         } else {
           console.log("Success at pulling all users on click (no filter or parameters)!");
-          console.log(response);
+          console.log(response.count + " Recruits available for contact");
           this.setState({
-            availableusers: response.count + "Recruits available for contact"
+            availableusers: response.count + " Recruits available for contact"
           })
         }
       },
@@ -63,6 +62,29 @@ class RecruiterDashboard extends Component {
     })
   }
 
+  saveUser(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/saveuser',
+      type: 'post',
+      data: {
+        saveUser: this.val()
+      },
+      success: (response) => {
+        if (response.err) {
+          console.log("error on saving User");
+          console.log(response.err);
+        }
+        else {
+          console.log("Success at saving this user!!");
+          console.log(response)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
   //This is to pull users that are actively searching for a job
   pullActiveSearch(e) {
     $.ajax({
@@ -81,9 +103,9 @@ class RecruiterDashboard extends Component {
           })
         } else {
           console.log("Success for Active Searchers");
-          console.log(response);
+          console.log(response.count + " Recruits looking for a job");
           this.setState({
-            activeusers: response.count + "Recruits looking for a job"
+            activeusers: response.count + " Recruits looking for a job"
           })
         }
       },
@@ -111,9 +133,9 @@ class RecruiterDashboard extends Component {
           })
         } else {
           console.log("Success for pulling those open to opportunities");
-          console.log(response);
+          console.log(response.count +" Recruits open to opportunities");
           this.setState({
-            opentoopportunities: response.count +"Recruits open to opportunities"
+            opentoopportunities: response.count +" Recruits open to opportunities"
           })
         }
       },
@@ -140,9 +162,9 @@ class RecruiterDashboard extends Component {
           })
         } else {
           console.log("Success for pulling those not looking for a job");
-          console.log(response);
+          console.log(response.count + " Recruits not searching for a job");
           this.setState({
-            notsearching: response.count + "Recruits not searching for a job"
+            notsearching: response.count + " Recruits not searching for a job"
           })
         }
       },
@@ -157,9 +179,6 @@ class RecruiterDashboard extends Component {
     $.ajax({
       url: '/usersearch',
       type: 'get',
-      // data: {
-      //   city: $('#search-input').val()
-      // },
       success: (response) => {
         // this.clearForm()
         if (response.err) {
@@ -170,7 +189,7 @@ class RecruiterDashboard extends Component {
           })
         } else {
           console.log("Success!");
-          console.log(response);
+          console.log(response.response)
           this.setState({
             users: response.response
           })
@@ -181,6 +200,8 @@ class RecruiterDashboard extends Component {
       }
     })
   }
+  
+  
 
   render () {
     return (
@@ -188,7 +209,11 @@ class RecruiterDashboard extends Component {
       <div className="RecruiterDashboard container">
             
       {/* <GridLoader /> */}
-      <Nav />
+      <Nav
+        sitepath={this.props.sitepath}
+        loggedIn={this.props.loggedIn}
+        updateUser={this.props.updateUser}
+      />
         <div class="row" id="portfolio_info">
           <div class="col-xs-12 col-md-4">
             <div class="thumbnail" id="profile_image">

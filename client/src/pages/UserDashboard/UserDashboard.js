@@ -2,12 +2,15 @@ import React, {Component} from "react";
 import './UserDashboard.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import EventBrite from '../../components/Eventbrite';
+// import EventBrite from '../../components/Eventbrite';
+import ProfilePic from '../../components/ProfilePic'
+import Resume from '../../components/Resume'
 import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
-import EventBriteGrid from '../../components/Eventbrite/';
+import EventBriteGrid2 from '../../components/Eventbrite/EventBriteGrid2';
 // import API from "../../utils/API";
+
 
 
 class UserDashboard extends Component {
@@ -50,31 +53,27 @@ class UserDashboard extends Component {
 
     // utils.gridFunction();
 
-    $.ajax({
-      url: '/upload',
-      type: 'get',
-      datatype: 'multipart/form-data',
-      data: this.state.id,
-      success: (response) => {
-        if (response.err) {
-          console.log("Error!");
-          console.log(response.err);
-          this.setState({
-            errorMessage: response.err.message
-          })
-        } else {
-          console.log("UPLOADDEEDDDDDDD!!!!! //// " + response)
-          this.props.updateUser(response) 
-        }
-      }
-    })
   }
 
 
   componentDidMount(){
     // utils.gridFunction();
-
-    $.ajax({
+    this.setState({
+      id: null,
+      username: null,
+      firstname: null,
+      lastname: null,
+      address1: null,
+      address2: null,
+      city: null,
+      state: null,
+      zip: null,
+      loggedIn: false,
+      created: null,
+      lastLogin: null,
+    })
+    
+    $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
       url: '/api/getuser',
       type: 'get',
       success: (response) => {
@@ -200,9 +199,26 @@ class UserDashboard extends Component {
     console.log(this.state.id)
     return (
       <div className="UserDashboard container">
-      <Nav />
+
+      <Nav
+        updateUser={this.props.updateUser}
+        sitepath={this.props.sitepath}
+        loggedIn={this.props.loggedIn}
+      />
+
+      <ProfilePic 
+        id={this.state.id} 
+        firstname={this.props.firstname} 
+        lastname={this.props.lastname}
+      />
+      <Resume
+        id={this.state.id} 
+        firstname={this.props.firstname} 
+        lastname={this.props.lastname}
+      />
+
       <div className="profile-form">
-        <h3><img src="/images/army.jpg" width="150" height="150" alt="army.jpg" />{this.props.firstname}&nbsp;{this.props.lastname}</h3>
+       
         <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
         <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit</button>{this.state.statusText}
           <form id="user" name="user-dashboard">
@@ -323,31 +339,7 @@ class UserDashboard extends Component {
 
 
 
-        {/* ////////////////////     upload picture ////////////////// */}
-        <div className='container'>
-          <div className='row'>
-            <div className='col-md-6 m-auto'>
-              <h1 className='text-center display-4 my-4'>Profile Picture Upload</h1>
-              <form action="/upload" method='POST' encType='multipart/form-data'>
-                <div className='custom-file mb-3'>
-                  <input type='hidden' name='file' value={this.state.id} />
-                  <input type='hidden' name='file' value='profilePic' />
-                  <input type='file' name='file' id='file' className='custom-file-input'/>
-                  <label htmlFor='file' className='custom-file-label'>Choose File
-                  </label>
-                  <input type="hidden" name="id" value={this.state.id} />
-                </div>
-                <input type='submit' value='Save' className='btn btn-primary btn-block'/>
-                <img stlye={{width: '15px', height: '15px', backgroundColor: 'red'}} src={"image/" + this.state.id} alt=''/>
-              </form>
-              <form action={`/files/${this.state.id}?_method=DELETE`} method='POST' > 
-                <button className='btn btn-danger btn-block mt-4'>Delete</button>
-              </form>
-              <hr/>
-            </div>
-          </div>
-        </div>
-        {/* ////////////////////     upload picture ////////////////// */}
+
 
 
 
@@ -369,7 +361,10 @@ class UserDashboard extends Component {
 
       <hr/>
 
-      <EventBriteGrid gridData={JSON.stringify(this.state.events)}/>
+      <div className="row" id="events">
+        <h2 id='accordion-header'>Events in Your Area!</h2>
+        <EventBriteGrid2 gridData={this.state.events} />
+      </div>
 
       {/* <div className="row" id='events'>
         <h2 id='accordion-header'>Events in Your Area!</h2>
@@ -401,6 +396,7 @@ class UserDashboard extends Component {
       <Footer />
     </div>
     </div>
+
 
     )
   }

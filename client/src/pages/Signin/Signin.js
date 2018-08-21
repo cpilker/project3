@@ -1,7 +1,8 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import { Redirect } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
+import styles from './Signin.css';
 import $ from 'jquery';
 
 class Signin extends Component {
@@ -65,39 +66,37 @@ class Signin extends Component {
       return <Redirect to={{ pathname: this.state.redirectTo }} />
     } else {
         return (
-        <div>
-          <Nav />
+        <Fragment>
+          <Nav
+            sitepath={this.props.sitepath}
+            loggedIn={this.props.loggedIn}
+            updateUser={this.props.updateUser}
+          />
 
-          <div className="signin-container">
-            <div className="signin-content">
-                <img id="logo-signin" src="/images/Logo-top-left.gif" alt="Logo-top-left.gif" />
-              <div className="flex-item">
-                <div className="container">
-                  <div className="frontbox">
-                    <div className="login">
-                      <h2>SIGN IN</h2>
-                      <h3>{this.state.error}</h3>
-                      <form id="signin" name="signin" method="post" action="signin">
-                        <div className="inputbox">
-                          <input className="form-control" type="text" name="username" placeholder="EMAIL" required value={this.state.username} onChange={this.handleChange} autoComplete="email" />
-                          <input className="form-control" type="password" name="password" placeholder="Password" required value={this.state.password} onChange={this.handleChange} autoComplete="current-password" />
-                          <button className="btn" type="submit" id="btn-signin" value="Sign In" onClick={this.onHandleSubmit}>Submit</button>
-                          <a href="/">
-                            <p>Forget Password?</p>
-                          </a> 
-                          <a href="/signup">
-                            <p>New User? Create A Profile.</p>
-                          </a>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+          <div className={styles.signinContainer}>
+            <div className={styles.signinContent}>
+              <img className={styles.logoSignin} src="/images/Logo-top-left.gif" alt="Logo-top-left.gif" />
+                <div className={styles.loginBox}>
+                  <h3>SIGN IN</h3>
+                  <p className="error-text">{this.state.error ? `Error: ${this.state.error}` : ""}</p>
+                  <form id="signin" name="signin" method="post" action="signin">
+                    <input className="form-control" type="text" name="username" placeholder="EMAIL" required value={this.state.username} onChange={this.handleChange} autoComplete="email" />
+                    <input className="form-control" type="password" name="password" placeholder="Password" required value={this.state.password} onChange={this.handleChange} autoComplete="current-password" />
+                    <button className="btn" type="submit" id="btn-signin" value="Sign In" onClick={this.onHandleSubmit}>Submit</button>
+                    <a href="/">
+                      <p>Forget Password?</p>
+                    </a> 
+                    <a href="/signup">
+                      <p>New User? Create A Profile.</p>
+                    </a>
+                  </form>
                 </div>
-              </div>
             </div>
           </div>
-          <Footer/>
-        </div>
+          <div className={styles.footerRow}>
+            <Footer/>
+          </div>
+        </Fragment>
       )
     }
   }

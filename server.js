@@ -37,19 +37,15 @@ app.use(session({
 }));
 app.use((req, res, next) => {
   // Used to display the current session info, debugging purposes only!
-  console.log('req.session:', req.session);
+  // console.log('req.session:', req.session);
   return next();
 });
-
-
-
 
 
   // Passport middleware
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 
 // If not Heroku Serve up static assets 
@@ -74,21 +70,14 @@ conn.once('open', function () {
   // Init our stream
   gfs = Grid(conn.db, mongoose.mongo)
   gfs.collection('uploads')
+  // Routes
+  require('./routes/user')(app, gfs)
+  require('./routes/recruiter')(app, gfs)
 })
 
 
-// Routes
-require('./routes/user')(app)
-
 // Start server
 app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
-
-
-
-
-
-
-
 
 
 

@@ -30,7 +30,7 @@ class SingleGridCell extends Component {
     }
 
     return (
-      <li className='SingleGridCell' style={SingleGridCellStyle} id={this.props.id} onClick={this.cellClick.bind(this)} />
+      <li className='SingleGridCell' style={SingleGridCellStyle} data-id={this.props.recruiterId} id={this.props.id} onClick={this.cellClick.bind(this)} />
     )
   }
 

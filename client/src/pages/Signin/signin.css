@@ -1,41 +1,12 @@
-
-@import url('https://fonts.googleapis.com/css?family=Lato|Sedgwick+Ave+Display');
-
-:root {
-  --font-display: Muli, sans-serif;
-  --font-sans-serif: 'Lato';
-  --box-shadow: drop-shadow(-5px 5px 4px #248391);
-  --grad-bright: black;
-  --grad-dark: linear-gradient(-55deg, #248391 0%, #8fc2c9 100%);
-  --fig-width: 380px;
-  --fig-height: auto;
-  --delay-base: 500ms;
-  --delay-added: 100ms;
-  --acc-back: cubic-bezier(0.175, 0.885, 0.320, 1.275);
-}
-
-
-html, body{
+:local(html), :local(body){
   height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #F9F9F9;
 }
 
-#signinbody {
-  padding-top: 75px!important;
+:local(.signin-container) {
+  height: 100%;
 }
 
-.signin-content {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  max-width: 1000px;
-}
-
-#logo-signin {
+:local(.logoSignin) {
   width: 95px;
   height: 95px;
   border-radius: 14px;
@@ -44,262 +15,38 @@ html, body{
   margin-right: 5px;
 }
 
-#btn-signin {
-  background-color: rgb(253, 130, 85);
-  color: white;
-}
-
-#btn-signin:hover {
-background-color: orangered;
-color: white;
-}
-
-#logo-top {
-  z-index: 2;
-  animation: popInImg2 500ms var(--acc-back) 1 forwards;
-}
-
-#logo-bottom {
-  filter: var(--box-shadow); 
-  animation: popInImg 1500ms var(--acc-back) 1 forwards;
-}
-
-.loadingPage-Logo {
-  width: 150px;
-  height: 150px;
-}
-
-#tie {
-  position: absolute;
-  width: 10%;
-  height: auto;
-  z-index: 1;
-  opacity: 1;
-  animation: tie-jump 2000ms;
-  left: 238px;
-  top: 93px;  
-}
-
-@keyframes tie-jump {
-  0%{
-    position: fixed;
-    left: 238px;
-    bottom: 0px; 
-    height: 0px;
-    width: 0px; 
-  }
-  100%{
-    left: 238px;
-    top: 93px;  
-  }
-}
-
-.shadowed{
-  position: absolute;
-  width: 100%;
-  height: auto;
-  animation-delay: var(--delay-base);
-  opacity: 0;
-  transform: skewY(1deg);
-}
-
-.figure{
-  position: relative;
-  width: var(--fig-width);
-  height: var(--fig-height);
-  transition: transform 600ms var(--acc-back);
+:local(.signinContent) {
   display: flex;
-  justify-content: flex-end;
-}
-
-@keyframes popInImg{
-  0%{
-    transform: skewY(5deg) scaleX(.89) scaleY(.89);
-    opacity: 0;
-  }
-
-  100%{
-    opacity: 1;    
-  }
-}
-
-@keyframes popInImg2{
-  0%{
-    transform: skewY(5deg) scaleX(.89) scaleY(.89);
-    opacity: 0;
-  }
-  99.99%{
-    opacity: 0;    
-  }
-  100%{
-    opacity: 1;    
-  }
-}
-
-@keyframes popIn{
-  0%,13%{
-    transform: scaleX(.89) scaleY(.75);
-    opacity: 0;
-  }
-  100%{
-    transform: skewY(-13deg);
-    opacity: 1;    
-  }
-}
-
-
-@media screen and (max-width: 539px){
-  .figure{
-    max-width: var(--fig-width);
-    max-height: var(--fig-height);
-    width: auto;
-    height: auto;
-  }
-}
-
-.container {
-  /*border:1px solid white;*/
-  position: relative;
-  width: 300px;
-  height: 350px;
-  display: inline-flex; 
-  margin-top: 35px;;
-  padding: 0px;
-}
-
-.flex-container {
-  height: 100%;
-}
-
-.row {
-  width: 100%;
-  margin: 0px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  height: 100%;
+  flex-direction: column;
   align-items: center;
-  padding: 0;
+  height: auto;
+  width: 350px;
 }
 
-.frontbox{
-  background-color: white;
-  border-radius: 20px;
-  border: 1px solid lightgray;
-  height: 100%;
-  width: 100%;
-  z-index: 10;
-  position: absolute;
-  margin: auto;
-  transition: right .8s ease-in-out;
-}
-  
-/* front box content*/
-.login {
-  padding: 20px;
-  text-align: center;
+:local(.signinContainer) {
+  height: 80%;
+  display: flex;
+  justify-content: center;
 }
 
-.login h2,
-.signup h2 {
-  color: #35B729;
-  font-size:22px;
-}
-
-.inputbox {
-  margin-top:30px; 
-}
-
-.login input, .signup input {
-  display: block;
-  width: 100%;
-  height: 40px;
-  background-color: #f2f2f2;
-  border: none;
-  margin-bottom:20px;
-  font-size: 12px;
-  padding-left: 20px;
-}
-
-.login button, .signup button{
-  background-color: #35B729;
-  border: none;
-  color:white;
-  font-size: 12px;
-  font-weight: 300;
-  box-sizing: content-box;
-  padding:10px;
-  border-radius: 10px;
-  width: 60px;
-  position: absolute;
-  right:30px;
-  bottom: 30px;
-  cursor: pointer;
-}
-
-/* Fade In & Out*/
-.login p {
-  cursor: pointer;
-  color:#404040;
-  font-size:15px;
-}
-
-.loginMsg, .signupMsg{
-  /*opacity: 1;*/
-  transition: opacity .8s ease-in-out;
-}
-
-.visibility{
-  opacity: 0;
-}
-
-.hide{
-  display: none;
-}
-
-
-
-/* END RIGHT SIDE CSS LANDING PAGE */
-
-/* BEGIN FOOTER CSS */
-
-.hdr-links {
-color: orangered;
-}
-
-.footer-font {
-color: yellow;
-}
-
-
-.footer {
-position: fixed;
-bottom: 0px;
-bottom: 0;
+:local(.loginBox) {
+text-align: center;
 width: 100%;
-height: 50px;
-background-color: black;
 }
 
-.modal-open .modal {
-position: absolute;
-top: 37%;
-left: 50%;
-transform: translate(-50%, -50%);
-overflow: visible;
-min-width: 360px;
+#signin > input {
+  margin: 5px;
 }
 
-.btn-primary.disabled, .btn-primary:disabled, .btn-primary, .btn-primary:hover, .btn-primary.focus, .btn-primary:focus {
-color: #fff;
-/*width: 49%;*/
-background-color: rgb(253, 130, 85);
-border-color: rgb(253, 130, 85);
+#signin > a > p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-#recruitercontact {
-width: 49%;
+:local(.footerRow) {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
-
 

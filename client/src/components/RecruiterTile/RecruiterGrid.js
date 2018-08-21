@@ -4,6 +4,7 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import SingleGridCell from './SingleGridCell';
 import './RecruiterGrid.css';
+import $ from "jquery";
 
 class RecruiterGrid extends Component {
 
@@ -18,15 +19,15 @@ class RecruiterGrid extends Component {
 
   handleResize () {
     if (this.state.expanded) {
-      var target = document.getElementById(this.state.selected_id)
+      let target = document.getElementById(this.state.selected_id)
       this.renderExpandedDetail(target)
     }
     this.makeItMobileFriendly()
   }
 
   makeItMobileFriendly () {
-    var leftPanel = document.getElementById('ExpandedDetail_left')
-    var rightPanel = document.getElementById('ExpandedDetail_right')
+    let leftPanel = document.getElementById('ExpandedDetail_left')
+    let rightPanel = document.getElementById('ExpandedDetail_right')
     if (window.innerWidth < this.props.show_mobile_style_from_width) {
       leftPanel.style.display = 'none'
       rightPanel.style.width = '100%'
@@ -44,18 +45,18 @@ class RecruiterGrid extends Component {
   componentWillUnmount () { }
 
   renderExpandedDetail (target) {
-    var thisId = target.id
-    var thisIdNumber = parseInt(thisId.substring(10))
-    var detail = document.getElementById('expandedDetail')
-    var ol = target.parentNode
-    var lengthOfList = parseInt(ol.childNodes.length)
-    var startingIndex = thisIdNumber + 1
+    let thisId = target.id
+    let thisIdNumber = parseInt(thisId, 10)
+    let detail = document.getElementById('expandedDetail')
+    let ol = target.parentNode
+    let lengthOfList = parseInt(ol.childNodes.length, ol.childNodes.length)
+    let startingIndex = thisIdNumber + 1
 
-    var insertedFlag = false
+    let insertedFlag = false
 
     ol.insertBefore(detail, ol.childNodes[lengthOfList])
 
-    for (var i = startingIndex; i < lengthOfList; i++) {
+    for (let i = startingIndex; i < lengthOfList; i++) {
       if (ol.childNodes[i].className === 'SingleGridCell') {
         if (ol.childNodes[i].offsetTop !== ol.childNodes[thisIdNumber].offsetTop) {
           ol.childNodes[i].insertAdjacentElement('beforebegin', detail)
@@ -69,8 +70,8 @@ class RecruiterGrid extends Component {
       ol.childNodes[lengthOfList - 1].insertAdjacentElement('afterend', detail)
     }
 
-    var cell = document.getElementById(thisId)
-    var arrow = document.getElementById('selected_arrow')
+    let cell = document.getElementById(thisId)
+    let arrow = document.getElementById('selected_arrow')
     cell.append(arrow)
     arrow.style.display = 'block'
   }
@@ -80,16 +81,42 @@ class RecruiterGrid extends Component {
       expanded: false,
       selected_id: ''
     }, function afterStateChange () {
-      var detail = document.getElementById('expandedDetail')
+      let detail = document.getElementById('expandedDetail')
       detail.style.display = 'none'
-      var arrow = document.getElementById('selected_arrow')
+      let arrow = document.getElementById('selected_arrow')
       arrow.style.display = 'none'
     })
   }
 
+  //SAVE RECRUITER AJAX...need to sett <a> to the id of the recruiter
+  saveRecruiter(e) {
+    e.preventDefault()
+    console.log(e.target.getAttribute('value'))
+    $.ajax({
+      url: '/saverecruiter',
+      type: 'POST',
+      data: {
+        savedRecruiter: e.target.getAttribute('value'),
+      },
+      success: (response) => {
+        if (response.err) {
+          console.log("error on saving User");
+          console.log(response.err);
+        }
+        else {
+          console.log("Success at saving this user!!");
+          console.log(response)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
   handleCellClick (event) {
-    var target = event.target
-    var thisIdNumber = parseInt(event.target.id.substring(10))
+    let target = event.target
+    let thisIdNumber = parseInt(event.target.id, 10)
 
     if (this.state.expanded) { // expanded == true
       if (this.state.selected_id === event.target.id) { // Clicking on already opened detail
@@ -100,18 +127,20 @@ class RecruiterGrid extends Component {
           expanded: true,
           selected_id: event.target.id
         }, function afterStateChange () {
-          var detail = document.getElementById('expandedDetail')
-          var description = document.getElementById('ExpandedDetailDescription')
-          var title = document.getElementById('ExpandedDetailTitle')
-          var img = document.getElementById('ExpandedDetailImage')
-          var DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
-          var ImageLink = document.getElementById('ExpandedDetailImageLink')
-          var parsedData = JSON.parse(this.props.gridData)
+          let detail = document.getElementById('expandedDetail')
+          let description = document.getElementById('ExpandedDetailDescription')
+          let title = document.getElementById('ExpandedDetailTitle')
+          let img = document.getElementById('ExpandedDetailImage')
+          let DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
+          let ImageLink = document.getElementById('ExpandedDetailImageLink')
+          let saveRecruiter = document.getElementById('saveRecruiter')
+          let parsedData = JSON.parse(this.props.gridData)
           description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}<br/>${parsedData[thisIdNumber]['unit1']}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
           title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
           img.src = parsedData[thisIdNumber]['img']
           DescriptionLink.href = parsedData[thisIdNumber]['website']
           ImageLink.href = parsedData[thisIdNumber]['website']
+          saveRecruiter.value =parsedData[thisIdNumber]['_id']
 
           this.renderExpandedDetail(target)
 
@@ -123,18 +152,20 @@ class RecruiterGrid extends Component {
         expanded: true,
         selected_id: event.target.id
       }, function afterStateChange () {
-        var detail = document.getElementById('expandedDetail')
-        var description = document.getElementById('ExpandedDetailDescription')
-        var title = document.getElementById('ExpandedDetailTitle')
-        var img = document.getElementById('ExpandedDetailImage')
-        var DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
-        var ImageLink = document.getElementById('ExpandedDetailImageLink')
-        var parsedData = JSON.parse(this.props.gridData)
+        let detail = document.getElementById('expandedDetail')
+        let description = document.getElementById('ExpandedDetailDescription')
+        let title = document.getElementById('ExpandedDetailTitle')
+        let savedRecruiter = document.getElementById('saveRecruiter')
+        let img = document.getElementById('ExpandedDetailImage')
+        let DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
+        let ImageLink = document.getElementById('ExpandedDetailImageLink')
+        let parsedData = JSON.parse(this.props.gridData)
         description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}<br/>${parsedData[thisIdNumber]['unit1']}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
         title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
         img.src = parsedData[thisIdNumber]['img']
         DescriptionLink.href = parsedData[thisIdNumber]['website']
         ImageLink.href = parsedData[thisIdNumber]['website']
+        savedRecruiter.value = parsedData[thisIdNumber]['_id']
 
         this.renderExpandedDetail(target)
 
@@ -144,18 +175,23 @@ class RecruiterGrid extends Component {
   }
 
   generateGrid () {
-    var grid = []
-    var idCounter = -1 // To help simplify mapping to object array indices. For example, <li> with 0th id corresponds to 0th child of <ol>
-    var gridData = JSON.parse(this.props.gridData)
-    console.log(gridData);
+    let grid = []
+    let idCounter = -1 // To help simplify mapping to object array indices. For example, <li> with 0th id corresponds to 0th child of <ol>
+    let gridData = JSON.parse(this.props.gridData)
+    // console.log('.............................')
+    // console.log(gridData[i]._id)
+    // console.log('.............................')
 
-    for (var i in gridData) {
+
+    for (let i in gridData) {
+      console.log('show me ids')
+      console.log(gridData[i]._id)
       idCounter = idCounter + 1
-      var thisUniqueKey = 'grid_cell_' + idCounter.toString()
-      grid.push(<SingleGridCell handleCellClick={this.handleCellClick.bind(this)} key={thisUniqueKey} id={thisUniqueKey} cellMargin={this.props.cellMargin} SingleGridCellData={gridData[i]} cellSize={this.props.cellSize} />)
+      let thisUniqueKey = 'grid_cell_' + idCounter.toString()
+      grid.push(<SingleGridCell handleCellClick={this.handleCellClick.bind(this)} key={thisUniqueKey} id={thisUniqueKey} cellMargin={this.props.cellMargin} recruiterId={gridData[i]._id} SingleGridCellData={gridData[i]} cellSize={this.props.cellSize} />)
     }
 
-    var cssforExpandedDetail = {
+    let cssforExpandedDetail = {
       backgroundColor: this.props.detailBackgroundColor,
       height: this.props.detailHeight,
       display: 'none',
@@ -165,7 +201,7 @@ class RecruiterGrid extends Component {
       borderRadius: '10px'
     }
 
-    var cssforExpandedDetailImage = {
+    let cssforExpandedDetailImage = {
       display: 'inline-block',
       maxWidth: this.props.ExpandedDetail_image_size,
       width: '100%',
@@ -179,14 +215,14 @@ class RecruiterGrid extends Component {
       margin: 'auto'
     }
 
-    var cssforExpandedDetailTitle = {
+    let cssforExpandedDetailTitle = {
       backgroundColor: this.props.ExpandedDetail_title_bgColor,
       width: '100%',
       height: 'auto',
       marginBottom: '15px'
     }
 
-    var cssforExpandedDetailDescription = {
+    let cssforExpandedDetailDescription = {
       backgroundColor: this.props.ExpandedDetail_description_bgColor,
       color: this.props.ExpandedDetail_font_color,
       width: 'auto%',
@@ -196,21 +232,21 @@ class RecruiterGrid extends Component {
       textAlign: 'justify'
     }
 
-    var cssforExpandedDetailLeft = {
+    let cssforExpandedDetailLeft = {
       width: this.props.ExpandedDetail_left_width,
       height: '100%',
       float: 'left',
       position: 'relative'
     }
 
-    var cssforExpandedDetailRight = {
+    let cssforExpandedDetailRight = {
       width: this.props.ExpandedDetail_right_width,
       height: '100%',
       float: 'right',
       position: 'relative'
     }
 
-    var cssForDescriptionLink = {
+    let cssForDescriptionLink = {
       textDecoration: 'none',
       position: 'relative',
       float: 'bottom',
@@ -218,11 +254,11 @@ class RecruiterGrid extends Component {
       cursor: 'pointer'
     }
 
-    var cssForImageLink = {
+    let cssForImageLink = {
       cursor: 'pointer'
     }
 
-    var cssforExpandedDetailClose = {
+    let cssforExpandedDetailClose = {
       textDecoration: 'none',
       position: 'relative',
       float: 'right',
@@ -249,7 +285,7 @@ class RecruiterGrid extends Component {
       }
     }
 
-    var closeX
+    let closeX
     if (this.props.ExpandedDetail_closeX_bool) {
       closeX = 'X'
     } else {
@@ -260,7 +296,7 @@ class RecruiterGrid extends Component {
       <li style={cssforExpandedDetail} key='expandedDetail' id='expandedDetail'>
         <div id='ExpandedDetail_left'className='ExpandedDetail_left' style={cssforExpandedDetailLeft}>
           <a id='ExpandedDetailImageLink' style={cssForImageLink}>
-            <img id='ExpandedDetailImage' className='ExpandedDetailImage' style={cssforExpandedDetailImage} />
+            <img id='ExpandedDetailImage' className='ExpandedDetailImage' style={cssforExpandedDetailImage} alt=''/>
           </a>
         </div>
         <div id='ExpandedDetail_right' className='ExpandedDetail_right' style={cssforExpandedDetailRight}>
@@ -268,6 +304,7 @@ class RecruiterGrid extends Component {
           <div id='ExpandedDetailTitle' className='ExpandedDetailTitle' style={cssforExpandedDetailTitle}> Title </div>
           <div id='ExpandedDetailDescription' className='ExpandedDetailDescription' style={cssforExpandedDetailDescription}> Some Description</div>
           <a id='ExpandedDetailDescriptionLink' style={cssForDescriptionLink}> → Link </a>
+          <button id='saveRecruiter' value={this.props.recruiterId} className='saveRecruiter' style={cssForDescriptionLink} onClick={this.saveRecruiter.bind(this)}>saveRecruiter</button>
         </div>
       </li>
      )
@@ -276,32 +313,32 @@ class RecruiterGrid extends Component {
   }
 
   render () {
-    var rows = this.generateGrid()
+    let rows = this.generateGrid()
 
-    var cssForGridDetailExpansion = {
+    let cssForGridDetailExpansion = {
       width: '100%',
       position: 'relative'
     }
 
-    var cssForGridList = {
+    let cssForGridList = {
       listStyle: 'none',
       padding: 0,
       display: 'inline-block'
     }
 
-    var cssForTheGridHolder = {
+    let cssForTheGridHolder = {
       width: '100%',
       backgroundColor: this.props.bgColor,
       margin: 0,
       textAlign: 'center'
     }
 
-    var cssForSelectedArrow = {
+    let cssForSelectedArrow = {
       width: 0,
       height: 0,
       borderLeft: '20px solid transparent',
       borderRight: '20px solid transparent',
-      borderBottom: '32px solid' + this.props.detailBackgroundColor,
+      borderBottom: '31px solid' + this.props.detailBackgroundColor,
       marginTop: this.props.cellSize,
       marginLeft: this.props.cellSize / 2 - 20,
       display: 'none',

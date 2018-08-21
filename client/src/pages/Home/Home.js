@@ -1,8 +1,7 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import "./Home.css";
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import RecruiterTile from '../../components/RecruiterTile';
 
 class Home extends Component {
   state = {
@@ -11,9 +10,12 @@ class Home extends Component {
 
   render () {
     return (
-      <div className="Home">
+      <Fragment>
         <header>
-          <Nav />
+          <Nav
+          sitepath={this.props.sitepath}
+          loggedIn={this.props.loggedIn}
+           />
 
             <section className="parallax-1 intro-text">
               <div className="flex-container">
@@ -67,13 +69,9 @@ class Home extends Component {
           </section>
         </section>
 
-        <RecruiterTile />
+        <Footer />
 
-        <div className="text-center">
-          <Footer />
-        </div>
-
-      </div>
+      </Fragment>
     )
   }
 }

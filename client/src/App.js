@@ -37,19 +37,26 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' render={() =>
+              <Home
+              sitepath={"index"}
+              loggedIn={this.state.loggedIn}
+              /> } 
+            />
             <Route path='/signin' render={() =>
               <Signin
                 username={this.state.username}
                 loggedIn={this.state.loggedIn}
                 updateUser={this.updateUser}
+                sitepath={"signin"}
               />}
             />
             <Route path='/signup' render={() =>
               <Signup
                 updateUser={this.updateUser}
+                sitepath={"signup"}
+                loggedIn={this.state.loggedIn}
               />}
             />
             <Route path='/user-dashboard' render={() =>
@@ -65,13 +72,16 @@ class App extends Component {
                 zip={this.state.zip}
                 loggedIn={this.state.loggedIn}
                 updateUser={this.updateUser}
+                sitepath={"user-dashboard"}
               />}
             />
             <Route path='/recruiterdashboard' render={() =>
-            <RecruiterDashboard/>}
+              <RecruiterDashboard
+                sitepath={"recruiterdashboard"}
+                loggedIn={this.state.loggedIn}
+              />}
             />
           </Switch>
-        </div>
       </Router>
     );
   }
