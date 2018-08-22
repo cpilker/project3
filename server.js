@@ -15,6 +15,7 @@ const
   MongoStore = require('connect-mongo')(session),
   PORT = process.env.PORT || 3000,
   User = require('./models/user'),
+  path = require('path'),
   Recruiter = require('./models/recruiter');
 
 
@@ -54,7 +55,10 @@ passport.deserializeUser(User.deserializeUser());
 app.use('/images', express.static("client/public/images"));
   // if on Heroku use this
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client"));
+  app.use(express.static(path.join(__dirname, './client/build')))
+	app.get('/', (req, res) => {
+		res.sendFile(path.join(__dirname + './client/build/index.html'))
+	})
 }
 
 
