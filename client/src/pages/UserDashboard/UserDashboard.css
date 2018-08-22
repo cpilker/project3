@@ -1,5 +1,17 @@
+.form-group {
+  margin-bottom: 0;
+}
+
+.formSpacer {
+  margin-top: 5px;
+}
+
 .hidden {
   display: none;
+}
+
+.gutterWrap {
+  padding-left: 0;
 }
 
 .UserDashboard {
@@ -10,8 +22,23 @@
   display: block;
 }
 
-#profileImage{
+#userImage {
+  width: 100%;
+  margin-bottom: 10px;
   border-radius: 50%;
+}
+
+#editProfile {
+  margin-bottom: 10px;
+}
+
+/* #profileImage{
+  border-radius: 50%;
+} */
+
+#userProfile {
+  width: 95%;
+  float: left;
 }
 
 /************* Orange Bar *************/
@@ -56,11 +83,6 @@
 
 /************* Recruiter search *************/
 
-#agencyLocate {
-  margin-left: 20px;
-  width: 50%;
-}
-
 #agencyLocate form input {
   width: 70%;
 }
@@ -71,6 +93,16 @@
 
 /************* Media queries *************/
 
+@media only screen and (max-width : 992px) {
+  #agencyLocate {
+    margin-left: 10px;
+  }
+
+  #agencyLocate form input {
+    width: 80%;
+  }
+} 
+
 @media only screen and (max-width : 770px) {
   #agencyLocate {
     margin-left: 10px;
@@ -79,6 +111,21 @@
 
   #agencyLocate form input {
     width: 80%;
+  }
+
+  #userProfile {
+    width: 100%;
+  }
+
+  #userImage {
+    width: 50%;
+    margin-bottom: 10px;
+    border-radius: 50%;
+  }
+
+  .gutterWrap {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 } 
 
@@ -92,6 +139,8 @@
     left: calc(10% + 175px);
     font-size: 1.8em;
   }
+
+
 } 
 
 @media only screen and (max-width : 522px) {
@@ -132,5 +181,9 @@
     left: 120px;
     top: 100px;
     font-size: 1.5em;
+  }
+
+  #recSearchTitle h2 {
+    font-size: 1.7em;
   }
 } 

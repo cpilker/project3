@@ -1,0 +1,30 @@
+.popCardCont {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popCard {
+  width: 30%;
+  display: inline-block;
+  text-align: center;
+  margin: 0 10px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.popCardHeader {
+  border: 0;
+  background: rgb(167,183,198);
+}
+
+.popCardHeader:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.popCardBody {
+  background: rgb(234,241,246);
+  border-radius: 0 0 10px 10px;
+}

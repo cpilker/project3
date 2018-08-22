@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-
+import React, {Component, Fragment} from "react";
+import './PopulationTile.css';
 
 class PopulationTile extends Component {
   state = {
@@ -8,9 +8,39 @@ class PopulationTile extends Component {
 
   render () {
     return (
-        <div className="paperCard">
-          {this.props.popvalue}
+      <Fragment>
+        <div className="col-md-12 popCardCont">
+          <div className="card popCard">
+            <h5 className="card-header popCardHeader">Total</h5>
+            <div className="card-body popCardBody">
+              <h2>{this.props.available}</h2>
+            </div>
+          </div>
+
+          <div className="card popCard">
+            <h5 className="card-header popCardHeader">Actively Searching</h5>
+            <div className="card-body popCardBody">
+              <h2>{this.props.active}</h2>
+            </div>
+          </div>
+
+          {/* <div className="card popCard">
+            <h5 className="card-header popCardHeader">Open</h5>
+            <div className="card-body popCardBody">
+              <h2>{this.props.open}</h2>
+            </div>
+          </div> */}
+
+          <div className="card popCard">
+            <h5 className="card-header popCardHeader">Not Searching</h5>
+            <div className="card-body popCardBody">
+              <h2>{this.props.notsearching}</h2>
+            </div>
+          </div>  
         </div>
+
+        <div className="clearfix"/>
+      </Fragment>
     )
   }
 }
