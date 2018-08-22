@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "build": "cd ./client && npm run build",
+    "build": "concurrently \"cd ./client && npm run start-js\" \"npm run dev-server\" \"npm run seed\"",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "setup": "node setup.js",
     "seed": "node scripts/recruiterseedDB.js",
