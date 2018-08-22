@@ -221,6 +221,7 @@ class Signup extends Component {
               </div>
             </div>
           </div>
+
         <div className={styles.footerRow}>
           <Footer/>
         </div>
