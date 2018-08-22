@@ -348,19 +348,11 @@ module.exports = function(app, gfs) {
 
     db.collection("savedRecruiters").insert({savedRecruiter: x}),
  
-    db.collection("users").find({_id: req.body.userID},{$set: {'savedRecruiter': x}},
-      console.log("newly added recruiter: " + x) 
-    ),
-    res.send(x + " added to the db")
-
-    //NEED TO PASS IN THE the USER ID to UPDATE THE USER THAT IT HAS A SAVED USER
-    // db.collection("savedRecruiters").insert(newSavedRecruiter).then(function(savedRecruiter) {
-    //   //WE NEED CODE TO PUSH IT TO THE LOGGED IN RECRUITER BY ID AND PUSH TO THAT ARRAY
-      
-    //   db.collection("users").findOneandUpdate({email})
-    //   console.log("complete")
-    //   res.send(savedRecruiter.newSavedRecruiter + " added to db")
+    User.findOneAndUpdate({_id: req.body.userID},{$push: {savedRecruiter: x}}, {new: true}).then(function(){
+      console.log("success"),
+      res.send(x + " added to the db")
     })
+  })
 
   app.get("/api/signout", function(req, res) {
     console.log("Signout has been fired!");
@@ -371,10 +363,6 @@ module.exports = function(app, gfs) {
       res.send("Success")
       // res.redirect('/')
     });
-    
-
   });
-
   /////////////////// User routes ///////////////////
-
 };
