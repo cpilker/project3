@@ -382,7 +382,9 @@ class UserDashboard extends Component {
           </div>
           </div>
         
+
         <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
+
         </div>
 
       <hr/>

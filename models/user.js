@@ -68,9 +68,9 @@ const userSchema = new Schema({
   savedRecruiter: [
     {
       // Store ObjectIds in the array
-      type: Schema.Types.ObjectId,
+      type: String,
       // The ObjectIds will refer to the ids in the Note model
-      ref: "savedRecruiter"
+      ref: "savedRecruiters"
     }
   ]
 });
