@@ -191,7 +191,7 @@ module.exports = function(app, gfs) {
           res.json({err});
       } else {
           console.log('New user added!');
-          passport.authenticate('local')(req, res, function() {
+          passport.authenticate('user')(req, res, function() {
             console.log('Done!');
             res.json({username: req.user.username});
           });
@@ -368,7 +368,8 @@ module.exports = function(app, gfs) {
     req.session.destroy(function (err) {
       console.log(req.session);
       console.log("Signout completed, now redirecting to index");
-      res.redirect('/')
+      res.send("Success")
+      // res.redirect('/')
     });
     
 
