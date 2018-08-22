@@ -96,7 +96,7 @@ module.exports = function(app, gfs) {
           err: "No file exist"
         });
       }
-      // Check if image
+      // Check if imageasdfas
       if (file.contentType === 'image/jpeg' 
       || file.contentType === 'img/png') {
         // Read output to browser 
