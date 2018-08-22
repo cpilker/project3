@@ -73,22 +73,10 @@ class ProfilePic extends Component {
         <button onClick={this.fileUpload}> Upload axios {this.state.test}</button>
       </div>
 
-      <form action={`/upload/${this.props.id}/profilePic`} method='POST' encType='multipart/form-data'>
-          <input type='file' name='file' id='file'/>
-          <input type='submit' value='Upload w/ ajax' className='' onClick={this.uploadPicture}/>
-      </form>
 
-        <br></br>
-      <form action={`/files/${this.props.id}/profilePic?_method=DELETE`} method='POST' > 
-        <input type='submit' value='Delete' className=''/>
-      </form>
-
-      <form action={`/download/${this.props.id}/profilePic?_method=GET`} method='POST' > 
-        <input type='submit' value='Download' className=''/>
-      </form>
 
       <div style={{width: '250px', height: '250px', overflow: 'hidden'}} data-type={this.state.test}> 
-        <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic`} alt={this.state.test}/>
+        <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic`} alt={this.state.test}/> {/* <--------  IMG */ }
       </div>
 
 
