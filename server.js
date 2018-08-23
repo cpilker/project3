@@ -14,7 +14,9 @@ const
   app = express(),
   MongoStore = require('connect-mongo')(session),
   PORT = process.env.PORT || 3000,
-  User = require('./models/user');
+  User = require('./models/user'),
+  path = require('path'),
+  Recruiter = require('./models/recruiter');
 
 
 // Connect to the Mongo DB
@@ -43,7 +45,8 @@ app.use((req, res, next) => {
 
 
   // Passport middleware
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use('user', new LocalStrategy(User.authenticate()));
+passport.use('recruiter', new LocalStrategy(Recruiter.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -52,7 +55,10 @@ passport.deserializeUser(User.deserializeUser());
 app.use('/images', express.static("client/public/images"));
   // if on Heroku use this
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client"));
+  app.use(express.static(path.join(__dirname, './client/build')))
+	app.get('/', (req, res) => {
+		res.sendFile(path.join(__dirname + './client/build/index.html'))
+	})
 }
 
 

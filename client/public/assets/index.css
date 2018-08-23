@@ -24,11 +24,15 @@
         url('./fonts/acier.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
-  #root {
-      height: 100%;
-  }
+#root {
+    height: 100%;
+}
+
+.clearfix {
+    clear: both;
+}
 
 .paperCard {
     border-radius: 10px;

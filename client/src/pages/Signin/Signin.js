@@ -39,6 +39,7 @@ class Signin extends Component {
           loggedIn: true,
           id: response.id,
           username: response.username,
+          recruiting_agency: response.recruiting_agency,
           firstname: response.firstname,
           lastname: response.lastname,
           address1: response.address1,
@@ -50,10 +51,12 @@ class Signin extends Component {
           lastLogin: response.lastLogin
         })
         this.setState({
-          redirectTo: '/user-dashboard'
+          redirectTo: response.redirectTo,
+          error: response.responseText
         })
       },
       error: (err) => {
+        console.log(err)
         this.setState({
           error: err.responseText
         })

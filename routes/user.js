@@ -2,7 +2,9 @@
 const
   passport = require('passport'),
   User = require('../models/user'),
+  Recruiter = require('../models/recruiter'),
   mongojs = require('mongojs'),
+  mongoose = require('mongoose'),
   multer = require('multer'),
   GridFsStorage = require('multer-gridfs-storage'),
   email 	= require("emailjs"),
@@ -189,7 +191,7 @@ module.exports = function(app, gfs) {
           res.json({err});
       } else {
           console.log('New user added!');
-          passport.authenticate('local')(req, res, function() {
+          passport.authenticate('user')(req, res, function() {
             console.log('Done!');
             res.json({username: req.user.username});
           });
@@ -270,25 +272,42 @@ module.exports = function(app, gfs) {
     });
   })
 
-  // Sign in route
-  app.post('/api/signin', function(req, res, next) {
-    console.log("Signin post incoming...");
-    next();
-  },
-    passport.authenticate('local'),(req, res) => {
-      res.json({
-        id:req.user._id,
-        username: req.user.username,
-        firstname: req.user.firstname,
-        lastname: req.user.lastname,
-        address1: req.user.address1,
-        address2: req.user.address2,
-        city: req.user.city,
-        state: req.user.state,
-        zip: req.user.zip,
-        created: req.user.created,
-        lastLogin: req.user.lastLogin
-      });
+  // Sign in route, detects if user or recruiter and redirects accordingly
+  app.post('/api/signin',
+    passport.authenticate(['user', 'recruiter']), function(req, res) {
+      console.log("Passport has fired!");
+      console.log(req.user)
+      if (req.user.prefix === 'R') {
+        res.json({
+          id: req.user._id,
+          username: req.user.username,
+          firstname: req.user.firstname,
+          lastname: req.user.lastname,
+          address1: req.user.address1,
+          address2: req.user.address2,
+          city: req.user.city,
+          state: req.user.state,
+          zip: req.user.zip,
+          created: req.user.created,
+          lastLogin: req.user.lastLogin,
+          redirectTo: '/recruiterdashboard'
+        });
+      } else {
+        res.json({
+          id: req.user._id,
+          username: req.user.username,
+          firstname: req.user.firstname,
+          lastname: req.user.lastname,
+          address1: req.user.address1,
+          address2: req.user.address2,
+          city: req.user.city,
+          state: req.user.state,
+          zip: req.user.zip,
+          created: req.user.created,
+          lastLogin: req.user.lastLogin,
+          redirectTo: '/user-dashboard'
+        });
+      }
     }
   )
   
@@ -321,17 +340,19 @@ module.exports = function(app, gfs) {
 
   // Save the recruiter to your database
   app.post('/saverecruiter', function(req, res){
-    const newSavedRecruiter = new savedRecruiter(req.body)
-    console.log(newSavedRecruiter)
+    // const newSavedRecruiter = new savedRecruiter(req.body)
+    let x = req.body.savedRecruiter
 
-    //NEED TO PASS IN THE the USER ID to UPDATE THE USER THAT IT HAS A SAVED USER
-    // db.collection("savedRecruiters").insert(newSavedRecruiter).then(function(savedRecruiter) {
-    //   //WE NEED CODE TO PUSH IT TO THE LOGGED IN RECRUITER BY ID AND PUSH TO THAT ARRAY
-      
-    //   db.collection("users").findOneandUpdate({email})
-    //   console.log("complete")
-    //   res.send(savedRecruiter.newSavedRecruiter + " added to db")
+    console.log(req.body.savedRecruiter)
+    console.log(req.body.userID)
+
+    db.collection("savedRecruiters").insert({savedRecruiter: x}),
+ 
+    User.findOneAndUpdate({_id: req.body.userID},{$push: {savedRecruiter: x}}, {new: true}).then(function(){
+      console.log("success"),
+      res.send(x + " added to the db")
     })
+  })
 
   app.get("/api/signout", function(req, res) {
     console.log("Signout has been fired!");
@@ -339,12 +360,9 @@ module.exports = function(app, gfs) {
     req.session.destroy(function (err) {
       console.log(req.session);
       console.log("Signout completed, now redirecting to index");
-      res.redirect('/')
+      res.send("Success")
+      // res.redirect('/')
     });
-    
-
   });
-
   /////////////////// User routes ///////////////////
-
 };

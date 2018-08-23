@@ -1,82 +1,85 @@
-import React, {Component} from "react";
-// import '/.UserTile.css';
-import $ from "jquery";
+// Using modified version of DevExtreme React Grid https://devexpress.github.io/devextreme-reactive/react/grid/
+
+import * as React from 'react';
+import { Card } from 'reactstrap';
+import { RowDetailState } from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableRowDetail,
+} from '@devexpress/dx-react-grid-bootstrap4';
+import './UserTile.css';
+
+const RowDetail = ({ row }) => (
+  <div>
+    <div className="userTileImgDiv"><img src={row.image} className="userTileImgStyle" alt=''/></div>
+    <div className="userTileDetailStyle">
+      <p><b>{row.name}</b><br/>
+      {row.email}</p>
+      <p>
+        {row.address}<br/>
+        {row.city}, {row.state} {row.zipcode}
+      </p>
+    </div>
+  </div>
+);
 
 
 
-class UserTile extends Component {
-  state ={
-    saveUser: null
+export default class userTileBriteGrid2 extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [
+        { name: 'name', title: 'Name' },
+        { name: 'city', title: 'City' },
+        { name: 'state', title: 'State' }
+      ],
+      rows: this.generateRows(this.props.users),
+    };
+
   }
 
+  generateRows(users){
+  let rows = [];
+  let data = users;
+  for (let i=0;i<data.length;i++){
+    let temp = {}
+    temp['name'] = `${data[i]['firstname']} ${data[i]['lastname']}`;
+    temp['city'] = data[i]['city'];
+    temp['state'] = data[i]['state'];
+    temp['email'] = data[i]['username'];
+    temp['address'] = data[i]['address1'];
+    temp['zipcode'] = data[i]['zip'];
+    temp['id'] = data[i]['_id'];
+    temp['image'] = `./images/${data[i]['_id']}/profilePic`
+    rows.push(temp);
+  }
+  return rows
+  }
 
-  render () {
-    let users = this.props.users;
-    // console.log(users);
- 
-
-    function saveUser(e) {
-      // e.preventDefault();
-      $.ajax({
-        url: '/saveuser',
-        type: 'post',
-        data: {
-          saveUser: $('#user-tile-id').attr('data-type')
-        },
-        success: (response) => {
-          if (response.err) {
-            console.log("error on saving User");
-            console.log(response.err);
-          }
-          else {
-            console.log("Success at saving this user!!");
-            console.log(response)
-          }
-        },
-        error: (err) => {
-          console.log(err)
-        }
-      })
-  
-    }
-
-
-    function renderGrid(users, i) {
-      // console.log(users.firstname)
-      return(
-        <div className=" card [ is-collapsed ]" key={i}>
-          <div className="card__inner [ js-expander ]">
-            <img src="./images/recruiter-logos/charlotte_automation.jpg" alt={users.firstname} />
-          </div>
-          <div className="card__expander expand_animation">
-            <div className="expander__content">
-              <h2>{users.firstname} + {users.lastname}</h2>
-              <p>{users.description}</p>
-              <h2>Contact Info</h2>
-              <p>{users.address1} {users.address2}, {users.city}, {users.state} {users.zip}<br />
-              <p>{users.skill}</p>
-              <a href={users.username}>{users.username}</a></p>
-              <button data-type={users._id} id="user-tile-id" onClick={saveUser}>You know you want me</button>
-            </div>
-          </div>
-        </div>
-      )
-    }
-
-    function propsCheck(users) {
-      if(Array.isArray(users)){
-        return users.map(renderGrid)
-      }
-    }
+  render() {
+    console.log(this.props.users)
+    const { rows, columns } = this.state;
 
     return (
-      <div className="container">
-        <div className="cards">
-          {propsCheck(users)}
-        </div>
-      </div>
-    )
+      <Card className="userTileGrid">
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <RowDetailState
+            defaultExpandedRowIds={[0]}
+          />
+          <Table />
+          <TableHeaderRow />
+          <TableRowDetail
+            contentComponent={RowDetail}
+          />
+        </Grid>
+      </Card>
+    );
   }
 }
-
-export default UserTile;

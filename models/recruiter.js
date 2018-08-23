@@ -59,9 +59,10 @@ const recruiterSchema = new Schema({
         type: String,
         unique: true
     },
-    date: {
+    lastLogin: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
     },
     savedUsers: [
         {
@@ -78,6 +79,12 @@ const recruiterSchema = new Schema({
         }
     ]
 });
+
+recruiterSchema.plugin(passportLocalMongoose, { 
+    usernameField: 'username',
+    lastLoginField: 'lastLogin',
+    saltfield: 'password'
+  });
 
 const Recruiter = conn.model("Recruiter", recruiterSchema);
 

@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from "react";
+import React, {Component, Fragment, Redirect} from "react";
 import './Nav.css';
 import ContactUs from '../ContactUs';
 import $ from 'jquery';
@@ -17,6 +17,7 @@ class Nav extends Component {
       url: '/api/signout',
       type: 'get',
       success: (response) => {
+        console.log(response)
         // this.clearForm()
         if (response.err) {
           console.log("Signout Error!");
@@ -38,6 +39,8 @@ class Nav extends Component {
             loggedIn: false,
             created: null
           })   // Stores logged in status in App.js
+          console.log("Redirecting now...")
+          window.location.assign('/')
         }
       },
       error: (err) => {
@@ -66,7 +69,7 @@ class Nav extends Component {
                 <li className="nav-item">
                   <a className="main-menu-links" href="" data-toggle="modal" data-target="#myModal" id="showContactModal">Contact Us</a>
                 </li>
-              {this.props.sitepath === "user-dashboard" && this.props.loggedIn ? 
+              {this.props.loggedIn ? 
                 <li className="nav-item">
                   <a className="logout-link" href="#" onClick={this.signout}>Sign Out</a>
                 </li>

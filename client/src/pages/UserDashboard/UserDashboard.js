@@ -9,6 +9,7 @@ import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
 import EventBriteGrid2 from '../../components/Eventbrite/EventBriteGrid2';
+import skillsArray from '../../skills.json';
 // import API from "../../utils/API";
 
 
@@ -24,7 +25,7 @@ class UserDashboard extends Component {
     city: null,
     state: null,
     zip: null,
-    loggedIn: false,
+    // loggedIn: false,
     created: null,
     lastLogin: null,
     newusername: undefined,
@@ -40,7 +41,8 @@ class UserDashboard extends Component {
     errorMessage: null,
     statusText: null,
     events,
-    recruitersearch: null,        
+    recruitersearch: null,      
+    skillsArray  
   }
 
   handleOnChange = this.handleOnChange.bind(this);
@@ -59,7 +61,7 @@ class UserDashboard extends Component {
       city: null,
       state: null,
       zip: null,
-      loggedIn: false,
+      // loggedIn: false,
       created: null,
       lastLogin: null,
     })
@@ -178,11 +180,11 @@ class UserDashboard extends Component {
   }
 
   editProfileButton(event){
-    $('#user').find(':input').each(function() {
+    $('#user').find('.hider').each(function() {
       $(this).toggleClass('hidden');
     });
     $('#editprofile').text(function(i, text){   // Toggle Edit button text
-      return text === "Edit" ? "Cancel" : "Edit";
+      return text === "Edit Profile" ? "Cancel" : "Edit Profile";
     });
   }
 
@@ -197,168 +199,204 @@ class UserDashboard extends Component {
         loggedIn={this.props.loggedIn}
       />
 
+      {/* Orange Bar */}
       <div id="orangeBar">
         <span id="dashboardTitle">User Dashboard</span>
         <div id="orangeBarDogDiv">
           <img src="./images/dog-dashboard.png" id="orangeBarDogImg"/>
         </div>
       </div>
+      <div className="clearfix" />
+      {/* <h4>Logged In? = {this.props.loggedIn.toString()}</h4> */}
 
       <div className="container">
+        <div className="row">
 
-      <ProfilePic 
-        id={this.state.id} 
-        firstname={this.props.firstname} 
-        lastname={this.props.lastname}
-      />
-      <Resume
-        id={this.state.id} 
-        firstname={this.props.firstname} 
-        lastname={this.props.lastname}
-      />
+              
+      <div className="col-xs-12 col-sm-12 col-md-3 gutterWrap text-center"> 
+        <div className="paperCard" id="userProfile">
 
-      <div className="profile-form paperCard">
-       
-        <h4>Logged In? = {this.props.loggedIn.toString()}</h4>
-        <button className="btn btn-primary" id="editprofile" onClick={this.editProfileButton}>Edit Profile</button>{this.state.statusText}
+   
+
+          {/* User's Name */}
+          <h3>{this.props.firstname} {this.props.lastname}</h3>
+
+          {/* User Image */}
+          <img src="https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg" id="userImage" />
+
+          <div className="clearfix"/>
+
+          {/* Edit button */}
+          <button className="btn btn-primary" id="editProfile" onClick={this.editProfileButton}>Edit Profile</button><br />
+
+          {/* Begin profile form */}
+          <div >
           <form id="user" name="user-dashboard">
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label htmlFor="username">{this.props.username}</label>
-                <input type="email" className="form-control hidden" id="email" placeholder="Email" name="newusername" value={this.state.newusername} onChange={this.handleOnChange} required autoComplete="email"/>
+      
+              <div className="form-row">
+                  {/* E-mail */}
+                  <div className="form-group col-md-12">
+                      <label htmlFor="username"><strong>E-mail:</strong><br/>{this.props.username}</label>
+                      <input type="email" className="form-control hidden hider" id="email" placeholder="Email" name="newusername" value={this.state.newusername} onChange={this.handleOnChange} required autoComplete="email"/>
+                  </div>
+                  {/* Password */}
+                  <div className="form-group col-md-12">
+                      <label htmlFor="password" className="formSpacer hidden hider"><strong>Password:</strong></label>
+                      <input type="password" className="form-control hidden hider" id="password" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required autoComplete="new-password" />
+                  </div>
               </div>
-              <div className="form-group col-md-6">
-                <label htmlFor="password">&nbsp;</label>
-                <input type="password" className="form-control hidden" id="password" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required autoComplete="new-password" />
+
+              <div className="form-row">
+                  {/* First Name */}
+                  <div className="form-group col-md-12">
+                      <label htmlFor="newfirstname" className="formSpacer"><strong>First Name:</strong> {this.props.firstname}</label>
+                      <input type="text" className="form-control hidden hider" id="newfirstname" placeholder="First name" name="newfirstname" value={this.state.newfirstname} onChange={this.handleOnChange} required autoComplete="given-name" />
+                  </div>
+                  {/* Last Name */}
+                  <div className="form-group col-md-12">
+                      <label htmlFor="newlastname" className="formSpacer"><strong>Last Name:</strong> {this.props.lastname}</label>
+                      <input type="text" className="form-control hidden hider" id="newlastname" placeholder="Last name" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required autoComplete="family-name" />
+                  </div>
               </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label htmlFor="newfirstname">{this.props.firstname}</label>
-                <input type="text" className="form-control hidden" id="newfirstname" placeholder="First name" name="newfirstname" value={this.state.newfirstname}onChange={this.handleOnChange} required autoComplete="given-name" />
+
+                  {/* Address */}
+              <div className="form-group">  
+                  <label htmlFor="newaddress1" className="formSpacer"><strong>Address:</strong> {this.props.address1}<br/>{this.props.address2}</label>
+                  <input type="text" className="form-control hidden hider" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required autoComplete="address-line1" />
               </div>
-              <div className="form-group col-md-6">
-                <label htmlFor="newlastname">{this.props.lastname}</label>
-                <input type="text" className="form-control hidden" id="newlastname" placeholder="Last name" name="newlastname" value={this.state.newlastname} onChange={this.handleOnChange} required autoComplete="family-name" />
+
+              <div className="form-group">
+                  {/* <label htmlFor="newaddress2" className="formSpacer hidden hider"><strong>Address 2:</strong> {this.props.address2}</label> */}
+                  <input type="text" className="form-control hidden hider" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange} autoComplete="address-line2" />
               </div>
-            </div>
-            <div className="form-group">  
-                <label htmlFor="newaddress1">{this.props.address1}</label>
-                <input type="text" className="form-control hidden" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required autoComplete="address-line1" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="newaddress2">{this.props.address2}</label>
-              <input type="text" className="form-control hidden" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange} autoComplete="address-line2" />
-            </div>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label htmlFor="newcity">{this.props.city}</label>
-                <input type="text" className="form-control hidden" id="newcity" name="newcity" placeholder="City" value={this.state.newcity} onChange={this.handleOnChange} required autoComplete="address-level2" />
+
+              <div className="form-row">
+                  {/* City */}
+                  <div className="form-group col-md-7">
+                      <label htmlFor="newcity" className="formSpacer"><strong>City:</strong> {this.props.city}</label>
+                      <input type="text" className="form-control hidden hider" id="newcity" name="newcity" placeholder="City" value={this.state.newcity} onChange={this.handleOnChange} required autoComplete="address-level2" />
+                  </div>
+                  {/* State */}
+                  <div className="form-group col-md-5">
+                      <label htmlFor="newstate" className="formSpacer"><strong>State:</strong> {this.props.state}</label>
+                      <select id="newstate" className="form-control hidden hider" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required autoComplete="address-level1">
+                          <option selected disabled>Choose...</option>
+                          <option value="AL">Alabama</option>
+                          <option value="AK">Alaska</option>
+                          <option value="AZ">Arizona</option>
+                          <option value="AR">Arkansas</option>
+                          <option value="CA">California</option>
+                          <option value="CO">Colorado</option>
+                          <option value="CT">Connecticut</option>
+                          <option value="DE">Delaware</option>
+                          <option value="DC">District Of Columbia</option>
+                          <option value="FL">Florida</option>
+                          <option value="GA">Georgia</option>
+                          <option value="HI">Hawaii</option>
+                          <option value="ID">Idaho</option>
+                          <option value="IL">Illinois</option>
+                          <option value="IN">Indiana</option>
+                          <option value="IA">Iowa</option>
+                          <option value="KS">Kansas</option>
+                          <option value="KY">Kentucky</option>
+                          <option value="LA">Louisiana</option>
+                          <option value="ME">Maine</option>
+                          <option value="MD">Maryland</option>
+                          <option value="MA">Massachusetts</option>
+                          <option value="MI">Michigan</option>
+                          <option value="MN">Minnesota</option>
+                          <option value="MS">Mississippi</option>
+                          <option value="MO">Missouri</option>
+                          <option value="MT">Montana</option>
+                          <option value="NE">Nebraska</option>
+                          <option value="NV">Nevada</option>
+                          <option value="NH">New Hampshire</option>
+                          <option value="NJ">New Jersey</option>
+                          <option value="NM">New Mexico</option>
+                          <option value="NY">New York</option>
+                          <option value="NC">North Carolina</option>
+                          <option value="ND">North Dakota</option>
+                          <option value="OH">Ohio</option>
+                          <option value="OK">Oklahoma</option>
+                          <option value="OR">Oregon</option>
+                          <option value="PA">Pennsylvania</option>
+                          <option value="RI">Rhode Island</option>
+                          <option value="SC">South Carolina</option>
+                          <option value="SD">South Dakota</option>
+                          <option value="TN">Tennessee</option>
+                          <option value="TX">Texas</option>
+                          <option value="UT">Utah</option>
+                          <option value="VT">Vermont</option>
+                          <option value="VA">Virginia</option>
+                          <option value="WA">Washington</option>
+                          <option value="WV">West Virginia</option>
+                          <option value="WI">Wisconsin</option>
+                          <option value="WY">Wyoming</option>
+                      </select>
+                  </div>
+                  {/* Zip Code */}
+                  <div className="form-group col-md-12">
+                      <label htmlFor="newzip" className="formSpacer"><strong>Zip Code:</strong> {this.props.zip}</label>
+                      <input type="text" className="form-control hidden hider" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
+                  </div>
+                  {/* Skills */}
+                  <div className="form-group col-md-12" id="skills-container">
+                      <label id="technologiesWorkWith" htmlFor="skills-block" className="formSpacer"><strong>What technologies do you work with?</strong></label>
+                      <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
+                          {/* //Begin list of skills */}
+                          {this.state.skillsArray.map(skill => (
+                            <label className="btn btn-default skillbutton">
+                            <input type="checkbox" autoComplete="off" value={skill.name} />
+                            {skill.name}</label>
+                          ))}
+                      </div>
+                  </div>
               </div>
-              <div className="form-group col-md-4">
-                <label htmlFor="newstate">{this.props.state}</label>
-                <select id="newstate" className="form-control hidden" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required autoComplete="address-level1">
-                  <option selected disabled>Choose...</option>
-                  <option value="AL">Alabama</option>
-                  <option value="AK">Alaska</option>
-                  <option value="AZ">Arizona</option>
-                  <option value="AR">Arkansas</option>
-                  <option value="CA">California</option>
-                  <option value="CO">Colorado</option>
-                  <option value="CT">Connecticut</option>
-                  <option value="DE">Delaware</option>
-                  <option value="DC">District Of Columbia</option>
-                  <option value="FL">Florida</option>
-                  <option value="GA">Georgia</option>
-                  <option value="HI">Hawaii</option>
-                  <option value="ID">Idaho</option>
-                  <option value="IL">Illinois</option>
-                  <option value="IN">Indiana</option>
-                  <option value="IA">Iowa</option>
-                  <option value="KS">Kansas</option>
-                  <option value="KY">Kentucky</option>
-                  <option value="LA">Louisiana</option>
-                  <option value="ME">Maine</option>
-                  <option value="MD">Maryland</option>
-                  <option value="MA">Massachusetts</option>
-                  <option value="MI">Michigan</option>
-                  <option value="MN">Minnesota</option>
-                  <option value="MS">Mississippi</option>
-                  <option value="MO">Missouri</option>
-                  <option value="MT">Montana</option>
-                  <option value="NE">Nebraska</option>
-                  <option value="NV">Nevada</option>
-                  <option value="NH">New Hampshire</option>
-                  <option value="NJ">New Jersey</option>
-                  <option value="NM">New Mexico</option>
-                  <option value="NY">New York</option>
-                  <option value="NC">North Carolina</option>
-                  <option value="ND">North Dakota</option>
-                  <option value="OH">Ohio</option>
-                  <option value="OK">Oklahoma</option>
-                  <option value="OR">Oregon</option>
-                  <option value="PA">Pennsylvania</option>
-                  <option value="RI">Rhode Island</option>
-                  <option value="SC">South Carolina</option>
-                  <option value="SD">South Dakota</option>
-                  <option value="TN">Tennessee</option>
-                  <option value="TX">Texas</option>
-                  <option value="UT">Utah</option>
-                  <option value="VT">Vermont</option>
-                  <option value="VA">Virginia</option>
-                  <option value="WA">Washington</option>
-                  <option value="WV">West Virginia</option>
-                  <option value="WI">Wisconsin</option>
-                  <option value="WY">Wyoming</option>
-                </select>
+
+              {/* Submit Button */}
+              <div className="form-row" id="submit-btn-container">
+                  <input type="hidden" id="skill" name="skill" value=""/>
+                  <button type="submit" className="btn btn-primary submitprofile hidden hider" value="Create My Profile" onClick={this.saveProfile}>Save</button>
               </div>
-              <div className="form-group col-md-2">
-                <label htmlFor="newzip">{this.props.zip}</label>
-                <input type="text" className="form-control hidden" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
-              </div>
-              {/* <div className="custom-file">
-                <input type="file" className="custom-file-input" name="file" id="file" onChange={this.handleOnChange} />
-                <label className="custom-file-label" htmlFor="newresume">Upload Resume</label>
-              </div> */}
-              <div className="form-group" id="skills-container">
-                <label id="technologiesWorkWith" htmlFor="skills-block">What technologies do you work with?</label>
-                <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
-                    {/* //Begin list of skills */}
-                    {this.props.skills}
-                </div>
-              </div>
-            </div>
-            <div className="form-row" id="submit-btn-container">
-              <input type="hidden" id="skill" name="skill" value=""/>
-              <button type="submit" className="btn btn-primary submitprofile hidden" value="Create My Profile" onClick={this.saveProfile}>Save</button>
-            </div>
           </form>
-          <form action='/api/profilepic' method='POST' encType='multipart/form-data'>
-              <input type='submit' value='Save' className='btn btn-primary btn-block'/>
-            </form>
-            </div>
 
 
-        <hr />
-        <div className="row paperCard" id='agencyInfo'>
-          <h2>&nbsp;Your Local Recruiters</h2>
-          <div className='col-xs-12' id="agencyLocate">
+          <Resume
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
+
+
+          </div>
+        </div>
+        </div>
+
+
+{/* Recruiter Grid */}
+        <div className="paperCard col-md-9" id='agencyInfo'>
+        <div className="row">
+          <div className="col-md-12 col-lg-6 col-xl-6" id="recSearchTitle">
+            <h2>&nbsp;Your Local Recruiters</h2>
+          </div>
+
+          <div className='col-xs-12 col-md-12 col-lg-6 col-xl-6' id="agencyLocate">
             <form className="form-row">
               <input className="form-control" type="text" id="search-input" placeholder="Enter Your City" />
               <button className="btn btn-primary" id="search-button" onClick={this.searchRecruiters}>Search</button>
             </form>
           </div>
+          </div>
         
-        {/* <div className="col-xs-12 recruiter-return-info" display-toggle="none">
-          <div className="accordion" id="recruiterAccordion"></div>	
-        </div> */}
-        {/* <RecruiterTile recruiters={this.state.recruitersearch}/> */}
-        <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
+
+        <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)} userID={this.state.id}/>
+
         </div>
 
       <hr/>
 
-      <div className="row paperCard" id="eventsCard">
+{/* Events Table */}
+      <div className="paperCard col-md-12" id="eventsCard">
         <h2>&nbsp;Events in Your Area</h2>
         <EventBriteGrid2 gridData={this.state.events} />
       </div>
@@ -388,10 +426,15 @@ class UserDashboard extends Component {
       </div> */}
 
 
+      <ProfilePic 
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
 
 
       <Footer />
-
+    </div>
     </div>
     </div>
 

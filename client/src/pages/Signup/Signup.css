@@ -59,6 +59,16 @@
     width: 100%;
   }
 
+  /* @media only screen and (max-width : 400px) {
+    :local(.footerRow) {
+        bottom: -100px;
+    }
+    :local(.submitprofile) {
+        top:20px;
+    }
+  }  */
+  
+
 
 
 
