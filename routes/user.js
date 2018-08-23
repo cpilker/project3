@@ -274,7 +274,7 @@ module.exports = function(app, gfs) {
 
   // Sign in route, detects if user or recruiter and redirects accordingly
   app.post('/api/signin',
-    passport.authenticate(['user', 'recruiter']),function(req, res) {
+    passport.authenticate(['user', 'recruiter']), function(req, res) {
       console.log("Passport has fired!");
       console.log(req.user)
       if (req.user.prefix === 'R') {

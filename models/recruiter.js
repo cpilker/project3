@@ -83,6 +83,7 @@ const recruiterSchema = new Schema({
 recruiterSchema.plugin(passportLocalMongoose, { 
     usernameField: 'username',
     lastLoginField: 'lastLogin',
+    saltfield: 'password'
   });
 
 const Recruiter = conn.model("Recruiter", recruiterSchema);
