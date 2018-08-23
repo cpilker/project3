@@ -209,23 +209,14 @@ class UserDashboard extends Component {
       <div className="clearfix" />
       {/* <h4>Logged In? = {this.props.loggedIn.toString()}</h4> */}
 
-
       <div className="container">
         <div className="row">
 
-      {/* <ProfilePic 
-        id={this.state.id} 
-        firstname={this.props.firstname} 
-        lastname={this.props.lastname}
-      />
-      <Resume
-        id={this.state.id} 
-        firstname={this.props.firstname} 
-        lastname={this.props.lastname}
-      /> */}
               
       <div className="col-xs-12 col-sm-12 col-md-3 gutterWrap text-center"> 
         <div className="paperCard" id="userProfile">
+
+   
 
           {/* User's Name */}
           <h3>{this.props.firstname} {this.props.lastname}</h3>
@@ -241,7 +232,7 @@ class UserDashboard extends Component {
           {/* Begin profile form */}
           <div >
           <form id="user" name="user-dashboard">
-
+      
               <div className="form-row">
                   {/* E-mail */}
                   <div className="form-group col-md-12">
@@ -368,6 +359,15 @@ class UserDashboard extends Component {
                   <button type="submit" className="btn btn-primary submitprofile hidden hider" value="Create My Profile" onClick={this.saveProfile}>Save</button>
               </div>
           </form>
+
+
+          <Resume
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
+
+
           </div>
         </div>
         </div>
@@ -429,6 +429,11 @@ class UserDashboard extends Component {
 
       </div>
 
+      <ProfilePic 
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
 
 
       <Footer />
