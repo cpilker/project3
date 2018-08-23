@@ -1,11 +1,16 @@
-.contactButtons {
-    text-align: center;
+.submitjobseeker {
+    width: 100%;
+    margin-top: 10px
 }
 
-.contactButtons .btn {
-    width: 40% !important;
+#gridCheck {
+    height: 25px;
+    width: 25px;
+    padding: 5px;
+
 }
 
-.contactButtons .btn-secondary {
+.form-check-label {
     margin-left: 10px;
+    padding-top:3px;
 }
