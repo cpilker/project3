@@ -15,7 +15,16 @@ class RecruiterDashboard extends Component {
     availableusers: '',
     activeusers: '',
     opentoopportunities: '',
-    notsearching: ''
+    notsearching: '',
+    newusername: undefined,
+    newfirstname: undefined,
+    newlastname: undefined,
+    newaddress1: undefined,
+    newaddress2: undefined,
+    newcity: undefined,
+    newstate: undefined,
+    newzip: undefined,
+    newpassword: undefined
   }
 
   searchUsers = this.searchUsers.bind(this)
@@ -206,7 +215,7 @@ class RecruiterDashboard extends Component {
         updateUser={this.props.updateUser}
       />
 
-      {/* Orange Bar */}
+{/* Orange Bar */}
       <div id="recOrangeBar">
         <span id="recDashboardTitle">Recruiter Dashboard</span>
         <div id="recOrangeBarDogDiv">
@@ -218,6 +227,7 @@ class RecruiterDashboard extends Component {
       <div className="container">
         <div class="row" id="portfolio_info">
 
+{/* Profile Info */}
         <div className="col-xs-12 col-sm-12 col-md-3 gutterWrap text-center"> 
         <div className="paperCard" id="userProfile">
 
@@ -356,7 +366,7 @@ class RecruiterDashboard extends Component {
 
 
       {/* PUT THE POPULATION TILE BACK HERE */}
-      <div className="col-md-9" id="recRightside">
+      <div className="col-md-9" id="recRightSide">
         <div className="paperCard" id="population-tiles">
           <h2 id='accordion-header'>&nbsp;Talent Pool Available</h2>
 
