@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './ContactUs.css';
 import * as utils from "./contact.js";
 
 class ContactUs extends Component {
@@ -13,15 +14,15 @@ class ContactUs extends Component {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Contact Us</h5> <h5 id="contactus-success" style={{display: "none"}}>&nbsp;&nbsp;Message sent!</h5> <h5 id="contactus-error" style={{display: "none"}}>&nbsp;&nbsp;Error! Message not sent!</h5>
+              <h5 className="modal-title">Contact a RecruitHound Agent</h5> <h5 id="contactus-success" style={{display: "none"}}>&nbsp;&nbsp;Message sent!</h5> <h5 id="contactus-error" style={{display: "none"}}>&nbsp;&nbsp;Error! Message not sent!</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
               </button>
             </div>
               <div className="modal-body">
-                <button type="button" className="btn btn-primary" id="jobseekercontact">Job Seeker</button>
-                <button type="button" className="btn btn-secondary" id="recruitercontact">Recruiter</button>
-                <form id="jobseekerform" style={{display: "none"}}>
+                {/* <button type="button" className="btn btn-primary" id="jobseekercontact">Job Seeker</button>
+                <button type="button" className="btn btn-secondary" id="recruitercontact">Recruiter</button> */}
+                <form id="jobseekerform">
                   <div className="form-group col-xs-12">
                     <label htmlFor="contactus-name">Name</label>
                     <input type="text" className="form-control" id="contactus-name" placeholder="Jane Doe" autoComplete="name" />
@@ -41,11 +42,19 @@ class ContactUs extends Component {
                     <label htmlFor="contactus-message">Message</label>
                     <textarea className="form-control" id="contactus-message" rows="3" autoComplete="street-address"></textarea>
                   </div>
+                  
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck"/>
+                      <label class="form-check-label" for="gridCheck" value="demorequested">Request a Demo
+                      </label>
+                    </div>
+                  </div>
 
                   <button type="submit" className="btn btn-primary submitjobseeker">Submit</button>
                 </form>
                             
-                <form id="recruiterform" style={{display: "none"}}>
+                {/* <form id="recruiterform" style={{display: "none"}}>
                   <div className="form-group col-xs-12">
                     <label htmlFor="recruiter-name">Name</label>
                     <input type="text" className="form-control" id="recruiter-name" placeholder="Jane Doe" autoComplete="name" />
@@ -72,7 +81,7 @@ class ContactUs extends Component {
                   </div>
 
                   <button type="submit" className="btn btn-primary submitrecruiter">Submit</button>
-                </form>
+                </form> */}
               </div>
             </div>
           </div>
