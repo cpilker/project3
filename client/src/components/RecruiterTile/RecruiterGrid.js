@@ -138,12 +138,12 @@ class RecruiterGrid extends Component {
           let ImageLink = document.getElementById('ExpandedDetailImageLink')
           let savedRecruiter = document.getElementById('saveRecruiter')
           let parsedData = JSON.parse(this.props.gridData)
-          let unit1 = '';
-          if(parsedData[thisIdNumber]['unit1'] !== '') {
-            unit1 = `<br/>${parsedData[thisIdNumber]['unit1']}`
+          let address2 = '';
+          if(parsedData[thisIdNumber]['address2'] !== '') {
+            address2 = `<br/>${parsedData[thisIdNumber]['address2']}`
           }
-          description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}${unit1}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
-          title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
+          description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['address1']}${address2}<br/>${parsedData[thisIdNumber]['city']}, ${parsedData[thisIdNumber]['state']} ${parsedData[thisIdNumber]['zip']}`
+          title.innerHTML = parsedData[thisIdNumber]['company']
           img.src = parsedData[thisIdNumber]['img']
           DescriptionLink.href = parsedData[thisIdNumber]['website']
           ImageLink.href = parsedData[thisIdNumber]['website']
@@ -169,13 +169,13 @@ class RecruiterGrid extends Component {
         let DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
         let ImageLink = document.getElementById('ExpandedDetailImageLink')
         let parsedData = JSON.parse(this.props.gridData)
-        let unit1 = '';
-        if(parsedData[thisIdNumber]['unit1'] !== '') {
-          unit1 = `<br/>${parsedData[thisIdNumber]['unit1']}`
+        let address2 = '';
+        if(parsedData[thisIdNumber]['address2'] !== '') {
+          address2 = `<br/>${parsedData[thisIdNumber]['address2']}`
         }
-        description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}
-        ${unit1}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
-        title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
+        description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['address1']}
+        ${address2}<br/>${parsedData[thisIdNumber]['city']}, ${parsedData[thisIdNumber]['state']} ${parsedData[thisIdNumber]['zip']}`
+        title.innerHTML = parsedData[thisIdNumber]['company']
         img.src = parsedData[thisIdNumber]['img']
         DescriptionLink.href = parsedData[thisIdNumber]['website']
         ImageLink.href = parsedData[thisIdNumber]['website']
@@ -194,6 +194,7 @@ class RecruiterGrid extends Component {
     let grid = []
     let idCounter = -1 // To help simplify mapping to object array indices. For example, <li> with 0th id corresponds to 0th child of <ol>
     let gridData = JSON.parse(this.props.gridData)
+    console.log(gridData);
     // console.log('.............................')
     // console.log(gridData[i]._id)
     // console.log('.............................')
