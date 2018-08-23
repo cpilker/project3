@@ -11,10 +11,18 @@ const recruiterSchema = new Schema({
     prefix: { 
         type: String, default: "R" 
     },
-    recruiting_agency: {
+    company: {
         type: String,
         required: true
     },
+    firstname: {
+        type: String,
+        required: false,
+    },
+    lastname: {
+        type: String,
+        required: false,
+      },
     username: {
         type: String,
         unique: true,
@@ -24,27 +32,27 @@ const recruiterSchema = new Schema({
     password: {
         type: String
     },
-    street_address1: {  
+    address1: {  
         type: String,
         required: true 
     },
-    unit1: {
+    address2: {
         type: String,
         required: false
     },
-    city1: {
+    city: {
         type: String,
         required: true
     },
-    state1:{
+    state:{
         type: String,
         required: true
     },
-    zip_code1: {
+    zip: {
         type: Number,
         required: true
     },
-    number1: {
+    phone1: {
         type: String,
         require: true
     },
@@ -64,6 +72,10 @@ const recruiterSchema = new Schema({
         default: Date.now,
         required: true
     },
+    created: {
+        type: Date,
+        default: Date.now
+      },
     savedUsers: [
         {
             type: Schema.Types.ObjectId,

@@ -98,7 +98,7 @@ module.exports = function(app, gfs) {
           err: "No file exist"
         });
       }
-      // Check if image
+      // Check if imageasdfas
       if (file.contentType === 'image/jpeg' 
       || file.contentType === 'img/png') {
         // Read output to browser 
@@ -183,7 +183,8 @@ module.exports = function(app, gfs) {
         city: req.body.newcity,
         state: req.body.newstate,
         zip: req.body.newzip,
-        password: req.body.password
+        password: req.body.password,
+        jobSearchStatus: req.body.jobSearchStatus
       }), req.body.password, function(err, account) {
       if (err) {
         console.log("error found in passport-routes.js!");
@@ -200,6 +201,8 @@ module.exports = function(app, gfs) {
     }
   );
 
+  
+
   // Update user profile
   app.post('/api/update-user-profile', (req, res) => {
     console.log("Update user post incoming...");
@@ -212,6 +215,7 @@ module.exports = function(app, gfs) {
       city: req.body.newcity,
       state: req.body.newstate,
       zip: req.body.newzip,
+      jobSearchStatus: req.body.newjobsearchstatus
     }}, 
     function(error, result) {
       if (error) {
@@ -247,7 +251,8 @@ module.exports = function(app, gfs) {
               state: user.state,
               zip: user.zip,
               created: user.created,
-              lastLogin: user.lastLogin
+              lastLogin: user.lastLogin,
+              jobSearchStatus: user.jobSearchStatus
             })
           })
 
@@ -305,6 +310,7 @@ module.exports = function(app, gfs) {
           zip: req.user.zip,
           created: req.user.created,
           lastLogin: req.user.lastLogin,
+          jobSearchStatus: req.user.jobSearchStatus,
           redirectTo: '/user-dashboard'
         });
       }
@@ -331,7 +337,8 @@ module.exports = function(app, gfs) {
           state: response[0].state,
           zip: response[0].zip,
           created: response[0].created,
-          lastLogin: response[0].lastLogin
+          lastLogin: response[0].lastLogin,
+          jobSearchStatus: response[0].jobSearchStatus
         })
       }
     });

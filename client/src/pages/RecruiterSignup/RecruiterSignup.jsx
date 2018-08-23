@@ -2,21 +2,25 @@ import React, {Component, Fragment} from "react";
 import { Redirect } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-import styles from './Signup.css';
+import styles from './RecruiterSignup.css';
 import $ from 'jquery';
+
+// To Do: combine this into a single component with Signup, pass variable that detects recruiter or user and fire appropriate post route
 
 class Signup extends Component {
   state = {
     errorMessage: undefined,
-    username: undefined,
+    newcompany: undefined,
     newfirstname: undefined,
     newlastname: undefined,
+    username: undefined,
+    password: undefined,
     newaddress1: undefined,
     newaddress2: undefined,
     newcity: undefined,
     newstate: undefined,
     newzip: undefined,
-    password: undefined,
+    newphone: undefined,
     redirectTo: null
   }
 
@@ -29,24 +33,11 @@ class Signup extends Component {
     });
   }
 
-  clearForm() {
-    this.setState({
-      username: '',
-      newfirstname: '',
-      newlastname: '',
-      newaddress1: '',
-      newaddress2: '',
-      newcity: '',
-      newstate: '',
-      newzip: '',
-      password: '',
-    })
-  }
-
   submitForm(e) {
     e.preventDefault();
     console.log("SubmitForm has been fired!");
     const data = {
+      newcompany: this.state.newcompany,
       username: this.state.username,
       newfirstname: this.state.newfirstname,
       newlastname: this.state.newlastname,
@@ -55,15 +46,13 @@ class Signup extends Component {
       newcity: this.state.newcity,
       newstate: this.state.newstate,
       newzip: this.state.newzip,
-      password: this.state.password,
-      jobSearchStatus: this.state.jobSearchStatus
+      password: this.state.password
     }
     $.ajax({
-      url: '/api/Signup',
+      url: '/api/recruitersignup',
       type: 'post',
       data: data,
       success: (response) => {
-        // this.clearForm()
         if (response.err) {
           console.log("Error!");
           console.log(response.err);
@@ -78,7 +67,7 @@ class Signup extends Component {
             username: response.username
           })
           this.setState({
-            redirectTo: '/user-dashboard'
+            redirectTo: '/recruiterdashboard'
           })
         }
       },
@@ -113,7 +102,7 @@ class Signup extends Component {
             
                     <div className="profile-form">
                       <form id="usersignup" name="signup">
-                        <h2>CREATE A PROFILE</h2>
+                        <h2>CREATE A PARTNER ACCOUNT</h2>
                         <p className="error-text">{this.state.errorMessage ? `Error: ${this.state.errorMessage}` : ""}</p>
                         <div className="form-row">
                           <div className="form-group col-md-6">
@@ -122,6 +111,9 @@ class Signup extends Component {
                           <div className="form-group col-md-6">
                             <input type="password" className="form-control" id="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleOnChange} required autoComplete="new-password" />
                           </div>
+                        </div>
+                        <div className="form-group">    
+                          <input type="text" className="form-control" id="newcompany" placeholder="Acme Recruiting Agency" name="newcompany" value={this.state.newcompany} onChange={this.handleOnChange} required autoComplete="org" />
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
@@ -134,8 +126,13 @@ class Signup extends Component {
                         <div className="form-group">    
                             <input type="text" className="form-control" id="newaddress1" placeholder="1234 Main St" name="newaddress1" value={this.state.newaddress1} onChange={this.handleOnChange} required autoComplete="address-line1" />
                         </div>
-                        <div className="form-group">
-                          <input type="text" className="form-control" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange} autoComplete="address-line2" />
+                        <div className="form-row">
+                          <div className="form-group col-md-6">
+                            <input type="text" className="form-control" id="newaddress2" placeholder="Apartment, studio, or floor" name="newaddress2" value={this.state.newaddress2} onChange={this.handleOnChange} autoComplete="address-line2" />
+                          </div>
+                          <div className="form-group col-md-6">
+                            <input type="text" className="form-control" id="newphone" placeholder="999-555-1212" name="newphone" value={this.state.newphone} onChange={this.handleOnChange} autoComplete="tel" />
+                          </div>
                         </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
@@ -200,7 +197,6 @@ class Signup extends Component {
                           <div className="form-group col-md-2">
                             <input type="text" className="form-control" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
                           </div>
-                          
                           {/* <div className="custom-file">
                             <input type="file" className="custom-file-input" name="file" id="file" onChange={this.handleOnChange} />
                             <label className="custom-file-label" htmlFor="newresume">Upload Resume</label>
@@ -211,14 +207,6 @@ class Signup extends Component {
                                 {this.state.skills}
                             </div>
                           </div> */}
-                          <div className="form-group col-md-4">
-                            <select id="jobSearchStatus" className="form-control" name="jobSearchStatus" value={this.state.jobSearchStatus} onChange={this.handleOnChange} required autoComplete="Open to Opportunities">
-                              <option selected disabled>Job Search Status</option>
-                              <option value="Actively Searching">Actively Searching</option>
-                              <option value="Open to Opportunities">Open to Opportunities</option>
-                              <option value="Not Searching">Not Searching</option>
-                            </select>
-                          </div>
                         </div>
                         <div className="form-row" id="submit-btn-container">
                           <button type="submit" className="btn btn-primary submitprofile" value="Create My Profile" onClick={this.submitForm}>Create My Profile</button>
