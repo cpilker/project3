@@ -191,8 +191,8 @@ class RecruiterGrid extends Component {
 
 
     for (let i in gridData) {
-      console.log('show me ids')
-      console.log(gridData[i]._id)
+      // console.log('show me ids')
+      // console.log(gridData[i]._id)
       idCounter = idCounter + 1
       let thisUniqueKey = 'grid_cell_' + idCounter.toString()
       grid.push(<SingleGridCell handleCellClick={this.handleCellClick.bind(this)} key={thisUniqueKey} id={thisUniqueKey} cellMargin={this.props.cellMargin} recruiterId={gridData[i]._id} SingleGridCellData={gridData[i]} cellSize={this.props.cellSize} />)

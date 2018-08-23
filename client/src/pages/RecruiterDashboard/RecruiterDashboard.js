@@ -15,10 +15,20 @@ class RecruiterDashboard extends Component {
     availableusers: '',
     activeusers: '',
     opentoopportunities: '',
-    notsearching: ''
+    notsearching: '',
+    newusername: undefined,
+    newfirstname: undefined,
+    newlastname: undefined,
+    newaddress1: undefined,
+    newaddress2: undefined,
+    newcity: undefined,
+    newstate: undefined,
+    newzip: undefined,
+    newpassword: undefined
   }
 
-  searchUsers = this.searchUsers.bind(this)
+  searchUsers = this.searchUsers.bind(this);
+  filterUsers = this.filterUsers.bind(this);
 
   componentDidMount(){
     this.pullUsers();
@@ -27,6 +37,7 @@ class RecruiterDashboard extends Component {
     this.openToOpportunities();
     this.searchUsers();
   }
+
   //This is to pull the users on the page loading (Total Active Users)
   pullUsers(e) {
     $.ajax({
@@ -192,6 +203,26 @@ class RecruiterDashboard extends Component {
       }
     })
   }
+
+  filterUsers(e){
+    e.preventDefault();
+    let filterInput = $('#user-search-input').val()
+    let filter = filterInput.toLowerCase();
+    let newUsers = [];
+    for (let i = 0; i<this.state.users.length; i++) {
+      if (this.state.users[i]['skill']) {
+        let loweredEntry = this.state.users[i]['skill'].toLowerCase();
+        if (loweredEntry.includes(filter)){
+          newUsers.push(this.state.users[i]);
+        }
+      }
+    }
+    this.setState({
+      users: newUsers
+    }, function(){
+      console.log(this.state.users)
+    })
+  }
   
   
 
@@ -206,7 +237,7 @@ class RecruiterDashboard extends Component {
         updateUser={this.props.updateUser}
       />
 
-      {/* Orange Bar */}
+{/* Orange Bar */}
       <div id="recOrangeBar">
         <span id="recDashboardTitle">Recruiter Dashboard</span>
         <div id="recOrangeBarDogDiv">
@@ -216,8 +247,9 @@ class RecruiterDashboard extends Component {
       <div className="clearfix"/>
 
       <div className="container">
-        <div class="row" id="portfolio_info">
+        <div className="row" id="portfolio_info">
 
+{/* Profile Info */}
         <div className="col-xs-12 col-sm-12 col-md-3 gutterWrap text-center"> 
         <div className="paperCard" id="userProfile">
 
@@ -356,7 +388,7 @@ class RecruiterDashboard extends Component {
 
 
       {/* PUT THE POPULATION TILE BACK HERE */}
-      <div className="col-md-9" id="recRightside">
+      <div className="col-md-9" id="recRightSide">
         <div className="paperCard" id="population-tiles">
           <h2 id='accordion-header'>&nbsp;Talent Pool Available</h2>
 
@@ -368,21 +400,23 @@ class RecruiterDashboard extends Component {
 
     
       
-        <div className="paperCard" id='agency_info'>
-        <h2>&nbsp;Recruits <button class="btn btn-primary" id="findAllUsers" onClick={this.searchUsers}>Find all</button></h2>
-        {/* <div class='col-xs-12 agency-locate'> */}
+        <div className="paperCard" id='user_info'>
+        {/* <h2>&nbsp;Recruits <button class="btn btn-primary" id="findAllUsers" onClick={this.searchUsers}>Find all</button></h2> */}
+        <div className="row">
+          <div className="col-md-12 col-lg-3 col-xl-4" id="userSearchTitle">
+            <h2>&nbsp;Recruits</h2>
+          </div>
 
-
-
-          {/* <form class="form-row"> */}
-            {/* <input class="form-control" type="text" id="search-input" placeholder="Enter Your City" /> */}
-            {/* <button class="btn btn-primary" id="search-button" onClick={this.searchUsers}>Search</button> */}
-          {/* </form>
-        </div>
-        </div>
-        <div class="col-xs-12 recruiter-return-info" display-toggle="none">
-          <div class="accordion" id="recruiterAccordion"></div>	
-        </div> */}
+          <div className='col-xs-12 col-md-12 col-lg-9 col-xl-8' id="userLocate">
+            <form className="form-row">
+              <input className="form-control" type="text" id="user-search-input" placeholder="Enter skill to filter" />
+              <div id="userSearchButtons">
+                <button className="btn btn-primary" id="user-search-button" onClick={this.filterUsers}>Filter</button>
+                <button className="btn btn-primary" id="user-search-reset" onClick={this.pullUsers}>Reset</button>
+              </div>
+            </form>
+          </div>
+          </div>
         
         {this.state.users !== '' ?
           <UserTile users={this.state.users}/>

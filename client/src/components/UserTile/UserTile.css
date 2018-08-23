@@ -53,13 +53,14 @@
 }
 
 .userTileImgStyle {
-  width: 90%;
+  width: 150px;
 }
 
 .userTileDetailStyle {
   display: table-cell;
   width: 75%;
   vertical-align: middle;
+  padding-left: 30px;
 }
 
 @media only screen and (max-width : 415px) {

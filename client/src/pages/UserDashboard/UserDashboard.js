@@ -25,6 +25,7 @@ class UserDashboard extends Component {
     city: null,
     state: null,
     zip: null,
+    jobSearchStatus: null,
     // loggedIn: false,
     created: null,
     lastLogin: null,
@@ -38,11 +39,12 @@ class UserDashboard extends Component {
     newzip: undefined,
     newpassword: undefined,
     newlastLogin: undefined,
+    newjobsearchstatus: undefined,
     errorMessage: null,
     statusText: null,
     events,
     recruitersearch: null,      
-    skillsArray  
+    skillsArray,
   }
 
   handleOnChange = this.handleOnChange.bind(this);
@@ -64,6 +66,7 @@ class UserDashboard extends Component {
       // loggedIn: false,
       created: null,
       lastLogin: null,
+      jobSearchStatus: null
     })
     
     $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
@@ -82,6 +85,7 @@ class UserDashboard extends Component {
           this.props.updateUser(response)   // Stores current user in App.js
           this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
           this.setState(response)   // Set state to current user
+          console.log("is this happeninging" + this.state.jobSearchStatus)
         }
       },
       error: (err) => {
@@ -113,7 +117,8 @@ class UserDashboard extends Component {
       newcity: this.state.newcity === undefined ? this.props.city : this.state.newcity,
       newstate: this.state.newstate === undefined ? this.props.state : this.state.newstate,
       newzip: this.state.newzip === undefined ? this.props.zip : this.state.newzip,
-      newpassword: this.state.newpassword
+      newpassword: this.state.newpassword,
+      newjobsearchstatus: this.state.newjobsearchstatus === undefined ? this.props.jobSearchStatus : this.state.newjobsearchstatus
     }
     $.ajax({
       url: '/api/update-user-profile',
@@ -209,23 +214,14 @@ class UserDashboard extends Component {
       <div className="clearfix" />
       {/* <h4>Logged In? = {this.props.loggedIn.toString()}</h4> */}
 
-
       <div className="container">
         <div className="row">
 
-      {/* <ProfilePic 
-        id={this.state.id} 
-        firstname={this.props.firstname} 
-        lastname={this.props.lastname}
-      />
-      <Resume
-        id={this.state.id} 
-        firstname={this.props.firstname} 
-        lastname={this.props.lastname}
-      /> */}
               
       <div className="col-xs-12 col-sm-12 col-md-3 gutterWrap text-center"> 
         <div className="paperCard" id="userProfile">
+
+   
 
           {/* User's Name */}
           <h3>{this.props.firstname} {this.props.lastname}</h3>
@@ -241,7 +237,7 @@ class UserDashboard extends Component {
           {/* Begin profile form */}
           <div >
           <form id="user" name="user-dashboard">
-
+      
               <div className="form-row">
                   {/* E-mail */}
                   <div className="form-group col-md-12">
@@ -268,6 +264,18 @@ class UserDashboard extends Component {
                   </div>
               </div>
 
+              {/* Job Search Status */}
+              <div className="form-row">
+                <div className="form-group col-md-12">
+                      <label htmlFor="newjobsearchstatus" className="formSpacer"><strong>Job Search Status:</strong> <br/>{this.state.jobSearchStatus}</label>
+                      <select id="newjobsearchstatus" className="form-control hidden hider" name="newjobsearchstatus" value={this.state.newjobsearchstatus} onChange={this.handleOnChange} required autoComplete="Actively Searching" placeholder="Job Search Status">
+                        <option selected disabled>Job Search Status</option>
+                        <option value="Actively Searching">Actively Searching</option>
+                        <option value="Open to Opportunities">Open to Opportunities</option>
+                        <option value="Not Searching">Not Searching</option>
+                      </select>
+                    </div>
+                </div>
                   {/* Address */}
               <div className="form-group">  
                   <label htmlFor="newaddress1" className="formSpacer"><strong>Address:</strong> {this.props.address1}<br/>{this.props.address2}</label>
@@ -348,6 +356,7 @@ class UserDashboard extends Component {
                       <label htmlFor="newzip" className="formSpacer"><strong>Zip Code:</strong> {this.props.zip}</label>
                       <input type="text" className="form-control hidden hider" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
                   </div>
+                  
                   {/* Skills */}
                   <div className="form-group col-md-12" id="skills-container">
                       <label id="technologiesWorkWith" htmlFor="skills-block" className="formSpacer"><strong>What technologies do you work with?</strong></label>
@@ -360,6 +369,8 @@ class UserDashboard extends Component {
                           ))}
                       </div>
                   </div>
+
+                  
               </div>
 
               {/* Submit Button */}
@@ -368,13 +379,23 @@ class UserDashboard extends Component {
                   <button type="submit" className="btn btn-primary submitprofile hidden hider" value="Create My Profile" onClick={this.saveProfile}>Save</button>
               </div>
           </form>
+
+
+          <Resume
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
+
+
           </div>
         </div>
         </div>
 
 
 {/* Recruiter Grid */}
-        <div className="paperCard col-md-9" id='agencyInfo'>
+      <div className="col-md-9" id="userRightSide">
+        <div className="paperCard" id='agencyInfo'>
         <div className="row">
           <div className="col-md-12 col-lg-6 col-xl-6" id="recSearchTitle">
             <h2>&nbsp;Your Local Recruiters</h2>
@@ -393,11 +414,12 @@ class UserDashboard extends Component {
 
         </div>
 
-      <hr/>
 
 {/* Events Table */}
       <div className="paperCard col-md-12" id="eventsCard">
+      <div id="eventsTitle">
         <h2>&nbsp;Events in Your Area</h2>
+      </div>
         <EventBriteGrid2 gridData={this.state.events} />
       </div>
 
@@ -425,7 +447,13 @@ class UserDashboard extends Component {
         </div>
       </div> */}
 
+      </div>
 
+      <ProfilePic 
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
 
 
       <Footer />

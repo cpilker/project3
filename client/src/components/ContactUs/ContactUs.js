@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './ContactUs.css';
 import * as utils from "./contact.js";
+import './ContactUs.css';
 
 class ContactUs extends Component {
 
@@ -20,9 +21,7 @@ class ContactUs extends Component {
               </button>
             </div>
               <div className="modal-body">
-                {/* <button type="button" className="btn btn-primary" id="jobseekercontact">Job Seeker</button>
-                <button type="button" className="btn btn-secondary" id="recruitercontact">Recruiter</button> */}
-                <form id="jobseekerform">
+                <form id="jobseekerform" >
                   <div className="form-group col-xs-12">
                     <label htmlFor="contactus-name">Name</label>
                     <input type="text" className="form-control" id="contactus-name" placeholder="Jane Doe" autoComplete="name" />

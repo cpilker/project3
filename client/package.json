@@ -12,6 +12,7 @@
     "npm-run-all": "^4.1.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-image-crop": "^4.0.3",
     "react-scripts": "1.1.4",
     "reactstrap": "^6.3.1"
   },

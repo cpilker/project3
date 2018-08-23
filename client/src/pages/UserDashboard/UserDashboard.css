@@ -51,6 +51,11 @@
   float: left;
 }
 
+#userRightSide {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /************* Orange Bar *************/
 
 #orangeBarDogDiv {
@@ -136,6 +141,14 @@
   .gutterWrap {
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  #recSearchTitle {
+    text-align: center;
+  }
+
+  #eventsTitle {
+    text-align: center;
   }
 } 
 

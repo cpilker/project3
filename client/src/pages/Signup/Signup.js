@@ -55,7 +55,8 @@ class Signup extends Component {
       newcity: this.state.newcity,
       newstate: this.state.newstate,
       newzip: this.state.newzip,
-      password: this.state.password
+      password: this.state.password,
+      jobSearchStatus: this.state.jobSearchStatus
     }
     $.ajax({
       url: '/api/Signup',
@@ -199,6 +200,7 @@ class Signup extends Component {
                           <div className="form-group col-md-2">
                             <input type="text" className="form-control" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
                           </div>
+                          
                           {/* <div className="custom-file">
                             <input type="file" className="custom-file-input" name="file" id="file" onChange={this.handleOnChange} />
                             <label className="custom-file-label" htmlFor="newresume">Upload Resume</label>
@@ -209,6 +211,14 @@ class Signup extends Component {
                                 {this.state.skills}
                             </div>
                           </div> */}
+                          <div className="form-group col-md-4">
+                            <select id="jobSearchStatus" className="form-control" name="jobSearchStatus" value={this.state.jobSearchStatus} onChange={this.handleOnChange} required autoComplete="Open to Opportunities">
+                              <option selected disabled>Job Search Status</option>
+                              <option value="Actively Searching">Actively Searching</option>
+                              <option value="Open to Opportunities">Open to Opportunities</option>
+                              <option value="Not Searching">Not Searching</option>
+                            </select>
+                          </div>
                         </div>
                         <div className="form-row" id="submit-btn-container">
                           <button type="submit" className="btn btn-primary submitprofile" value="Create My Profile" onClick={this.submitForm}>Create My Profile</button>
