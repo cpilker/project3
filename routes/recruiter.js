@@ -32,6 +32,38 @@ db.on("error", function(error) {
 
 module.exports = function(app) {
 
+  app.post('/api/recruitersignup', (req, res) => {
+    console.log("Recruiter signup post incoming...");
+   
+    Recruiter.register(new Recruiter(
+      { 
+        company: req.body.newcompany,
+        firstname: req.body.newfirstname,
+        lastname: req.body.newlastname,
+        username: req.body.username,
+        password: req.body.password,
+        address1: req.body.newaddress1,
+        address2: req.body.newaddress2,
+        city: req.body.newcity,
+        state: req.body.newstate,
+        zip: req.body.newzip,
+        phone1: req.body.newphone
+      }), req.body.password, function(err, account) {
+      if (err) {
+        console.log("error found in passport-routes.js line 221!");
+          console.log(err);
+          res.json({err});
+      } else {
+          console.log('New recruiter added!');
+          passport.authenticate('recruiter')(req, res, function() {
+            console.log('Done!');
+            res.json({username: req.user.username});
+          });
+        }
+      });
+    }
+  );
+
   //Search for users by a given city [this is not for the data as a whole]
   app.get('/usersearch', function(req, res){
     console.log(req.query)

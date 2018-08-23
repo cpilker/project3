@@ -25,6 +25,8 @@ class Signin extends Component {
   onHandleSubmit(event) {
     event.preventDefault()
     console.log('Signin submit has fired!')
+    console.log(this.state.username)
+    console.log(this.state.password)
     $.ajax({
       url: '/api/signin',
       type: 'post',

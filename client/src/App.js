@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import UserDashboard from './pages/UserDashboard';
 import RecruiterDashboard from './pages/RecruiterDashboard';
+import RecruiterSignup from './pages/RecruiterSignup';
 
 class App extends Component {
   state = {
@@ -78,7 +79,25 @@ class App extends Component {
             />
             <Route path='/recruiterdashboard' render={() =>
               <RecruiterDashboard
+                company={this.state.company}
+                firstname={this.state.firstname}
+                lastname={this.state.lastname}
+                username={this.state.username}
+                password={this.state.password}
+                address1={this.state.address1}
+                address2={this.state.address2}
+                city={this.state.city}
+                state={this.state.state}
+                zip={this.state.zip}
+                phone={this.state.phone}
                 sitepath={"recruiterdashboard"}
+                loggedIn={this.state.loggedIn}
+              />}
+            />
+            <Route path='/recruitersignup' render={() =>
+              <RecruiterSignup
+                updateUser={this.updateUser}
+                sitepath={"recruitersignup"}
                 loggedIn={this.state.loggedIn}
               />}
             />
