@@ -39,7 +39,18 @@ class ProfilePic extends Component {
   }
 
   fileUpload = event => {
+    // event.preventDefault()
+    // const canvasRef = this.imagePreviewCanvasRef.current
+    // const { imgSrc } = this.state
+    // const fileExtension = extractImageFileExtensionFromBase64(imgSrc)
+    // const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
 
+
+    // const myfilename = 'previewFile.' + fileExtension
+
+    // // file to be uploaded
+    // const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
+    // console.log(myNewCroppedFile)
     
 
     console.log(event)
