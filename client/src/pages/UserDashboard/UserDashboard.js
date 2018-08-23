@@ -269,7 +269,7 @@ class UserDashboard extends Component {
               <div className="form-row">
                 <div className="form-group col-md-12">
                       <label htmlFor="newjobsearchstatus" className="formSpacer"><strong>Job Search Status:</strong> <br/>{this.state.jobSearchStatus}</label>
-                      <select id="newjobsearchstatus" className="form-control hidden hider" name="newjobsearchstatus" value={this.state.newjobsearchstatus} onChange={this.handleOnChange} required autoComplete="Actively Searching" placeholder="Job Search Status">
+                      <select id="newjobsearchstatus" className="form-control hidden hider" name="newjobsearchstatus" value={this.props.newjobsearchstatus} onChange={this.handleOnChange} required autoComplete="Actively Searching" placeholder="Job Search Status">
                         <option selected disabled>Job Search Status</option>
                         <option value="Actively Searching">Actively Searching</option>
                         <option value="Open to Opportunities">Open to Opportunities</option>
