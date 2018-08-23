@@ -48,10 +48,9 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  skill: {
-    type: String,
-    required: false
-  },
+  skills: [
+    String
+  ],
   resume: {
     type: String,
     required: false
