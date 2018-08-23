@@ -1,87 +1,151 @@
 import React, {Component} from "react";
 import $ from 'jquery'
 import axios from 'axios'
+import ReactCrop from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
+import { base64StringtoFile, downloadBase64File, extractImageFileExtensionFromBase64, image64toCanvasRef } from '../../utils/imgCropTools'
 
 
 class ProfilePic extends Component {
 
-  state = {
-    default: "Hello World",
-    selectedFile: null,
-    test: '1'
-  }
-
- 
-  uploadPicture () {
-
-    let data = new FormData();    
-    data.append('file', $('#file1')[0].file);
-
-    $.ajax({
-      url: `/upload/${this.props.id}/profilePic`,
-      data: data,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      success: (data) => {
-        if (data.err) {
-          console.log("Error!");
-          console.log(data.err);
-          this.setState({
-            errorMessage: data.err.message
-          })
-        } else {
-          console.log(data)
-        }
-      },
-      error: (err) => {
-        console.log(err);
-        this.setState({
-          errorMessage: err.statusText
-        })
+  constructor(props) {
+    super(props)
+    this.imagePreviewCanvasRef = React.createRef()
+    this.state = {
+      imgSrc: null,
+      crop: {
+        aspect: 1/1
       }
-    });
+    }
   }
 
   catchFileName = event => {
+
+    // Grabs and stores the selected img. Will change every time a new image is selected.
+    const currentFile = event.target.files[0] //////////
+    const reader = new FileReader()
+    reader.addEventListener('load', ()=> {
+      this.setState({
+        imgSrc: reader.result
+      })
+    }, false)
+
+    reader.readAsDataURL(currentFile)///////////////
+
+    // changes 
     this.setState({
       selectedFile: event.target.files[0]
     })
   }
 
-  fileUpload = () => {
+  fileUpload = event => {
+    // event.preventDefault()
+    // const canvasRef = this.imagePreviewCanvasRef.current
+    // const { imgSrc } = this.state
+    // const fileExtension = extractImageFileExtensionFromBase64(imgSrc)
+    // const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
 
+
+    // const myfilename = 'previewFile.' + fileExtension
+
+    // // file to be uploaded
+    // const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
+    // console.log(myNewCroppedFile)
+    
+
+    console.log(event)
     const fd = new FormData();    
     fd.append('file', this.state.selectedFile)
 
     axios.post(`/upload/${this.props.id}/profilePic`, fd)
     .then(res => {
-      console.log(res)
-      this.setState({
-        test: "2343"
-      })
+
     })
+
+    // const currentFile =  this.state.selectedFile
+    // const reader = new FileReader()
+    // reader.addEventListener('load', ()=> {
+    //   this.setState({
+    //     imgSrc: reader.result
+    //   })
+    // }, false)
+
+    // reader.readAsDataURL(currentFile)
+
+  }
+
+  handleImageLoaded = (image) => {
+
+  }
+
+  handleOnCropChange = (crop) => {
+    // console.log(crop)
+    this.setState({crop})
+  }
+
+  handleOnCropComplete = (crop, pixelCrop) => {
+    const canvasRef = this.imagePreviewCanvasRef.current
+    const { imgSrc } = this.state
+    image64toCanvasRef(canvasRef, imgSrc, pixelCrop)
+  }
+
+  handleDownloadClick = event => {
+    event.preventDefault()
+    const canvasRef = this.imagePreviewCanvasRef.current
+    const { imgSrc } = this.state
+    const fileExtension = extractImageFileExtensionFromBase64(imgSrc)
+    const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
+
+
+    const myfilename = 'previewFile.' + fileExtension
+
+    // file to be uploaded
+    const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
+    console.log(myNewCroppedFile)
+
+
+    // // download file
+    // downloadBase64File(imageData64, myfilename)
 
   }
 
   render () {
+
+    const {imgSrc} = this.state
+
     return (
-    <div style={{width: '250px', position: 'relative'}} data-type={this.state.test}>
+    <div style={{width: '250px', position: 'relative'}} >
 
       <div>
         <input type='file' onChange={this.catchFileName}/>
-        <button onClick={this.fileUpload}> Upload axios {this.state.test}</button>
+        <button onClick={this.fileUpload}> Upload axios </button>
       </div>
 
 
+      <div style={{width: '250px', height: '250px', overflow: 'hidden'}} id='img-div'> 
+        {imgSrc !== null 
+        ? 
+          <div>
+            {/* {imgSrc}
+            <img style={{width: '250px'}} src={imgSrc} /> */}
+          <ReactCrop 
+            src={imgSrc} 
+            crop={this.state.crop} 
+            onImageLoaded={this.handleImageLoaded}
+            onComplete={this.handleOnCropComplete}
+            onChange={this.handleOnCropChange}
+          />
+          <br/>
+          <p>Preview Canvas Crop</p>
+          <button style={{float: 'left', position: 'absolute', top: '-575'}} id='testBtn' onClick={this.handleDownloadClick}> Download </button>
+          <canvas style={{float: 'left', position: 'relative', top: '-550'}} ref={this.imagePreviewCanvasRef}></canvas>
+      
 
-      <div style={{width: '250px', height: '250px', overflow: 'hidden'}} data-type={this.state.test}> 
-        <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic`} alt={this.state.test}/> {/* <--------  IMG */ }
+          </div> 
+        : 
+          <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+        } 
       </div>
-
-
-
-      <h3>{this.props.firstname}&nbsp;{this.props.lastname}</h3>
 
     </div>
     )
