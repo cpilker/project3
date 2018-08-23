@@ -115,6 +115,9 @@ class Signup extends Component {
                       <form id="usersignup" name="signup">
                         <h2>CREATE A PROFILE</h2>
                         <p className="error-text">{this.state.errorMessage ? `Error: ${this.state.errorMessage}` : ""}</p>
+                        <div className="form-row" className="signup-recruiter-link-top">
+                          <a href="/recruitersignup">Recruiter? Sign Up Here!</a>
+                        </div>
                         <div className="form-row">
                           <div className="form-group col-md-6">
                             <input type="email" className="form-control" id="email" placeholder="Email" name="username" value={this.state.username} onChange={this.handleOnChange} required autoComplete="email"/>
@@ -222,6 +225,9 @@ class Signup extends Component {
                         </div>
                         <div className="form-row" id="submit-btn-container">
                           <button type="submit" className="btn btn-primary submitprofile" value="Create My Profile" onClick={this.submitForm}>Create My Profile</button>
+                        </div>
+                        <div className="form-row" className="signup-recruiter-link-bottom">
+                          <a href="/recruitersignup">Recruiter? Sign Up Here!</a>
                         </div>
                       </form>
                     </div>
