@@ -209,7 +209,6 @@ class UserDashboard extends Component {
       <div className="clearfix" />
       {/* <h4>Logged In? = {this.props.loggedIn.toString()}</h4> */}
 
-
       <div className="container">
         <div className="row">
 
@@ -217,11 +216,7 @@ class UserDashboard extends Component {
       <div className="col-xs-12 col-sm-12 col-md-3 gutterWrap text-center"> 
         <div className="paperCard" id="userProfile">
 
-          <ProfilePic 
-            id={this.state.id} 
-            firstname={this.props.firstname} 
-            lastname={this.props.lastname}
-          />
+   
 
           {/* User's Name */}
           <h3>{this.props.firstname} {this.props.lastname}</h3>
@@ -431,6 +426,11 @@ class UserDashboard extends Component {
       </div> */}
 
 
+      <ProfilePic 
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
 
 
       <Footer />
