@@ -23,7 +23,7 @@ const RowDetail = ({ row }) => (
         {row.city}, {row.state} {row.zipcode}
       </p>
       <p><strong>Skills:</strong><br/>
-      {row.skill.replace(/,/g, ', ')}</p>
+      {row.skill.toString().replace(/,/g, ', ')}</p>
     </div>
   </div>
 );
