@@ -39,25 +39,37 @@
   justify-content: center;
 }
 
+.signup-recruiter-link-top {
+  display: none;
+}
+
+.signup-recruiter-link-bottom {
+  font-style: italic;
+  padding: 15px;
+}
+
+:local(.footerRow) {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+ @media only screen and (max-width : 768px) {
+
+.signup-recruiter-link-top {
+  display: block;
+  font-style: italic;
+  padding: 10px;
+}
+
+.signup-recruiter-link-bottom {
+  display: none;
+}
 
 
+ }
 
 
-
-
-
-
-
-
-
-
-
-
-  :local(.footerRow) {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
 
   /* @media only screen and (max-width : 400px) {
     :local(.footerRow) {
