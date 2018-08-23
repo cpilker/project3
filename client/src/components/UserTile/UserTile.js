@@ -13,14 +13,17 @@ import './UserTile.css';
 
 const RowDetail = ({ row }) => (
   <div>
-    <div className="userTileImgDiv"><img src={row.image} className="userTileImgStyle" alt=''/></div>
+    <div className="userTileImgDiv"><img src="https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg" className="userTileImgStyle" alt=''/></div>
     <div className="userTileDetailStyle">
       <p><b>{row.name}</b><br/>
       {row.email}</p>
       <p>
+        <strong>Address:</strong><br/>
         {row.address}<br/>
         {row.city}, {row.state} {row.zipcode}
       </p>
+      <p><strong>Skills:</strong><br/>
+      {row.skill.replace(/,/g, ', ')}</p>
     </div>
   </div>
 );
@@ -42,6 +45,15 @@ export default class userTileBriteGrid2 extends React.PureComponent {
 
   }
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.users !== prevProps.users) {
+      this.setState({
+        rows: this.generateRows(this.props.users)
+      })
+    }
+  }
+
   generateRows(users){
   let rows = [];
   let data = users;
@@ -53,6 +65,7 @@ export default class userTileBriteGrid2 extends React.PureComponent {
     temp['email'] = data[i]['username'];
     temp['address'] = data[i]['address1'];
     temp['zipcode'] = data[i]['zip'];
+    temp['skill'] = data[i]['skill'];
     temp['id'] = data[i]['_id'];
     temp['image'] = `./images/${data[i]['_id']}/profilePic`
     rows.push(temp);

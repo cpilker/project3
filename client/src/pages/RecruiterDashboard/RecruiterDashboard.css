@@ -56,7 +56,31 @@
     top: 115px;
   }
 
+/************* User filter *************/
+
+#userLocate form input {
+  width: 65%;
+  margin-left: 10px;
+}
+
+#user-search-button {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+#user-search-reset {
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+
 /************* Media queries *************/
+
+@media only screen and (max-width : 991px) {
+  #population-tiles {
+    text-align: center;
+  }
+} 
 
 @media only screen and (max-width : 700px) {
   #recOrangeBarDogDiv {
@@ -78,6 +102,24 @@
   #recDashboardTitle {
     left: 175px;
     font-size: 1.6em;
+  }
+
+  #userSearchTitle {
+    text-align: center;
+  }
+
+  #userLocate form input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #userSearchButtons {
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+  
+  #user-search-reset {
+    margin-left: 5px;
   }
 } 
 
@@ -106,4 +148,6 @@
     top: 100px;
     font-size: 1.4em;
   }
+
+
 } 
