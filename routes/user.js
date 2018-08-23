@@ -265,7 +265,7 @@ module.exports = function(app, gfs) {
   // Search for all recruiters by a given city
   app.get('/recruitersearch', function(req, res){
     console.log('/recruitersearch route fired')
-    database.collection("recruiters").find({city1: req.query.city}, function(error, response) {
+    database.collection("recruiters").find({city: req.query.city}, function(error, response) {
       // Throw any errors to the console
       if (error) {
         console.log(error);
