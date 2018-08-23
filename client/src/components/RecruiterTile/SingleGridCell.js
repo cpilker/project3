@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import './SingleGridCell.css';
 
 class SingleGridCell extends Component {
 
@@ -19,7 +20,6 @@ class SingleGridCell extends Component {
   render () {
     var SingleGridCellStyle = {
       // background: 'url(' + this.props.SingleGridCellData['img'] + ') no-repeat center center',
-      background: 'url("./images/recruiter-logos/charlotte_automation.jpg")',
       backgroundSize: this.props.cellSize,
       width: this.props.cellSize,
       height: this.props.cellSize,
@@ -30,7 +30,9 @@ class SingleGridCell extends Component {
     }
 
     return (
-      <li className='SingleGridCell' style={SingleGridCellStyle} data-id={this.props.recruiterId} id={this.props.id} onClick={this.cellClick.bind(this)} />
+      <li className='SingleGridCell' style={SingleGridCellStyle} data-id={this.props.recruiterId} id={this.props.id} onClick={this.cellClick.bind(this)}>
+        <img src="./images/recruiter-logos/charlotte_automation.jpg" className="recGridImageStyle"/>
+      </li>
     )
   }
 

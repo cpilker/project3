@@ -1,0 +1,26 @@
+.recGridImageStyle {
+  width: 100%
+}
+
+.recGridImageStyle {
+  z-index: -1;
+}
+
+.recGridImageStyle:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+  /* -webkit-box-shadow: 0 5px 5px rgba(0,0,0,.15);
+  box-shadow: 0 5px 5px rgba(0,0,0,.15); */
+  /* box-shadow: 0 1px 2px 0 rgba(0,0,0,0.15); */
+  -webkit-transition: .1s;
+  -o-transition: .1s;
+  transition: .1s;
+  /* border: 3px solid rgb(253, 130, 85); */
+}
+
+#selected_arrow {
+  z-index: 1;
+  position: absolute;
+  top: -5px;
+}
