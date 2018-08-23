@@ -118,17 +118,17 @@ class RecruiterGrid extends Component {
   }
 
   handleCellClick (event) {
-    let target = event.target
-    let thisIdNumber = parseInt(event.target.id.substring(10)) 
+    let target = event.target.parentNode
+    let thisIdNumber = parseInt(event.target.parentNode.id.substring(10)) 
 
     if (this.state.expanded) { // expanded == true
-      if (this.state.selected_id === event.target.id) { // Clicking on already opened detail
+      if (this.state.selected_id === event.target.parentNode.id) { // Clicking on already opened detail
         this.closeExpandedDetail()
         this.renderExpandedDetail(target)
       } else { // Clicking on a different thumbnail, when detail is already expanded
         this.setState({
           expanded: true,
-          selected_id: event.target.id
+          selected_id: event.target.parentNode.id
         }, function afterStateChange () {
           let detail = document.getElementById('expandedDetail')
           let description = document.getElementById('ExpandedDetailDescription')
@@ -138,7 +138,11 @@ class RecruiterGrid extends Component {
           let ImageLink = document.getElementById('ExpandedDetailImageLink')
           let savedRecruiter = document.getElementById('saveRecruiter')
           let parsedData = JSON.parse(this.props.gridData)
-          description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}<br/>${parsedData[thisIdNumber]['unit1']}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
+          let unit1 = '';
+          if(parsedData[thisIdNumber]['unit1'] !== '') {
+            unit1 = `<br/>${parsedData[thisIdNumber]['unit1']}`
+          }
+          description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}${unit1}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
           title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
           img.src = parsedData[thisIdNumber]['img']
           DescriptionLink.href = parsedData[thisIdNumber]['website']
@@ -155,7 +159,7 @@ class RecruiterGrid extends Component {
     } else { // expanded == false
       this.setState({
         expanded: true,
-        selected_id: event.target.id
+        selected_id: event.target.parentNode.id
       }, function afterStateChange () {
         let detail = document.getElementById('expandedDetail')
         let description = document.getElementById('ExpandedDetailDescription')
@@ -165,7 +169,12 @@ class RecruiterGrid extends Component {
         let DescriptionLink = document.getElementById('ExpandedDetailDescriptionLink')
         let ImageLink = document.getElementById('ExpandedDetailImageLink')
         let parsedData = JSON.parse(this.props.gridData)
-        description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}<br/>${parsedData[thisIdNumber]['unit1']}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
+        let unit1 = '';
+        if(parsedData[thisIdNumber]['unit1'] !== '') {
+          unit1 = `<br/>${parsedData[thisIdNumber]['unit1']}`
+        }
+        description.innerHTML = `${parsedData[thisIdNumber]['description']}<br/><br/><b>Contact Info</b><br/>${parsedData[thisIdNumber]['street_address1']}
+        ${unit1}<br/>${parsedData[thisIdNumber]['city1']}, ${parsedData[thisIdNumber]['state1']} ${parsedData[thisIdNumber]['zip_code1']}`
         title.innerHTML = parsedData[thisIdNumber]['recruiting_agency']
         img.src = parsedData[thisIdNumber]['img']
         DescriptionLink.href = parsedData[thisIdNumber]['website']
@@ -390,7 +399,7 @@ RecruiterGrid.defaultProps = {
   cellMargin: 15,
   bgColor: 'rgba(0,0,0,0)',
   detailWidth: '100%',
-  detailHeight: 350,
+  detailHeight: 400,
   detailBackgroundColor: '#eaf1f6',
   ExpandedDetail_right_width: '70%',
   ExpandedDetail_left_width: '30%',
