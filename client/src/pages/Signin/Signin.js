@@ -56,6 +56,7 @@ class Signin extends Component {
         })
       },
       error: (err) => {
+        console.log(err)
         this.setState({
           error: err.responseText
         })
