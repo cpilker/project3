@@ -30,7 +30,7 @@ class ProfilePic extends Component {
       })
     }, false)
 
-    reader.readAsDataURL(currentFile)///////////////
+    reader.readAsDataURL(currentFile) ///////////////
 
     // changes 
     this.setState({
@@ -39,38 +39,33 @@ class ProfilePic extends Component {
   }
 
   fileUpload = event => {
-    // event.preventDefault()
-    // const canvasRef = this.imagePreviewCanvasRef.current
-    // const { imgSrc } = this.state
-    // const fileExtension = extractImageFileExtensionFromBase64(imgSrc)
-    // const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
+    event.preventDefault()
+    const canvasRef = this.imagePreviewCanvasRef.current
+    const { imgSrc } = this.state
+    const fileExtension = extractImageFileExtensionFromBase64(imgSrc)
+    const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
 
 
-    // const myfilename = 'previewFile.' + fileExtension
+    const myfilename = 'Profile-Picture.' + fileExtension
 
-    // // file to be uploaded
-    // const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
-    // console.log(myNewCroppedFile)
+    // file to be uploaded
+    const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
+    console.log(myNewCroppedFile)
     
 
     console.log(event)
     const fd = new FormData();    
-    fd.append('file', this.state.selectedFile)
+    console.log('fd: ' + fd)
+    fd.append('file', myNewCroppedFile)
+    console.log('fd1: ' + fd)
+    console.log(this.state.selectedFile)
 
     axios.post(`/upload/${this.props.id}/profilePic`, fd)
     .then(res => {
 
     })
 
-    // const currentFile =  this.state.selectedFile
-    // const reader = new FileReader()
-    // reader.addEventListener('load', ()=> {
-    //   this.setState({
-    //     imgSrc: reader.result
-    //   })
-    // }, false)
 
-    // reader.readAsDataURL(currentFile)
 
   }
 
@@ -105,7 +100,7 @@ class ProfilePic extends Component {
 
 
     // // download file
-    // downloadBase64File(imageData64, myfilename)
+    downloadBase64File(imageData64, myfilename)
 
   }
 
@@ -138,7 +133,7 @@ class ProfilePic extends Component {
           <br/>
           <p>Preview Canvas Crop</p>
           <button style={{float: 'left', position: 'absolute', top: '-575'}} id='testBtn' onClick={this.handleDownloadClick}> Download </button>
-          <canvas style={{float: 'left', position: 'relative', top: '-550'}} ref={this.imagePreviewCanvasRef}></canvas>
+          <canvas style={{float: 'left', position: 'absolute', top: '-550', width: '250px'}} ref={this.imagePreviewCanvasRef}></canvas>
       
 
           </div> 
