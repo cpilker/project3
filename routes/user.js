@@ -201,6 +201,8 @@ module.exports = function(app, gfs) {
     }
   );
 
+  
+
   // Update user profile
   app.post('/api/update-user-profile', (req, res) => {
     console.log("Update user post incoming...");

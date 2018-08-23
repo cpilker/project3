@@ -26,6 +26,7 @@ class UserDashboard extends Component {
     state: null,
     zip: null,
     jobSearchStatus: null,
+    userSkills: null,
     // loggedIn: false,
     created: null,
     lastLogin: null,
