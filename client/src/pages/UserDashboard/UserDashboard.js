@@ -9,6 +9,7 @@ import events from './eventbrite.json';
 import $ from "jquery";
 import RecruiterGrid from '../../components/RecruiterTile/RecruiterGrid';
 import EventBriteGrid2 from '../../components/Eventbrite/EventBriteGrid2';
+import skillsArray from '../../skills.json';
 // import API from "../../utils/API";
 
 
@@ -40,7 +41,8 @@ class UserDashboard extends Component {
     errorMessage: null,
     statusText: null,
     events,
-    recruitersearch: null,        
+    recruitersearch: null,      
+    skillsArray  
   }
 
   handleOnChange = this.handleOnChange.bind(this);
@@ -351,7 +353,11 @@ class UserDashboard extends Component {
                       <label id="technologiesWorkWith" htmlFor="skills-block" className="formSpacer"><strong>What technologies do you work with?</strong></label>
                       <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                           {/* //Begin list of skills */}
-                          {this.props.skills}
+                          {this.state.skillsArray.map(skill => (
+                            <label className="btn btn-default skillbutton">
+                            <input type="checkbox" autoComplete="off" value={skill.name} />
+                            {skill.name}</label>
+                          ))}
                       </div>
                   </div>
               </div>
@@ -383,7 +389,7 @@ class UserDashboard extends Component {
           </div>
         
 
-        <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)}/>
+        <RecruiterGrid gridData={JSON.stringify(this.state.recruitersearch)} userID={this.state.id}/>
 
         </div>
 
