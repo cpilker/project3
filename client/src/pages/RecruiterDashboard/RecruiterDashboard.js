@@ -211,9 +211,11 @@ class RecruiterDashboard extends Component {
     let newUsers = [];
     for (let i = 0; i<this.state.users.length; i++) {
       if (this.state.users[i]['skill']) {
-        let loweredEntry = this.state.users[i]['skill'].toLowerCase();
-        if (loweredEntry.includes(filter)){
-          newUsers.push(this.state.users[i]);
+        let loweredEntry = this.state.users[i]['skill'];
+        for (let x in loweredEntry) {
+          if (loweredEntry[x].toLowerCase() === filter) {
+            newUsers.push(this.state.users[i]);
+          }
         }
       }
     }
