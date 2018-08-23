@@ -1,0 +1,11 @@
+.contactButtons {
+    text-align: center;
+}
+
+.contactButtons .btn {
+    width: 40% !important;
+}
+
+.contactButtons .btn-secondary {
+    margin-left: 10px;
+}

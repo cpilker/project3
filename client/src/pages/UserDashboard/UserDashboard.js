@@ -374,7 +374,8 @@ class UserDashboard extends Component {
 
 
 {/* Recruiter Grid */}
-        <div className="paperCard col-md-9" id='agencyInfo'>
+      <div className="col-md-9" id="userRightSide">
+        <div className="paperCard" id='agencyInfo'>
         <div className="row">
           <div className="col-md-12 col-lg-6 col-xl-6" id="recSearchTitle">
             <h2>&nbsp;Your Local Recruiters</h2>
@@ -393,11 +394,12 @@ class UserDashboard extends Component {
 
         </div>
 
-      <hr/>
 
 {/* Events Table */}
       <div className="paperCard col-md-12" id="eventsCard">
+      <div id="eventsTitle">
         <h2>&nbsp;Events in Your Area</h2>
+      </div>
         <EventBriteGrid2 gridData={this.state.events} />
       </div>
 
@@ -425,6 +427,7 @@ class UserDashboard extends Component {
         </div>
       </div> */}
 
+      </div>
 
       <ProfilePic 
             id={this.state.id} 
