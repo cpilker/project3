@@ -121,15 +121,19 @@ module.exports = function(app) {
     })
   })
 
+  // Save the recruiter to your database
   app.post('/saveuser', function(req, res){
-    const newSavedUser = new savedUser(req.body)
-    console.log(newSavedUser)
-    console.log(req.body.savedUser)
+    let x = req.body.savedUser
+    console.log(x)
+    console.log(req.body.recruiterID)
 
-    db.collection("savedUsers").insert(newSavedUser).then(function(savedUser) {
-      //WE NEED CODE TO PUSH IT TO THE LOGGED IN RECRUITER BY ID AND PUSH TO THAT ARRAY
-      console.log("complete")
-      res.send(savedUser.newSavedUser + " added to db")
+    db.collection("savedUsers").insert({savedUser: x}),
+ 
+    User.findOneAndUpdate({_id: req.body.recruiterID},{$push: {savedUser: x}}, {new: true}).then(function(){
+      console.log("success"),
+      res.send(x + " added to the db")
     })
-  });
+  })
+
+ 
 }
