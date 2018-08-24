@@ -39,8 +39,32 @@
   justify-content: center;
 }
 
+.signup-candidate-link-top {
+  display: none;
+}
+
+.signup-candidate-link-bottom {
+  font-style: italic;
+  padding: 15px;
+}
+
 :local(.footerRow) {
   position: absolute;
   bottom: 0;
   width: 100%;
 }
+
+  @media only screen and (max-width : 768px) {
+
+.signup-candidate-link-top {
+  display: block;
+  font-style: italic;
+  padding: 10px;
+}
+
+.signup-candidate-link-bottom {
+  display: none;
+}
+  
+  
+  }
