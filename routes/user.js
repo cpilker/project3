@@ -10,8 +10,8 @@ const
   email 	= require("emailjs"),
   savedRecruiter = require("../models/savedRecruiter"),
   server 	= email.server.connect({
-    user: 'hello@ryanadiaz.com',
-    password: 'testpassword',
+    user: 'recruithound@ryanadiaz.com',
+    password: 'OIkMefNigidEsi8',
     host: 'mail.ryanadiaz.com',
     port: 587,
     tls:  false
@@ -152,20 +152,20 @@ module.exports = function(app, gfs) {
     
     server.send({
       text:     req.body.message, 
-      from:     req.body.email, 
-      to:       "Ryan Diaz <ryandiaz@gmail.com>",
-      cc:       "Chad Pilker <chad.pilker@gmail.com>, jjmckenzie@carolina.rr.com, matthewgeddes@yahoo.com",     
-      subject:  "RecruitHound Contact - Job Seeker",
+      from:     "recruithound@ryanadiaz.com", 
+      to:       "RecruitHound <hello@recruithound.io>",
+      // cc:       "Chad Pilker <chad.pilker@gmail.com>, jjmckenzie@carolina.rr.com, matthewgeddes@yahoo.com",     
+      subject:  "RecruitHound Contact",
       attachment:
       [
-        {data: '<html>Name: ' + req.body.person_name + '<br />Phone:  ' + req.body.number1 + '<br />Message: ' + req.body.message + '</html>', alternative:true}
+        {data: '<html>Name: ' + req.body.person_name + '<br />Email: ' + req.body.email +  '<br />Phone:  ' + req.body.number1 + '<br />Message: ' + req.body.message + '</html>', alternative:true}
       ]
     }, function(err, message) {
         console.log(err || message); 
         if (!err) {   // Sends back status message in the form of an object -> res.status
           res.json({status: "success"});
         } else {
-          res.json({status: "error"});
+          res.json({status: err});
         }
     });
   });
@@ -215,7 +215,8 @@ module.exports = function(app, gfs) {
       city: req.body.newcity,
       state: req.body.newstate,
       zip: req.body.newzip,
-      jobSearchStatus: req.body.newjobsearchstatus
+      jobSearchStatus: req.body.newjobsearchstatus,
+      skill: req.body.newUserSkills
     }}, 
     function(error, result) {
       if (error) {
@@ -281,7 +282,7 @@ module.exports = function(app, gfs) {
   app.post('/api/signin',
     passport.authenticate(['user', 'recruiter']), function(req, res) {
       console.log("Passport has fired!");
-      console.log(req.user)
+      // console.log(req.user)
       if (req.user.prefix === 'R') {
         res.json({
           id: req.user._id,
@@ -320,28 +321,38 @@ module.exports = function(app, gfs) {
   // 
   app.get('/api/getuser', function(req, res) {
     console.log('getuser get has fired')
-    database.collection("users").find({username: req.session.passport.user}, function(error, response) {
-      if (error) {
-        console.log('Error: ', error);
-      }
-      // If there are no errors, send the data to the browser as json
-      else {
-        res.send({
-          id: response[0]._id,
-          username: response[0].username,
-          firstname: response[0].firstname,
-          lastname: response[0].lastname,
-          address1: response[0].address1,
-          address2: response[0].address2,
-          city: response[0].city,
-          state: response[0].state,
-          zip: response[0].zip,
-          created: response[0].created,
-          lastLogin: response[0].lastLogin,
-          jobSearchStatus: response[0].jobSearchStatus
-        })
-      }
-    });
+    console.log(req.session)
+    if (req.session.passport !== undefined) {  // If user is in fact signed in, then gather all their data
+      database.collection("users").find({username: req.session.passport.user}, function(error, response) {
+        if (error) {
+          console.log('Error: ', error);
+        }
+        // If there are no errors, send the data to the browser as json
+        else {
+          if (response.length !== 0) {
+            res.send({
+              id: response[0]._id,
+              username: response[0].username,
+              firstname: response[0].firstname,
+              lastname: response[0].lastname,
+              address1: response[0].address1,
+              address2: response[0].address2,
+              city: response[0].city,
+              state: response[0].state,
+              zip: response[0].zip,
+              created: response[0].created,
+              lastLogin: response[0].lastLogin,
+              jobSearchStatus: response[0].jobSearchStatus,
+              userSkills: response[0].skill
+            })
+          } else {
+            console.log('not logged in')
+          }
+        }
+      });
+    } else {
+      console.log('not logged in')
+    }
   });
 
 
@@ -363,12 +374,11 @@ module.exports = function(app, gfs) {
 
   app.get("/api/signout", function(req, res) {
     console.log("Signout has been fired!");
-    console.log(req.session.passport);
+    // console.log(req.session.passport);
     req.session.destroy(function (err) {
-      console.log(req.session);
+      // console.log(req.session);
       console.log("Signout completed, now redirecting to index");
       res.send("Success")
-      // res.redirect('/')
     });
   });
   /////////////////// User routes ///////////////////

@@ -32,6 +32,33 @@ db.on("error", function(error) {
 
 module.exports = function(app) {
 
+  app.get('/api/loadrecruiter', function(req, res) {
+    console.log('loadrecruiter get has fired')
+    database.collection("recruiters").find({username: req.session.passport.user}, function(error, response) {
+      if (error) {
+        console.log('Error: ', error);
+      }
+      // If there are no errors, send the data to the browser as json
+      else {
+        console.log(response)
+        res.send({
+          id: response[0]._id,
+          username: response[0].username,
+          firstname: response[0].firstname,
+          lastname: response[0].lastname,
+          address1: response[0].address1,
+          address2: response[0].address2,
+          city: response[0].city,
+          state: response[0].state,
+          zip: response[0].zip,
+          created: response[0].created,
+          lastLogin: response[0].lastLogin,
+          jobSearchStatus: response[0].jobSearchStatus
+        })
+      }
+    });
+  });
+
   app.post('/api/recruitersignup', (req, res) => {
     console.log("Recruiter signup post incoming...");
    

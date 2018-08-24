@@ -64,8 +64,7 @@ const recruiterSchema = new Schema({
         type: String
     },
     website: {
-        type: String,
-        unique: true
+        type: String
     },
     lastLogin: {
         type: Date,

@@ -1,12 +1,17 @@
 import React, {Component} from "react";
-import $ from 'jquery'
+// import $ from 'jquery'
 import axios from 'axios'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { base64StringtoFile, downloadBase64File, extractImageFileExtensionFromBase64, image64toCanvasRef } from '../../utils/imgCropTools'
+import '../../pages/UserDashboard/UserDashboard.css'
+import uploadIcon from '../../images/edit.svg'
+
+
 
 
 class ProfilePic extends Component {
+
 
   constructor(props) {
     super(props)
@@ -15,6 +20,40 @@ class ProfilePic extends Component {
       imgSrc: null,
       crop: {
         aspect: 1/1
+      }
+    }
+  }
+
+  componentDidMount = () => {
+    // Get modal element
+    const modal = document.getElementById('simpleModal')
+    // Get open modal button
+    const modalBtn = document.getElementById('modal-btn')
+    // Get close modal button
+    const closeBtn = document.getElementsByClassName('close-btn')[0]
+    const closeBtn2 = document.getElementsByClassName('close-btn')[1]
+
+    // Listen for open click
+    modalBtn.addEventListener('click', openModal)
+    // Listen for close click
+    closeBtn.addEventListener('click', closeModal)
+    // Listen for close click
+    closeBtn2.addEventListener('click', closeModal)
+    // Listen for outside click
+    window.addEventListener('click', clickOutside)
+
+    // Opens the modal
+    function openModal() {
+      modal.style.display = 'block'
+    }
+    // Closes the modal
+    function closeModal() {
+      modal.style.display = 'none'
+    }
+    // Closes modal if clicking outside
+    function clickOutside(e) {
+      if(e.target == modal) {
+        modal.style.display = 'none'
       }
     }
   }
@@ -46,7 +85,7 @@ class ProfilePic extends Component {
     const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
 
 
-    const myfilename = 'Profile-Picture.' + fileExtension
+    const myfilename = 'charlotte_gruop.' + fileExtension
 
     // file to be uploaded
     const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
@@ -109,36 +148,57 @@ class ProfilePic extends Component {
     const {imgSrc} = this.state
 
     return (
-    <div style={{width: '250px', position: 'relative'}} >
+    <div style={{position: 'relative'}} >
 
-      <div>
-        <input type='file' onChange={this.catchFileName}/>
-        <button onClick={this.fileUpload}> Upload axios </button>
+
+      <img style={{float: 'right'}} id='modal-btn' src={uploadIcon}/>
+
+      <div id='simpleModal' class='modal2'>
+        <div class='modal-content2'>
+        <span class='close-btn'>&times;</span>
+          <div style={{width: '100%', height: 'auto'}}>
+            <input style={{display: 'none'}} type='file' onChange={this.catchFileName} ref={fileInput => this.fileInput = fileInput}/>
+            <button onClick={() => this.fileInput.click()}> choose a picture </button>
+            {imgSrc !== null 
+            ? 
+              <div>
+                <div style={{float:'left', height: '100px'}}>
+                <ReactCrop 
+                  src={imgSrc} 
+                  crop={this.state.crop} 
+                  onImageLoaded={this.handleImageLoaded}
+                  onComplete={this.handleOnCropComplete}
+                  onChange={this.handleOnCropChange}
+                />
+                </div>
+              {/* <button style={{float: 'left', position: 'absolute', top: '-575'}} id='testBtn' onClick={this.handleDownloadClick}> Download </button> */}
+              </div> 
+            : 
+              // <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+              <div/>
+            } 
+            <button class='close-btn' onClick={this.fileUpload}> Save </button>
+          </div>
+        </div>
       </div>
 
 
-      <div style={{width: '250px', height: '250px', overflow: 'hidden'}} id='img-div'> 
+      <div style={{height: 'auto', overflow: 'hidden'}} id='userImage' > 
         {imgSrc !== null 
         ? 
           <div>
-            {/* {imgSrc}
-            <img style={{width: '250px'}} src={imgSrc} /> */}
-          <ReactCrop 
-            src={imgSrc} 
-            crop={this.state.crop} 
-            onImageLoaded={this.handleImageLoaded}
-            onComplete={this.handleOnCropComplete}
-            onChange={this.handleOnCropChange}
-          />
-          <br/>
-          <p>Preview Canvas Crop</p>
-          <button style={{float: 'left', position: 'absolute', top: '-575'}} id='testBtn' onClick={this.handleDownloadClick}> Download </button>
-          <canvas style={{float: 'left', position: 'absolute', top: '-550', width: '250px'}} ref={this.imagePreviewCanvasRef}></canvas>
-      
 
+            <canvas style={{width: '100%', height: 'auto'}} ref={this.imagePreviewCanvasRef}></canvas>
+            <ReactCrop 
+              // src={imgSrc} 
+              crop={this.state.crop} 
+              onImageLoaded={this.handleImageLoaded}
+              onComplete={this.handleOnCropComplete}
+              onChange={this.handleOnCropChange}
+            />
           </div> 
         : 
-          <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+          <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profilePic'/>
         } 
       </div>
 
@@ -148,3 +208,6 @@ class ProfilePic extends Component {
 }
 
 export default ProfilePic;
+
+// Bug list...
+// 1: When you upload a picture by hitting the save button...if you hit the button again it breaks the app.

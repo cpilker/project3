@@ -1,4 +1,4 @@
-import React, {Component, Fragment, Redirect} from "react";
+import React, {Component, Fragment} from "react";
 import './Nav.css';
 import ContactUs from '../ContactUs';
 import $ from 'jquery';
@@ -51,6 +51,7 @@ class Nav extends Component {
 
   render () {
       console.log(this.props.sitepath)
+      console.log(`Logged in? ${this.props.loggedIn}`)
     return (
         <Fragment>
       <nav className="navbar navbar-expand-md navbar-light bg-white fixed-top">
@@ -71,17 +72,27 @@ class Nav extends Component {
                 </li>
               {this.props.loggedIn ? 
                 <li className="nav-item">
-                  <a className="logout-link" href="#" onClick={this.signout}>Sign Out</a>
+                  <a className="logout-link" href="/" onClick={this.signout}>Sign Out</a>
                 </li>
                 :
-                <Fragment>
-                  <li className="nav-item">
-                    <a className="main-menu-links" href="/recruitersignup">Recruiters</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="login-link" href="/signin">Sign In</a>
-                  </li>
-                </Fragment>
+                this.props.sitepath === "recruitersignup" ?
+                  <Fragment>
+                    <li className="nav-item">
+                      <a className="main-menu-links" href="/signup">Candidates</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="login-link" href="/signin">Sign In</a>
+                    </li>
+                  </Fragment>
+                  :
+                  <Fragment>
+                    <li className="nav-item">
+                      <a className="main-menu-links" href="/recruitersignup">Recruiters</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="login-link" href="/signin">Sign In</a>
+                    </li>
+                  </Fragment>
               }
             </ul>
         </div>

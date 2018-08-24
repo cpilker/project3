@@ -26,7 +26,7 @@ class UserDashboard extends Component {
     state: null,
     zip: null,
     jobSearchStatus: null,
-    userSkills: null,
+    userSkills: [],
     // loggedIn: false,
     created: null,
     lastLogin: null,
@@ -41,10 +41,11 @@ class UserDashboard extends Component {
     newpassword: undefined,
     newlastLogin: undefined,
     newjobsearchstatus: undefined,
+    newUserSkills: [],
     errorMessage: null,
     statusText: null,
     events,
-    recruitersearch: null,      
+    recruitersearch: null,
     skillsArray,
   }
 
@@ -54,7 +55,7 @@ class UserDashboard extends Component {
   // updateProfilePic = this.updateProfilePic.bind(this);
 
   componentDidMount(){
-    this.setState({
+    this.setState({  // Resets state in preparation for the getuser to follow
       id: null,
       username: null,
       firstname: null,
@@ -67,7 +68,9 @@ class UserDashboard extends Component {
       // loggedIn: false,
       created: null,
       lastLogin: null,
-      jobSearchStatus: null
+      jobSearchStatus: null,
+      userSkills: [],
+      newUserSkills: this.state.userSkills
     })
     
     $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
@@ -85,8 +88,9 @@ class UserDashboard extends Component {
           console.log(response);
           this.props.updateUser(response)   // Stores current user in App.js
           this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.setState({newUserSkills: response.userSkills})
           this.setState(response)   // Set state to current user
-          console.log("is this happeninging" + this.state.jobSearchStatus)
+          // this.loadUserSkills();
         }
       },
       error: (err) => {
@@ -96,13 +100,33 @@ class UserDashboard extends Component {
         })
       }
     });
-
   }
+
+  // loadUserSkills() {   // Checks which of all the skills the user owns
+  //   let compare = this.state.skillsArray.filter((skill) => this.state.userSkills.includes(skill));
+  // }
 
   handleOnChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+  
+  updateSkills(selectedSkill) {
+    let updatedSkillsArray = [];
+    updatedSkillsArray = this.state.newUserSkills;
+    if (updatedSkillsArray.includes(selectedSkill)) {
+      console.log("Removing skill")
+      let newUserSkills = this.state.newUserSkills.filter(skill => skill !== selectedSkill);
+      console.log(newUserSkills);
+      this.setState({
+        newUserSkills
+      })
+    } else {
+      console.log("Adding skill")
+      this.state.newUserSkills.push(selectedSkill)
+      console.log(this.state.newUserSkills)
+    }
   }
 
   saveProfile(e) {
@@ -119,7 +143,8 @@ class UserDashboard extends Component {
       newstate: this.state.newstate === undefined ? this.props.state : this.state.newstate,
       newzip: this.state.newzip === undefined ? this.props.zip : this.state.newzip,
       newpassword: this.state.newpassword,
-      newjobsearchstatus: this.state.newjobsearchstatus === undefined ? this.props.jobSearchStatus : this.state.newjobsearchstatus
+      newjobsearchstatus: this.state.newjobsearchstatus === undefined ? this.props.jobSearchStatus : this.state.newjobsearchstatus,
+      newUserSkills: this.state.newUserSkills === undefined ? this.props.userSkills : this.state.newUserSkills
     }
     $.ajax({
       url: '/api/update-user-profile',
@@ -227,9 +252,12 @@ class UserDashboard extends Component {
           {/* User's Name */}
           <h3>{this.props.firstname} {this.props.lastname}</h3>
 
-          {/* User Image */}
-          <img src="https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg" id="userImage" />
-
+          <ProfilePic 
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
+          
           <div className="clearfix"/>
 
           {/* Edit button */}
@@ -364,9 +392,9 @@ class UserDashboard extends Component {
                       <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                           {/* //Begin list of skills */}
                           {this.state.skillsArray.map(skill => (
-                            <label className="btn btn-default skillbutton">
-                            <input type="checkbox" autoComplete="off" value={skill.name} />
-                            {skill.name}</label>
+                            <label onClick={this.updateSkills.bind(this, skill)} className={this.state.userSkills.includes(skill) ? "btn btn-default skillbutton active" : "btn btn-default skillbutton"}>
+                            <input type="checkbox" autoComplete="off" value={skill} />
+                            {skill}</label>
                           ))}
                       </div>
                   </div>
@@ -450,11 +478,7 @@ class UserDashboard extends Component {
 
       </div>
 
-      <ProfilePic 
-            id={this.state.id} 
-            firstname={this.props.firstname} 
-            lastname={this.props.lastname}
-          />
+
 
 
       <Footer />
