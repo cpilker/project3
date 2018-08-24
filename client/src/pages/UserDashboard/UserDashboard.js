@@ -41,10 +41,11 @@ class UserDashboard extends Component {
     newpassword: undefined,
     newlastLogin: undefined,
     newjobsearchstatus: undefined,
+    newUserSkills: [],
     errorMessage: null,
     statusText: null,
     events,
-    recruitersearch: null,      
+    recruitersearch: null,
     skillsArray,
   }
 
@@ -68,7 +69,8 @@ class UserDashboard extends Component {
       created: null,
       lastLogin: null,
       jobSearchStatus: null,
-      userSkills: []
+      userSkills: [],
+      newUserSkills: this.state.userSkills
     })
     
     $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
@@ -86,8 +88,9 @@ class UserDashboard extends Component {
           console.log(response);
           this.props.updateUser(response)   // Stores current user in App.js
           this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.setState({newUserSkills: response.userSkills})
           this.setState(response)   // Set state to current user
-          this.loadUserSkills();
+          // this.loadUserSkills();
         }
       },
       error: (err) => {
@@ -99,16 +102,31 @@ class UserDashboard extends Component {
     });
   }
 
-  loadUserSkills() {   // Checks which of all the skills the user owns, and updates them to be selected
-    let compare = this.state.skillsArray.filter((skill) => this.state.userSkills.includes(skill));
-
-
-  }
+  // loadUserSkills() {   // Checks which of all the skills the user owns
+  //   let compare = this.state.skillsArray.filter((skill) => this.state.userSkills.includes(skill));
+  // }
 
   handleOnChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+  
+  updateSkills(selectedSkill) {
+    let updatedSkillsArray = [];
+    updatedSkillsArray = this.state.newUserSkills;
+    if (updatedSkillsArray.includes(selectedSkill)) {
+      console.log("Removing skill")
+      let newUserSkills = this.state.newUserSkills.filter(skill => skill !== selectedSkill);
+      console.log(newUserSkills);
+      this.setState({
+        newUserSkills
+      })
+    } else {
+      console.log("Adding skill")
+      this.state.newUserSkills.push(selectedSkill)
+      console.log(this.state.newUserSkills)
+    }
   }
 
   saveProfile(e) {
@@ -125,7 +143,8 @@ class UserDashboard extends Component {
       newstate: this.state.newstate === undefined ? this.props.state : this.state.newstate,
       newzip: this.state.newzip === undefined ? this.props.zip : this.state.newzip,
       newpassword: this.state.newpassword,
-      newjobsearchstatus: this.state.newjobsearchstatus === undefined ? this.props.jobSearchStatus : this.state.newjobsearchstatus
+      newjobsearchstatus: this.state.newjobsearchstatus === undefined ? this.props.jobSearchStatus : this.state.newjobsearchstatus,
+      newUserSkills: this.state.newUserSkills === undefined ? this.props.userSkills : this.state.newUserSkills
     }
     $.ajax({
       url: '/api/update-user-profile',
@@ -370,7 +389,7 @@ class UserDashboard extends Component {
                       <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                           {/* //Begin list of skills */}
                           {this.state.skillsArray.map(skill => (
-                            <label className={this.state.userSkills.includes(skill) ? "btn btn-default skillbutton active" : "btn btn-default skillbutton"}>
+                            <label onClick={this.updateSkills.bind(this, skill)} className={this.state.userSkills.includes(skill) ? "btn btn-default skillbutton active" : "btn btn-default skillbutton"}>
                             <input type="checkbox" autoComplete="off" value={skill} />
                             {skill}</label>
                           ))}
