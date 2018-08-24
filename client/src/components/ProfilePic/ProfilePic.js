@@ -4,9 +4,9 @@ import axios from 'axios'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { base64StringtoFile, downloadBase64File, extractImageFileExtensionFromBase64, image64toCanvasRef } from '../../utils/imgCropTools'
-import '../../pages/UserDashboard/UserDashboard.css'
+// import '../../pages/UserDashboard/UserDashboard.css'
 import uploadIcon from '../../images/edit.svg'
-
+import './ProfilePic.css';
 
 
 
@@ -17,7 +17,7 @@ class ProfilePic extends Component {
     super(props)
     this.imagePreviewCanvasRef = React.createRef()
     this.state = {
-      imgSrc: null,
+      imgSrc: "null",
       crop: {
         aspect: 1/1
       }
@@ -154,15 +154,15 @@ class ProfilePic extends Component {
       <img style={{float: 'right'}} id='modal-btn' src={uploadIcon}/>
 
       <div id='simpleModal' class='modal2'>
-        <div class='modal-content2'>
-        <span class='close-btn'>&times;</span>
+        <div class='modal-content2 paperCard'>
+        <span class='close-btn' id="closeX">&times;</span>
           <div style={{width: '100%', height: 'auto'}}>
             <input style={{display: 'none'}} type='file' onChange={this.catchFileName} ref={fileInput => this.fileInput = fileInput}/>
-            <button onClick={() => this.fileInput.click()}> choose a picture </button>
+            <button onClick={() => this.fileInput.click()} className="btn btn-primary" id="choosePic"> Choose a Picture </button>
             {imgSrc !== null 
             ? 
               <div>
-                <div style={{float:'left', height: '100px'}}>
+                <div className="picPreview">
                 <ReactCrop 
                   src={imgSrc} 
                   crop={this.state.crop} 
@@ -177,7 +177,7 @@ class ProfilePic extends Component {
               // <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
               <div/>
             } 
-            <button class='close-btn' onClick={this.fileUpload}> Save </button>
+            <button className='close-btn btn btn-primary' id="savePic" onClick={this.fileUpload}> Save </button>
           </div>
         </div>
       </div>
