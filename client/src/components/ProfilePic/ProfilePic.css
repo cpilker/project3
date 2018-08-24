@@ -43,7 +43,6 @@
 
 .picPreview {
   width: 100%;
-
 }
 
 .picPreview img {
@@ -65,6 +64,13 @@
   font-size: 30px;
   position: relative;
   top: -8px;
+}
+
+#userImage {
+  background: url('./hounddog.jpg');
+  background-position: center;
+  background-size: contain;
+  height: 215px !important;
 }
 
 /************* Media queries *************/
