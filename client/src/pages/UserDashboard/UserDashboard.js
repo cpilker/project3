@@ -26,7 +26,7 @@ class UserDashboard extends Component {
     state: null,
     zip: null,
     jobSearchStatus: null,
-    userSkills: null,
+    userSkills: [],
     // loggedIn: false,
     created: null,
     lastLogin: null,
@@ -54,7 +54,7 @@ class UserDashboard extends Component {
   // updateProfilePic = this.updateProfilePic.bind(this);
 
   componentDidMount(){
-    this.setState({
+    this.setState({  // Resets state in preparation for the getuser to follow
       id: null,
       username: null,
       firstname: null,
@@ -67,7 +67,8 @@ class UserDashboard extends Component {
       // loggedIn: false,
       created: null,
       lastLogin: null,
-      jobSearchStatus: null
+      jobSearchStatus: null,
+      userSkills: []
     })
     
     $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
@@ -86,7 +87,7 @@ class UserDashboard extends Component {
           this.props.updateUser(response)   // Stores current user in App.js
           this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
           this.setState(response)   // Set state to current user
-          console.log("is this happeninging" + this.state.jobSearchStatus)
+          this.loadUserSkills();
         }
       },
       error: (err) => {
@@ -96,6 +97,11 @@ class UserDashboard extends Component {
         })
       }
     });
+  }
+
+  loadUserSkills() {   // Checks which of all the skills the user owns, and updates them to be selected
+    let compare = this.state.skillsArray.filter((skill) => this.state.userSkills.includes(skill));
+
 
   }
 
@@ -364,9 +370,9 @@ class UserDashboard extends Component {
                       <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                           {/* //Begin list of skills */}
                           {this.state.skillsArray.map(skill => (
-                            <label className="btn btn-default skillbutton">
-                            <input type="checkbox" autoComplete="off" value={skill.name} />
-                            {skill.name}</label>
+                            <label className={this.state.userSkills.includes(skill) ? "btn btn-default skillbutton active" : "btn btn-default skillbutton"}>
+                            <input type="checkbox" autoComplete="off" value={skill} />
+                            {skill}</label>
                           ))}
                       </div>
                   </div>
