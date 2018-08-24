@@ -19,15 +19,15 @@ class Resume extends Component {
           <input type="hidden" name="id" value={this.props.id} />
           <label htmlFor='file' className='custom-file-label browseStyle'> </label>
         </div>
-        <input type='submit' value='Save' className='btn btn-primary'/>
+        <input type='submit' value='Save' className='btn btn-primary' id="resumeSaveButton"/>
       </form>
 
         <form action={`/files/${this.props.id}/Resume?_method=DELETE`} method='POST' > 
-          <input type='submit' value='Delete' className='btn btn-primary'/>
+          <input type='submit' value='Delete' className='btn btn-primary' id="resumeDeleteButton"/>
         </form>
 
         <form action={`/download/${this.props.id}/Resume?_method=GET`} method='POST' > 
-          <input type='submit' value='Download' className='btn btn-primary'/>
+          <input type='submit' value='Download' className='btn btn-primary' id="resumeDownloadButton"/>
         </form>
 
       <div style={{width: '250px', height: '250px', overflow: 'hidden'}} > 
