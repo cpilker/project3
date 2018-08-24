@@ -18,3 +18,49 @@
 #resumeBuilder .btn {
   margin-top: 20px;
 }
+
+#resumeSaveButton, #resumeDeleteButton {
+  float: left;
+  margin-left: 26px;
+}
+
+@media only screen and (max-width : 1200px) {
+  #resumeSaveButton, #resumeDeleteButton {
+    margin-left: 13px;
+  }
+} 
+
+@media only screen and (max-width : 992px) {
+  #resumeSaveButton, #resumeDeleteButton {
+    float: none;
+    margin-left: 0;
+  }
+} 
+
+@media only screen and (max-width : 767px) {
+  #resumeSaveButton, #resumeDeleteButton, #resumeDownloadButton {
+    float: left;
+    margin-left: 12.5%;
+  }
+} 
+
+@media only screen and (max-width : 500px) {
+  #resumeSaveButton, #resumeDeleteButton, #resumeDownloadButton {
+    float: left;
+    margin-left: 10%;
+  }
+} 
+
+@media only screen and (max-width : 400px) {
+  #resumeSaveButton, #resumeDeleteButton, #resumeDownloadButton {
+    float: left;
+    margin-left: 7%;
+  }
+} 
+
+@media only screen and (max-width : 325px) {
+  #resumeSaveButton, #resumeDeleteButton, #resumeDownloadButton {
+    float: left;
+    margin-left: 5%;
+  }
+} 
