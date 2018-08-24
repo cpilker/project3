@@ -51,6 +51,7 @@ class Nav extends Component {
 
   render () {
       console.log(this.props.sitepath)
+      console.log(`Logged in? ${this.props.loggedIn}`)
     return (
         <Fragment>
       <nav className="navbar navbar-expand-md navbar-light bg-white fixed-top">

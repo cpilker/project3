@@ -6,6 +6,7 @@ import Signin from './pages/Signin';
 import UserDashboard from './pages/UserDashboard';
 import RecruiterDashboard from './pages/RecruiterDashboard';
 import RecruiterSignup from './pages/RecruiterSignup';
+import $ from 'jquery';
 
 class App extends Component {
   state = {
@@ -18,16 +19,40 @@ class App extends Component {
     city: null,
     state: null,
     zip: null,
-    loggedIn: false,
+    loggedIn: null,
     created: null,
     lastLogin: null,
   }
 
   updateUser = this.updateUser.bind(this);
 
-  // componentDidMount() {
-  //   // this.getUser();
-  // }
+  componentDidMount() {
+    $.ajax({   // Load currently signed in user, if exists
+      url: '/api/getuser',
+      type: 'get',
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("@route GET /api/getuser response:");
+          console.log(response);
+          this.setState(response)   // Set state to current user
+          this.setState({loggedIn: true})
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          errorMessage: err.statusText
+        })
+      }
+    });
+  }
+
 
   updateUser (userObject) {
     console.log("Update user has fired!");
