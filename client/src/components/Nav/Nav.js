@@ -1,4 +1,4 @@
-import React, {Component, Fragment, Redirect} from "react";
+import React, {Component, Fragment} from "react";
 import './Nav.css';
 import ContactUs from '../ContactUs';
 import $ from 'jquery';
@@ -71,7 +71,7 @@ class Nav extends Component {
                 </li>
               {this.props.loggedIn ? 
                 <li className="nav-item">
-                  <a className="logout-link" href="#" onClick={this.signout}>Sign Out</a>
+                  <a className="logout-link" href="/" onClick={this.signout}>Sign Out</a>
                 </li>
                 :
                 this.props.sitepath === "recruitersignup" ?
