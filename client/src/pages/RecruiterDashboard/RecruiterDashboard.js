@@ -10,7 +10,22 @@ import './RecruiterDashboard.css';
 
 class RecruiterDashboard extends Component {
   state = {
-    default: "Hello World",
+    company: undefined,
+    firstname: undefined,
+    lastname: undefined,
+    username: undefined,
+    address1: undefined,
+    address2: undefined,
+    city: undefined,
+    state: undefined,
+    zip: undefined,
+    phone1: undefined,
+    national: undefined,
+    description: undefined,
+    website: undefined,
+    lastLogin: undefined,
+    created: undefined,
+    savedUsers: undefined,
     users: '',
     availableusers: '',
     activeusers: '',
@@ -36,6 +51,35 @@ class RecruiterDashboard extends Component {
     this.notSearching();
     this.openToOpportunities();
     this.searchUsers();
+    this.loadRecruiter();
+  }
+
+  loadRecruiter() {
+    $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
+      url: '/api/loadrecruiter',
+      type: 'get',
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("@route GET /api/loadrecruiter response:");
+          console.log(response);
+          this.props.updateUser(response)   // Stores current recruiter in App.js
+          this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.setState(response)   // Set state to current recruiter
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          errorMessage: err.statusText
+        })
+      }
+    });
   }
 
   //This is to pull the users on the page loading (Total Active Users)
