@@ -20,7 +20,7 @@ const
 
 
 // Connect to the Mongo DB
-let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
+let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://recruithound-username:recruithoundpassword1@ds229552.mlab.com:29552/recruithound-db");
 mongoose.Promise = Promise;
 
 // Define middleware here

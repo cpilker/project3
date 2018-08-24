@@ -17,7 +17,7 @@ class ProfilePic extends Component {
     super(props)
     this.imagePreviewCanvasRef = React.createRef()
     this.state = {
-      imgSrc: "null",
+      imgSrc: null,
       crop: {
         aspect: 1/1
       }
