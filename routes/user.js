@@ -321,6 +321,7 @@ module.exports = function(app, gfs) {
   // 
   app.get('/api/getuser', function(req, res) {
     console.log('getuser get has fired')
+    console.log(req.session)
     if (req.session.passport !== undefined) {  // If user is in fact signed in, then gather all their data
       database.collection("users").find({username: req.session.passport.user}, function(error, response) {
         if (error) {
@@ -328,24 +329,29 @@ module.exports = function(app, gfs) {
         }
         // If there are no errors, send the data to the browser as json
         else {
-          // console.log(response)
-          res.send({
-            id: response[0]._id,
-            username: response[0].username,
-            firstname: response[0].firstname,
-            lastname: response[0].lastname,
-            address1: response[0].address1,
-            address2: response[0].address2,
-            city: response[0].city,
-            state: response[0].state,
-            zip: response[0].zip,
-            created: response[0].created,
-            lastLogin: response[0].lastLogin,
-            jobSearchStatus: response[0].jobSearchStatus,
-            userSkills: response[0].skill
-          })
+          if (response.length !== 0) {
+            res.send({
+              id: response[0]._id,
+              username: response[0].username,
+              firstname: response[0].firstname,
+              lastname: response[0].lastname,
+              address1: response[0].address1,
+              address2: response[0].address2,
+              city: response[0].city,
+              state: response[0].state,
+              zip: response[0].zip,
+              created: response[0].created,
+              lastLogin: response[0].lastLogin,
+              jobSearchStatus: response[0].jobSearchStatus,
+              userSkills: response[0].skill
+            })
+          } else {
+            console.log('not logged in')
+          }
         }
       });
+    } else {
+      console.log('not logged in')
     }
   });
 
