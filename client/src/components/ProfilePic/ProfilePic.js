@@ -174,7 +174,8 @@ class ProfilePic extends Component {
               {/* <button style={{float: 'left', position: 'absolute', top: '-575'}} id='testBtn' onClick={this.handleDownloadClick}> Download </button> */}
               </div> 
             : 
-              <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+              // <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+              <div/>
             } 
             <button class='close-btn' onClick={this.fileUpload}> Save </button>
           </div>
