@@ -215,7 +215,8 @@ module.exports = function(app, gfs) {
       city: req.body.newcity,
       state: req.body.newstate,
       zip: req.body.newzip,
-      jobSearchStatus: req.body.newjobsearchstatus
+      jobSearchStatus: req.body.newjobsearchstatus,
+      skill: req.body.newUserSkills
     }}, 
     function(error, result) {
       if (error) {
@@ -370,7 +371,6 @@ module.exports = function(app, gfs) {
       console.log(req.session);
       console.log("Signout completed, now redirecting to index");
       res.send("Success")
-      // res.redirect('/')
     });
   });
   /////////////////// User routes ///////////////////
