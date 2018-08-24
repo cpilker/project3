@@ -57,7 +57,8 @@ const userSchema = new Schema({
   },
   jobSearchStatus: {
     type: String,
-    required: false
+    required: false,
+    default: "Not Searching"
   },
   lastLogin: {
     type: Date,

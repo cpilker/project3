@@ -326,6 +326,7 @@ module.exports = function(app, gfs) {
       }
       // If there are no errors, send the data to the browser as json
       else {
+        console.log(response)
         res.send({
           id: response[0]._id,
           username: response[0].username,
@@ -338,7 +339,8 @@ module.exports = function(app, gfs) {
           zip: response[0].zip,
           created: response[0].created,
           lastLogin: response[0].lastLogin,
-          jobSearchStatus: response[0].jobSearchStatus
+          jobSearchStatus: response[0].jobSearchStatus,
+          userSkills: response[0].skill
         })
       }
     });
