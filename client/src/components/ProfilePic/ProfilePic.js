@@ -4,7 +4,7 @@ import axios from 'axios'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { base64StringtoFile, downloadBase64File, extractImageFileExtensionFromBase64, image64toCanvasRef } from '../../utils/imgCropTools'
-
+import '../../pages/UserDashboard/UserDashboard.css'
 
 class ProfilePic extends Component {
 
@@ -46,7 +46,7 @@ class ProfilePic extends Component {
     const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
 
 
-    const myfilename = 'Profile-Picture.' + fileExtension
+    const myfilename = 'charlotte_gruop.' + fileExtension
 
     // file to be uploaded
     const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
@@ -109,7 +109,7 @@ class ProfilePic extends Component {
     const {imgSrc} = this.state
 
     return (
-    <div style={{width: '250px', position: 'relative'}} >
+    <div style={{position: 'relative'}} >
 
       <div>
         <input type='file' onChange={this.catchFileName}/>
@@ -117,7 +117,7 @@ class ProfilePic extends Component {
       </div>
 
 
-      <div style={{width: '250px', height: '250px', overflow: 'hidden'}} id='img-div'> 
+      <div style={{height: 'auto', overflow: 'hidden'}} id='userImage' > 
         {imgSrc !== null 
         ? 
           <div>
@@ -138,7 +138,7 @@ class ProfilePic extends Component {
 
           </div> 
         : 
-          <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+          <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
         } 
       </div>
 

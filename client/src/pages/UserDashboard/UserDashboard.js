@@ -233,9 +233,12 @@ class UserDashboard extends Component {
           {/* User's Name */}
           <h3>{this.props.firstname} {this.props.lastname}</h3>
 
-          {/* User Image */}
-          <img src="https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg" id="userImage" />
-
+          <ProfilePic 
+            id={this.state.id} 
+            firstname={this.props.firstname} 
+            lastname={this.props.lastname}
+          />
+          
           <div className="clearfix"/>
 
           {/* Edit button */}
@@ -456,11 +459,7 @@ class UserDashboard extends Component {
 
       </div>
 
-      <ProfilePic 
-            id={this.state.id} 
-            firstname={this.props.firstname} 
-            lastname={this.props.lastname}
-          />
+
 
 
       <Footer />
