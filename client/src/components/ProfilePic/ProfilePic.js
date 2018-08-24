@@ -5,8 +5,13 @@ import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { base64StringtoFile, downloadBase64File, extractImageFileExtensionFromBase64, image64toCanvasRef } from '../../utils/imgCropTools'
 import '../../pages/UserDashboard/UserDashboard.css'
+import uploadIcon from '../../images/upload.svg'
+
+
+
 
 class ProfilePic extends Component {
+
 
   constructor(props) {
     super(props)
@@ -15,6 +20,37 @@ class ProfilePic extends Component {
       imgSrc: null,
       crop: {
         aspect: 1/1
+      }
+    }
+  }
+
+  componentDidMount = () => {
+    // Get modal element
+    const modal = document.getElementById('simpleModal')
+    // Get open modal button
+    const modalBtn = document.getElementById('modal-btn')
+    // Get close modal button
+    const closeBtn = document.getElementsByClassName('close-btn')[0]
+
+    // Listen for open click
+    modalBtn.addEventListener('click', openModal)
+    // Listen for close click
+    closeBtn.addEventListener('click', closeModal)
+    // Listen for outside click
+    window.addEventListener('click', clickOutside)
+
+    // Opens the modal
+    function openModal() {
+      modal.style.display = 'block'
+    }
+    // Closes the modal
+    function closeModal() {
+      modal.style.display = 'none'
+    }
+    // Closes modal if clicking outside
+    function clickOutside(e) {
+      if(e.target == modal) {
+        modal.style.display = 'none'
       }
     }
   }
@@ -111,9 +147,37 @@ class ProfilePic extends Component {
     return (
     <div style={{position: 'relative'}} >
 
-      <div>
-        <input type='file' onChange={this.catchFileName}/>
-        <button onClick={this.fileUpload}> Upload axios </button>
+
+      <img id='modal-btn' src={uploadIcon}/>
+
+      <div id='simpleModal' class='modal2'>
+        <div class='modal-content2'>
+        <span class='close-btn'>&times;</span>
+          <div>
+            <input style={{display: 'none'}} type='file' onChange={this.catchFileName} ref={fileInput => this.fileInput = fileInput}/>
+            <button onClick={() => this.fileInput.click()}> choose a picture </button>
+            <button onClick={this.fileUpload}> Save </button>
+          </div>
+            {imgSrc !== null 
+            ? 
+              <div>
+              <div style={{float:'left', height: '100px'}}>
+              <ReactCrop 
+                src={imgSrc} 
+                crop={this.state.crop} 
+                onImageLoaded={this.handleImageLoaded}
+                onComplete={this.handleOnCropComplete}
+                onChange={this.handleOnCropChange}
+              />
+              </div>
+              {/* <button style={{float: 'left', position: 'absolute', top: '-575'}} id='testBtn' onClick={this.handleDownloadClick}> Download </button> */}
+              <canvas style={{float: 'left', position: 'absolute', top: '-550', width: '250px'}} ref={this.imagePreviewCanvasRef}></canvas>
+          
+              </div> 
+            : 
+              <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+            } 
+        </div>
       </div>
 
 
@@ -130,8 +194,7 @@ class ProfilePic extends Component {
             onComplete={this.handleOnCropComplete}
             onChange={this.handleOnCropChange}
           />
-          <br/>
-          <p>Preview Canvas Crop</p>
+
           <button style={{float: 'left', position: 'absolute', top: '-575'}} id='testBtn' onClick={this.handleDownloadClick}> Download </button>
           <canvas style={{float: 'left', position: 'absolute', top: '-550', width: '250px'}} ref={this.imagePreviewCanvasRef}></canvas>
       
