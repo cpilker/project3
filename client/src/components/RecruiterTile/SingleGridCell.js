@@ -31,7 +31,7 @@ class SingleGridCell extends Component {
 
     return (
       <li className='SingleGridCell' style={SingleGridCellStyle} data-id={this.props.recruiterId} id={this.props.id} onClick={this.cellClick.bind(this)}>
-        <img src="./images/recruiter-logos/charlotte_automation.jpg" className="recGridImageStyle"/>
+        <img src={`image/${this.props.recruiterId}/profilePic?`} className="recGridImageStyle"/> {/* ///////<<<<-----Matt changed this LINE*/}
       </li>
     )
   }
