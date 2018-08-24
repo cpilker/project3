@@ -92,6 +92,7 @@ class App extends Component {
                 phone={this.state.phone}
                 sitepath={"recruiterdashboard"}
                 loggedIn={this.state.loggedIn}
+                updateUser={this.updateUser}
               />}
             />
             <Route path='/recruitersignup' render={() =>
