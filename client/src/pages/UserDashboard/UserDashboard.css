@@ -19,7 +19,15 @@
 }
 
 .formSpacer {
-  margin-top: 5px;
+  margin-top: 10px;
+}
+
+#user .form-row .form-group {
+  margin-bottom: 0px;
+}
+
+#user .form-group {
+  margin-bottom: 0px;
 }
 
 .hidden {
