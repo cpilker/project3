@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import $ from 'jquery'
+// import $ from 'jquery'
 import axios from 'axios'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -138,7 +138,7 @@ class ProfilePic extends Component {
 
           </div> 
         : 
-          <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic?`} alt='profile-picture'/>
+          <img style={{width: '250px'}} src={`image/${this.props.id}/profilePic?`} alt='profilePic'/>
         } 
       </div>
 

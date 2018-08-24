@@ -15,7 +15,8 @@ class ContactUs extends Component {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Contact a RecruitHound Agent</h5> <h5 id="contactus-success" style={{display: "none"}}>&nbsp;&nbsp;Message sent!</h5> <h5 id="contactus-error" style={{display: "none"}}>&nbsp;&nbsp;Error! Message not sent!</h5>
+              <h5 className="modal-title">Contact a RecruitHound Agent</h5>
+              <h5 id="contactus-success" style={{display: "none"}}>&nbsp;&nbsp;Message sent!</h5> <h5 id="contactus-error" style={{display: "none"}}>&nbsp;&nbsp;Error! Message not sent!</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
               </button>
