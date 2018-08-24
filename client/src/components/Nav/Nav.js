@@ -74,14 +74,24 @@ class Nav extends Component {
                   <a className="logout-link" href="#" onClick={this.signout}>Sign Out</a>
                 </li>
                 :
-                <Fragment>
-                  <li className="nav-item">
-                    <a className="main-menu-links" href="/recruitersignup">Recruiters</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="login-link" href="/signin">Sign In</a>
-                  </li>
-                </Fragment>
+                this.props.sitepath === "recruitersignup" ?
+                  <Fragment>
+                    <li className="nav-item">
+                      <a className="main-menu-links" href="/signup">Candidates</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="login-link" href="/signin">Sign In</a>
+                    </li>
+                  </Fragment>
+                  :
+                  <Fragment>
+                    <li className="nav-item">
+                      <a className="main-menu-links" href="/recruitersignup">Recruiters</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="login-link" href="/signin">Sign In</a>
+                    </li>
+                  </Fragment>
               }
             </ul>
         </div>
