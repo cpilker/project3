@@ -10,6 +10,7 @@ import './RecruiterDashboard.css';
 
 class RecruiterDashboard extends Component {
   state = {
+    id: undefined,
     company: undefined,
     firstname: undefined,
     lastname: undefined,
@@ -44,6 +45,9 @@ class RecruiterDashboard extends Component {
 
   searchUsers = this.searchUsers.bind(this);
   filterUsers = this.filterUsers.bind(this);
+  saveProfile = this.saveProfile.bind(this);
+  handleOnChange = this.handleOnChange.bind(this);
+
 
   componentDidMount(){
     this.pullUsers();
@@ -55,6 +59,25 @@ class RecruiterDashboard extends Component {
   }
 
   loadRecruiter() {
+
+    this.setState({  // Resets state in preparation for the getuser to follow
+      id: null,
+      username: null,
+      firstname: null,
+      lastname: null,
+      address1: null,
+      address2: null,
+      city: null,
+      state: null,
+      zip: null,
+      // loggedIn: false,
+      created: null,
+      lastLogin: null,
+      jobSearchStatus: null,
+      userSkills: [],
+      newUserSkills: this.state.userSkills
+    })
+
     $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
       url: '/api/loadrecruiter',
       type: 'get',
@@ -80,6 +103,68 @@ class RecruiterDashboard extends Component {
         })
       }
     });
+  }
+
+  handleOnChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  editProfileButton(event){
+    $('#user').find('.hider').each(function() {
+      $(this).toggleClass('hidden');
+    });
+    $('#editprofile').text(function(i, text){   // Toggle Edit button text
+      return text === "Edit Profile" ? "Cancel" : "Edit Profile";
+    });
+  }
+
+  saveProfile(e) {
+    e.preventDefault();
+    console.log("updateProfile has been fired!");
+    const data = {
+      id: this.state.id,
+      newusername: this.state.newusername === undefined ? this.props.username : this.state.newusername,
+      newcompany: this.state.newcompany === undefined ? this.props.company : this.state.newcompany,
+      newfirstname: this.state.newfirstname === undefined ? this.props.firstname : this.state.newfirstname,
+      newlastname: this.state.newlastname === undefined ? this.props.lastname : this.state.newlastname,
+      newaddress1: this.state.newaddress1 === undefined ? this.props.address1 : this.state.newaddress1,
+      newaddress2: this.state.newaddress2 === undefined ? this.props.address2 : this.state.newaddress2,
+      newcity: this.state.newcity === undefined ? this.props.city : this.state.newcity,
+      newstate: this.state.newstate === undefined ? this.props.state : this.state.newstate,
+      newzip: this.state.newzip === undefined ? this.props.zip : this.state.newzip,
+      newpassword: this.state.newpassword
+    }
+    $.ajax({
+      url: '/api/update-recruiter-profile',
+      type: 'post',
+      data: data,
+      success: (response) => {
+        if (response.err) {
+          console.log("Error!");
+          console.log(response.err);
+          this.setState({
+            errorMessage: response.err.message
+          })
+        } else {
+          console.log("Success!");
+          console.log(response);
+          this.props.updateUser(response)   // Stores current user in App.js
+          this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
+          this.setState(response)   // Set state to current user
+          this.setState({statusText: "Success!"})
+          this.editProfileButton();
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          errorMessage: err.statusText
+        })
+      }
+    });
+
   }
 
   //This is to pull the users on the page loading (Total Active Users)
@@ -273,6 +358,8 @@ class RecruiterDashboard extends Component {
   
 
   render () {
+    console.log(this.state.id)
+
     return (
 
       <div className="RecruiterDashboard">
@@ -325,6 +412,13 @@ class RecruiterDashboard extends Component {
                       <label htmlFor="password" className="formSpacer hidden hider"><strong>Password:</strong></label>
                       <input type="password" className="form-control hidden hider" id="password" placeholder="Password" name="newpassword" value={this.state.newpassword} onChange={this.handleOnChange} required autoComplete="new-password" />
                   </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group col-md-12">
+                    <label htmlFor="newcompany" className="formSpacer"><strong>Company:</strong> {this.props.company}</label>
+                    <input type="text" className="form-control hidden hider" id="newcompany" placeholder="Company" name="newfirstname" value={this.state.newcompany} onChange={this.handleOnChange} required />
+                </div>  
               </div>
 
               <div className="form-row">
