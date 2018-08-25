@@ -71,7 +71,7 @@ module.exports = function(app, gfs) {
       
       console.log("3: successful multer upload")
     }) 
-  
+    mongoose.connection.close()
     res.send('hello')
   })
  
@@ -83,6 +83,7 @@ module.exports = function(app, gfs) {
       if (err) {
         return res.status(404).json({err: err})
       } 
+      mongoose.connection.close()
       res.sendStatus()
     })
   })
@@ -111,6 +112,7 @@ module.exports = function(app, gfs) {
         })
       }
     })
+    mongoose.connection.close()
   })
 
   // @route GET /image/:filename
@@ -138,6 +140,7 @@ module.exports = function(app, gfs) {
       });
       readstream.pipe(res);
     });
+    mongoose.connection.close()
   })
 
   //////////////// Upload image routes //////////////
@@ -168,6 +171,7 @@ module.exports = function(app, gfs) {
           res.json({status: err});
         }
     });
+    mongoose.connection.close()
   });
 
   app.post('/api/signup', (req, res) => {
@@ -198,7 +202,10 @@ module.exports = function(app, gfs) {
           });
         }
       });
+
+      mongoose.connection.close()
     }
+    
   );
 
   
@@ -260,6 +267,7 @@ module.exports = function(app, gfs) {
         })
       }
     });    
+    mongoose.connection.close()
   })
 
 
@@ -276,6 +284,7 @@ module.exports = function(app, gfs) {
         res.send({response})
       }
     });
+    mongoose.connection.close()
   })
 
   // Sign in route, detects if user or recruiter and redirects accordingly
@@ -315,6 +324,7 @@ module.exports = function(app, gfs) {
           redirectTo: '/user-dashboard'
         });
       }
+      mongoose.connection.close()
     }
   )
   
@@ -353,6 +363,7 @@ module.exports = function(app, gfs) {
     } else {
       console.log('not logged in')
     }
+    mongoose.connection.close()
   });
 
 
@@ -370,6 +381,7 @@ module.exports = function(app, gfs) {
       console.log("success"),
       res.send(x + " added to the db")
     })
+    mongoose.connection.close()
   })
 
   app.get("/api/signout", function(req, res) {
@@ -381,5 +393,6 @@ module.exports = function(app, gfs) {
       res.send("Success")
     });
   });
+  mongoose.connection.close()
   /////////////////// User routes ///////////////////
 };
