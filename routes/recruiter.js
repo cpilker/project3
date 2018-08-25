@@ -24,7 +24,7 @@ const
 const databaseUrl = process.env.MONGODB_URI || "mongodb://localhost/main";
 
 // Hook mongojs configuration to the db variable
-const db = mongojs('mongodb://recruithoundAdmin:password123@ds229552.mlab.com:29552/heroku_gsdwvbdb', ['heroku_gsdwvbdb']);
+const db = mongojs(process.env.MONGODB_URI || "main");
 db.on("error", function(error) {
     console.log("Database Error:", error);
 });

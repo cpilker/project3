@@ -21,14 +21,14 @@ const
 const databaseUrl = process.env.MONGODB_URI || "mongodb://localhost/main";
 
 // Hook mongojs configuration to the db variable
-const db = mongojs('mongodb://recruithoundAdmin:password123@ds229552.mlab.com:29552/heroku_gsdwvbdb', ['heroku_gsdwvbdb']);
+const db = mongojs(databaseUrl);
 db.on("error", function(error) {
     console.log("Database Error:", error);
 });  
 
 module.exports = function(app, gfs) {
 
-  const database = mongojs('mongodb://recruithoundAdmin:password123@ds229552.mlab.com:29552/heroku_gsdwvbdb', ['heroku_gsdwvbdb']);
+  const database = mongojs(process.env.MONGODB_URI || "main");
 
   // Create storage engine for files/images
   const storage = new GridFsStorage({
@@ -247,7 +247,7 @@ module.exports = function(app, gfs) {
             })
           }
           req.login(user, function(err) {   // Third refresh the session with new email address if changed
-            if (err) return next(err)
+            if (err) console.log(err)
             res.send({
               id:user._id,
               username: user.username,
