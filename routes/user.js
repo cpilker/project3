@@ -18,7 +18,7 @@ const
   });
 
 // Database configuration
-const databaseUrl = "main";
+const databaseUrl = process.env.MONGODB_URI || "mongodb://localhost/main";
 
 // Hook mongojs configuration to the db variable
 const db = mongojs(databaseUrl);
