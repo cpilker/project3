@@ -71,7 +71,7 @@ conn.on('error', function (err) {
 
 // Make connection to the database
 conn.once('open', function () {
-  console.log('Mongo Connection Success!')
+  console.log('Mongo Database has been connected successfully!')
   // Init our stream
   gfs = Grid(conn.db, mongoose.mongo)
   gfs.collection('uploads')
