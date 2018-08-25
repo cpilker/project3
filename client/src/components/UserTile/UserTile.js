@@ -13,7 +13,7 @@ import './UserTile.css';
 
 const RowDetail = ({ row }) => (
   <div>
-    <div className="userTileImgDiv"><img src="https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg" className="userTileImgStyle" alt=''/></div>
+    <div className="userTileImgDiv"><img src={`image/${this.row.id}/profilePic?`} className="userTileImgStyle" alt=''/></div>
     <div className="userTileDetailStyle">
       <p><b>{row.name}</b><br/>
       {row.email}</p>
