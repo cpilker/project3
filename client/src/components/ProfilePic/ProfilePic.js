@@ -85,7 +85,7 @@ class ProfilePic extends Component {
     const imageData64 = canvasRef.toDataURL('image/' + fileExtension)
 
 
-    const myfilename = 'charlotte_gruop.' + fileExtension
+    const myfilename = this.props.id + '.' + fileExtension
 
     // file to be uploaded
     const myNewCroppedFile = base64StringtoFile(imageData64, myfilename)
