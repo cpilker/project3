@@ -31,9 +31,10 @@ module.exports = function(app, gfs) {
   const database = mongojs(process.env.MONGODB_URI || "main");
 
   // Create storage engine for files/images
-  const storage = new GridFsStorage({
+  let storage = new GridFsStorage({
     url: process.env.MONGODB_URI || "mongodb://localhost/main",
     file: (req, file) => {
+      console.log(file)
       return new Promise((resolve, reject) => {
         console.log("new picture object fired")
         const fileInfo = {
@@ -63,7 +64,7 @@ module.exports = function(app, gfs) {
       // res.redirect('/user-dashboard')
       console.log('2: delete fired')
     })
-
+    let storage = '';
     upload(req, res, function (err) {
       if (err) {
         return ("Multer err: " + err)
