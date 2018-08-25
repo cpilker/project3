@@ -22,7 +22,7 @@ class Home extends Component {
                   <div className="row">
                     <div className="flex-item">
                       <p id="company-name">Recruit<span className="fontOrange">Hound</span></p>
-                      <p id="slogan">The hunt is on..</p>
+                      <p id="slogan">The hunt is on.</p>
                     </div>
                   </div>
                   <div className="flex-item">
