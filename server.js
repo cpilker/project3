@@ -18,7 +18,7 @@ const
   path = require('path'),
   Recruiter = require('./models/recruiter');
 
-  mongoose.connect(process.env.MONGODB_URI || "mongodb://recruithound-username:recruithoundpassword1@ds229552.mlab.com:29552/recruithound-db");
+  mongoose.connect(process.env.MONGODB_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || "mongodb://recruithound-username:recruithoundpassword1@ds229552.mlab.com:29552/recruithound-db");
 // Connect to the Mongo DB
 let conn = mongoose.connection
 mongoose.Promise = Promise;
