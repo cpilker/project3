@@ -72,7 +72,7 @@ class Nav extends Component {
                 </li>
               {this.props.loggedIn ? 
                 <li className="nav-item">
-                  <a className="logout-link" href="/" onClick={this.signout}>Sign Out</a>
+                  <a className="logout-link" href="#" onClick={this.signout}>Sign Out</a>
                 </li>
                 :
                 this.props.sitepath === "recruitersignup" ?
