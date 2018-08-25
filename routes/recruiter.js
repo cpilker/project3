@@ -21,10 +21,10 @@ const
   });
 
 // Database configuration
-const databaseUrl = "main";
+const databaseUrl = process.env.MONGODB_URI || "mongodb://localhost/main";
 
 // Hook mongojs configuration to the db variable
-const db = mongojs(databaseUrl);
+const db = mongojs(process.env.MONGODB_URI || "main");
 db.on("error", function(error) {
     console.log("Database Error:", error);
 });

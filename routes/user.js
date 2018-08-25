@@ -18,7 +18,7 @@ const
   });
 
 // Database configuration
-const databaseUrl = "main";
+const databaseUrl = process.env.MONGODB_URI || "mongodb://localhost/main";
 
 // Hook mongojs configuration to the db variable
 const db = mongojs(databaseUrl);
@@ -28,7 +28,7 @@ db.on("error", function(error) {
 
 module.exports = function(app, gfs) {
 
-  const database = mongojs('main')
+  const database = mongojs(process.env.MONGODB_URI || "main");
 
   // Create storage engine for files/images
   const storage = new GridFsStorage({
@@ -247,7 +247,7 @@ module.exports = function(app, gfs) {
             })
           }
           req.login(user, function(err) {   // Third refresh the session with new email address if changed
-            if (err) return next(err)
+            if (err) console.log(err)
             res.send({
               id:user._id,
               username: user.username,

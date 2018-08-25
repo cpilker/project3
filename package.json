@@ -10,7 +10,7 @@
     "seed": "node scripts/recruiterseedDB.js",
     "dev-server": "cross-env NODE_ENV=development PORT=3001 ./node_modules/.bin/nodemon server.js",
     "dev-client": "cd ./client && npm start",
-    "dev": "concurrently \"cd ./client && npm run start-js\" \"npm run dev-server\""
+    "dev": "concurrently \"cd ./client && npm run start-js\" \"npm run dev-server\" \"npm run seed\""
   },
   "author": "",
   "license": "ISC",
