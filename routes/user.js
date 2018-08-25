@@ -28,7 +28,7 @@ db.on("error", function(error) {
 
 module.exports = function(app, gfs) {
 
-  const database = mongojs('main')
+  const database = mongojs('mongodb://recruithoundAdmin:password123@ds229552.mlab.com:29552/heroku_gsdwvbdb', ['heroku_gsdwvbdb']);
 
   // Create storage engine for files/images
   const storage = new GridFsStorage({
