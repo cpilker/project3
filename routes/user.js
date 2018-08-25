@@ -32,7 +32,7 @@ module.exports = function(app, gfs) {
 
   // Create storage engine for files/images
   const storage = new GridFsStorage({
-    url: 'mongodb://recruithound-username:recruithoundpassword1@ds229552.mlab.com:29552/recruithound-db',
+    url: process.env.MONGODB_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || "mongodb://recruithound-username:recruithoundpassword1@ds229552.mlab.com:29552/recruithound-db",
     file: (req, file) => {
       return new Promise((resolve, reject) => {
         console.log("new picture object fired")
