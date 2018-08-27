@@ -56,7 +56,7 @@ module.exports = function(app, gfs) {
   // @desc Uploads file to DB
   app.post('/upload/:filename/:purpose', (req, res) => {
     console.log("1: new picture upload fired")
-    console.log(req.data)
+    // console.log(req.data)
     gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
       if (err) {
         return res.status(404).json({err: err})
@@ -79,7 +79,7 @@ module.exports = function(app, gfs) {
   // @route DELETE /files/:id
   // @desc  Delete file
   app.delete('/files/:filename/:purpose', (req, res) => {
-    console.log("picture delete fired")
+    // console.log("picture delete fired")
     gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
       if (err) {
         return res.status(404).json({err: err})
@@ -119,7 +119,7 @@ module.exports = function(app, gfs) {
   // @route GET /image/:filename
   // @desc Download Image
   app.get('/download/:filename/:purpose', (req, res) => {
-    console.log('download fired')
+    // console.log('download fired')
     gfs.files.findOne({metadata: {filename: req.params.filename, purpose: req.params.purpose}}, function (err, file) {
       
       if (err) {
@@ -176,7 +176,7 @@ module.exports = function(app, gfs) {
   });
 
   app.post('/api/signup', (req, res) => {
-    console.log("Signup post incoming...");
+    // console.log("Signup post incoming...");
    
     User.register(new User(
       { 
@@ -213,7 +213,7 @@ module.exports = function(app, gfs) {
 
   // Update user profile
   app.post('/api/update-user-profile', (req, res) => {
-    console.log("Update user post incoming...");
+    // console.log("Update user post incoming...");
     User.update({_id: mongojs.ObjectID(req.body.id)}, {$set: {   // First update the user profile
       username: req.body.newusername,
       firstname: req.body.newfirstname,
@@ -274,7 +274,7 @@ module.exports = function(app, gfs) {
 
   // Search for all recruiters by a given city
   app.get('/recruitersearch', function(req, res){
-    console.log('/recruitersearch route fired')
+    // console.log('/recruitersearch route fired')
     database.collection("recruiters").find({city: req.query.city}, function(error, response) {
       // Throw any errors to the console
       if (error) {
@@ -291,7 +291,7 @@ module.exports = function(app, gfs) {
   // Sign in route, detects if user or recruiter and redirects accordingly
   app.post('/api/signin',
     passport.authenticate(['user', 'recruiter']), function(req, res) {
-      console.log("Passport has fired!");
+      // console.log("Passport has fired!");
       // console.log(req.user)
       if (req.user.prefix === 'R') {
         res.json({
@@ -331,7 +331,7 @@ module.exports = function(app, gfs) {
   
   // 
   app.get('/api/getuser', function(req, res) {
-    console.log('getuser get has fired')
+    // console.log('getuser get has fired')
     console.log(req.session)
     if (req.session.passport !== undefined) {  // If user is in fact signed in, then gather all their data
       database.collection("users").find({username: req.session.passport.user}, function(error, response) {
@@ -386,7 +386,7 @@ module.exports = function(app, gfs) {
   })
 
   app.get("/api/signout", function(req, res) {
-    console.log("Signout has been fired!");
+    // console.log("Signout has been fired!");
     // console.log(req.session.passport);
     req.session.destroy(function (err) {
       // console.log(req.session);
