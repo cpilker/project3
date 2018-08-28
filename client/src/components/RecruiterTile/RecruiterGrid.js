@@ -194,7 +194,7 @@ class RecruiterGrid extends Component {
     let grid = []
     let idCounter = -1 // To help simplify mapping to object array indices. For example, <li> with 0th id corresponds to 0th child of <ol>
     let gridData = JSON.parse(this.props.gridData)
-    console.log(gridData);
+    // console.log(gridData);
     // console.log('.............................')
     // console.log(gridData[i]._id)
     // console.log('.............................')
@@ -325,7 +325,7 @@ class RecruiterGrid extends Component {
         </div>
       </li>
      )
-     console.log(grid)
+    //  console.log(grid)
     return grid
   }
 

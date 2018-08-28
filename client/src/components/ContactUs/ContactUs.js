@@ -43,10 +43,10 @@ class ContactUs extends Component {
                     <textarea className="form-control" id="contactus-message" rows="3" autoComplete="street-address"></textarea>
                   </div>
                   
-                  <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gridCheck"/>
-                      <label class="form-check-label" for="gridCheck" value="demorequested">Request a Demo
+                  <div className="form-group">
+                    <div className="form-check">
+                      <input className="form-check-input" type="checkbox" id="gridCheck"/>
+                      <label className="form-check-label" htmlFor="gridCheck" value="demorequested">Request a Demo
                       </label>
                     </div>
                   </div>

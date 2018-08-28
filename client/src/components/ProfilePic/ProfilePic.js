@@ -153,9 +153,9 @@ class ProfilePic extends Component {
 
       <img style={{float: 'right'}} id='modal-btn' src={uploadIcon}/>
 
-      <div id='simpleModal' class='modal2'>
-        <div class='modal-content2 paperCard'>
-        <span class='close-btn' id="closeX">&times;</span>
+      <div id='simpleModal' className='modal2'>
+        <div className='modal-content2 paperCard'>
+        <span className='close-btn' id="closeX">&times;</span>
           <div style={{width: '100%', height: 'auto'}}>
             <input style={{display: 'none'}} type='file' onChange={this.catchFileName} ref={fileInput => this.fileInput = fileInput}/>
             <button onClick={() => this.fileInput.click()} className="btn btn-primary" id="choosePic"> Choose a Picture </button>
