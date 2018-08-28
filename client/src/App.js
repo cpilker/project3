@@ -38,8 +38,8 @@ class App extends Component {
             errorMessage: response.err.message
           })
         } else {
-          console.log("@route GET /api/getuser response:");
-          console.log(response);
+          // console.log("@route GET /api/getuser response:");
+          // console.log(response);
           this.setState(response)   // Set state to current user
           this.setState({loggedIn: true})
         }
@@ -55,13 +55,13 @@ class App extends Component {
 
 
   updateUser (userObject) {
-    console.log("Update user has fired!");
-    console.log(userObject)
+    // console.log("Update user has fired!");
+    // console.log(userObject)
     this.setState(userObject)
   }
 
   render() {
-    console.log(this.state.loggedIn);
+    // console.log(this.state.loggedIn);
     return (
       <Router>
           <Switch>

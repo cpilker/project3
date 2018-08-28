@@ -16,7 +16,7 @@ import skillsArray from '../../skills.json';
 
 class UserDashboard extends Component {
   state = {
-    id: null,
+    id: undefined,
     username: null,
     firstname: null,
     lastname: null,
@@ -55,23 +55,23 @@ class UserDashboard extends Component {
   // updateProfilePic = this.updateProfilePic.bind(this);
 
   componentDidMount(){
-    this.setState({  // Resets state in preparation for the getuser to follow
-      id: null,
-      username: null,
-      firstname: null,
-      lastname: null,
-      address1: null,
-      address2: null,
-      city: null,
-      state: null,
-      zip: null,
-      // loggedIn: false,
-      created: null,
-      lastLogin: null,
-      jobSearchStatus: null,
-      userSkills: [],
-      newUserSkills: this.state.userSkills
-    })
+    // this.setState({  // Resets state in preparation for the getuser to follow
+    //   id: null,
+    //   username: null,
+    //   firstname: null,
+    //   lastname: null,
+    //   address1: null,
+    //   address2: null,
+    //   city: null,
+    //   state: null,
+    //   zip: null,
+    //   // loggedIn: false,
+    //   created: null,
+    //   lastLogin: null,
+    //   jobSearchStatus: null,
+    //   userSkills: [],
+    //   newUserSkills: this.state.userSkills
+    // })
     
     $.ajax({   // To Do: make sure this fires after signin post has already finished, otherwise req.session.passport will not exist yet
       url: '/api/getuser',
@@ -84,8 +84,8 @@ class UserDashboard extends Component {
             errorMessage: response.err.message
           })
         } else {
-          console.log("@route GET /api/getuser response:");
-          console.log(response);
+          // console.log("@route GET /api/getuser response:");
+          // console.log(response);
           this.props.updateUser(response)   // Stores current user in App.js
           this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
           this.setState({newUserSkills: response.userSkills})
@@ -116,22 +116,22 @@ class UserDashboard extends Component {
     let updatedSkillsArray = [];
     updatedSkillsArray = this.state.newUserSkills;
     if (updatedSkillsArray.includes(selectedSkill)) {
-      console.log("Removing skill")
+      // console.log("Removing skill")
       let newUserSkills = this.state.newUserSkills.filter(skill => skill !== selectedSkill);
-      console.log(newUserSkills);
+      // console.log(newUserSkills);
       this.setState({
         newUserSkills
       })
     } else {
-      console.log("Adding skill")
+      // console.log("Adding skill")
       this.state.newUserSkills.push(selectedSkill)
-      console.log(this.state.newUserSkills)
+      // console.log(this.state.newUserSkills)
     }
   }
 
   saveProfile(e) {
     e.preventDefault();
-    console.log("updateProfile has been fired!");
+    // console.log("updateProfile has been fired!");
     const data = {
       id: this.state.id,
       newusername: this.state.newusername === undefined ? this.props.username : this.state.newusername,
@@ -153,13 +153,13 @@ class UserDashboard extends Component {
       success: (response) => {
         if (response.err) {
           console.log("Error!");
-          console.log(response.err);
+          // console.log(response.err);
           this.setState({
             errorMessage: response.err.message
           })
         } else {
-          console.log("Success!");
-          console.log(response);
+          // console.log("Success!");
+          // console.log(response);
           this.props.updateUser(response)   // Stores current user in App.js
           this.props.updateUser({loggedIn: true})   // Stores logged in status in App.js
           this.setState(response)   // Set state to current user
@@ -181,7 +181,7 @@ class UserDashboard extends Component {
     e.preventDefault();
     let cityInput = $('#search-input').val()
     let city = cityInput.charAt(0).toUpperCase() + cityInput.slice(1);
-    console.log(city)
+    // console.log(city)
     $.ajax({
       url: '/recruitersearch',
       type: 'get',
@@ -197,8 +197,8 @@ class UserDashboard extends Component {
             errorMessage: response.err.message
           })
         } else {
-          console.log("Success!");
-          console.log(response);
+          // console.log("Success!");
+          // console.log(response);
           this.setState({
             recruitersearch: response.response
           });
@@ -220,7 +220,7 @@ class UserDashboard extends Component {
   }
 
   render () {
-    console.log(this.state.id)
+    // console.log(this.state.id)
     return (
       <div className="UserDashboard">
 
@@ -297,8 +297,8 @@ class UserDashboard extends Component {
               <div className="form-row">
                 <div className="form-group col-md-12">
                       <label htmlFor="newjobsearchstatus" className="formSpacer"><strong>Job Search Status:</strong> <br/>{this.state.jobSearchStatus}</label>
-                      <select id="newjobsearchstatus" className="form-control hidden hider" name="newjobsearchstatus" value={this.props.newjobsearchstatus} onChange={this.handleOnChange} required autoComplete="Actively Searching" placeholder="Job Search Status">
-                        <option selected disabled>Job Search Status</option>
+                      <select defaultValue="Job Search Status" id="newjobsearchstatus" className="form-control hidden hider" name="newjobsearchstatus" value={this.props.newjobsearchstatus} onChange={this.handleOnChange} required autoComplete="Actively Searching" placeholder="Job Search Status">
+                        <option disabled>Job Search Status</option>
                         <option value="Actively Searching">Actively Searching</option>
                         <option value="Open to Opportunities">Open to Opportunities</option>
                         <option value="Not Searching">Not Searching</option>
@@ -325,8 +325,8 @@ class UserDashboard extends Component {
                   {/* State */}
                   <div className="form-group col-md-5">
                       <label htmlFor="newstate" className="formSpacer"><strong>State:</strong> {this.props.state}</label>
-                      <select id="newstate" className="form-control hidden hider" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required autoComplete="address-level1">
-                          <option selected disabled>Choose...</option>
+                      <select defaultValue="Choose..." id="newstate" className="form-control hidden hider" name="newstate" value={this.state.newstate} onChange={this.handleOnChange} required autoComplete="address-level1">
+                          <option disabled>Choose...</option>
                           <option value="AL">Alabama</option>
                           <option value="AK">Alaska</option>
                           <option value="AZ">Arizona</option>
@@ -391,8 +391,8 @@ class UserDashboard extends Component {
                       <label id="technologiesWorkWith" htmlFor="skills-block" className="formSpacer"><strong>What technologies do you work with?</strong></label>
                       <div className="btn-group-toggle" data-toggle="buttons" id="skills-block">
                           {/* //Begin list of skills */}
-                          {this.state.skillsArray.map(skill => (
-                            <label onClick={this.updateSkills.bind(this, skill)} className={this.state.userSkills.includes(skill) ? "btn btn-default skillbutton active" : "btn btn-default skillbutton"}>
+                          {this.state.skillsArray.map((skill, index) => (
+                            <label key={index} onClick={this.updateSkills.bind(this, skill)} className={this.state.userSkills.includes(skill) ? "btn btn-default skillbutton active" : "btn btn-default skillbutton"}>
                             <input type="checkbox" autoComplete="off" value={skill} />
                             {skill}</label>
                           ))}
@@ -411,7 +411,7 @@ class UserDashboard extends Component {
 
 
           <Resume
-            id={this.state.id} 
+            id={this.state.id}
             firstname={this.props.firstname} 
             lastname={this.props.lastname}
           />

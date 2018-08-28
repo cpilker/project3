@@ -332,7 +332,7 @@ module.exports = function(app, gfs) {
   // 
   app.get('/api/getuser', function(req, res) {
     // console.log('getuser get has fired')
-    console.log(req.session)
+    // console.log(req.session)
     if (req.session.passport !== undefined) {  // If user is in fact signed in, then gather all their data
       database.collection("users").find({username: req.session.passport.user}, function(error, response) {
         if (error) {
@@ -340,6 +340,7 @@ module.exports = function(app, gfs) {
         }
         // If there are no errors, send the data to the browser as json
         else {
+          // console.log(response[0])
           if (response.length !== 0) {
             res.send({
               id: response[0]._id,

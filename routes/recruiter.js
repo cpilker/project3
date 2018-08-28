@@ -33,7 +33,7 @@ db.on("error", function(error) {
 module.exports = function(app) {
 
   app.get('/api/loadrecruiter', function(req, res) {
-    console.log('loadrecruiter get has fired')
+    // console.log('loadrecruiter get has fired')
     db.collection("recruiters").find({username: req.session.passport.user}, function(error, response) {
       if (error) {
         console.log('Error: ', error);
@@ -61,7 +61,7 @@ module.exports = function(app) {
   });
 
   app.post('/api/recruitersignup', (req, res) => {
-    console.log("Recruiter signup post incoming...");
+    // console.log("Recruiter signup post incoming...");
    
     Recruiter.register(new Recruiter(
       { 
@@ -84,7 +84,7 @@ module.exports = function(app) {
       } else {
           console.log('New recruiter added!');
           passport.authenticate('recruiter')(req, res, function() {
-            console.log('Done!');
+            // console.log('Done!');
             res.json({username: req.user.username});
           });
         }
@@ -94,7 +94,7 @@ module.exports = function(app) {
 
   //Search for users by a given city [this is not for the data as a whole]
   app.get('/usersearch', function(req, res){
-    console.log(req.query)
+    // console.log(req.query)
     // console.log("recruiter city")
     db.collection("users").find({}, function(error, response) {
       // Throw any errors to the console
@@ -103,7 +103,7 @@ module.exports = function(app) {
       }
       // If there are no errors, send the data to the browser as json
       else {
-        console.log(response);
+        // console.log(response);
         res.send({response})
       }
     });
@@ -112,7 +112,7 @@ module.exports = function(app) {
 
   //Search for total users in the database
   app.get('/allusersavailable', function(req, res){
-    console.log(req.body)
+    // console.log(req.body)
     // console.log("recruiter city")
     db.collection("users").find({}, function(error, response) {
       // Throw any errors to the console

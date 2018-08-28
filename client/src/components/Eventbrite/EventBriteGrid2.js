@@ -27,6 +27,10 @@ const RowDetail = ({ row }) => (
   </div>
 );
 
+const FooterDetail = () => (  // Added an empty footer to clear React warning saying table footer is required
+  <div></div>
+)
+
 
 
 export default class EventBriteGrid2 extends React.PureComponent {
@@ -46,7 +50,7 @@ export default class EventBriteGrid2 extends React.PureComponent {
   generateRows(gridData){
   let rows = [];
   let data = gridData;
-  console.log(data[0]['event']);
+  // console.log(data[0]['event']);
   for (let i=0;i<data.length;i++){
     let temp = {}
     temp['event'] = data[i]['event'];
@@ -75,7 +79,9 @@ export default class EventBriteGrid2 extends React.PureComponent {
           <RowDetailState
             defaultExpandedRowIds={[0]}
           />
-          <Table />
+          <Table
+            footerComponent={FooterDetail}
+           />
           <TableHeaderRow />
           <TableRowDetail
             contentComponent={RowDetail}
