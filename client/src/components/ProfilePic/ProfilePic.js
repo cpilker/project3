@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-// import $ from 'jquery'
+import $ from 'jquery'
 import axios from 'axios'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -143,6 +143,22 @@ class ProfilePic extends Component {
 
   }
 
+  imageHeight() {
+
+  }
+
+ProfileImageExists() {
+    var http = new XMLHttpRequest();
+    http.open('HEAD', `image/${this.props.id}/profilePic?`, false);
+    http.send();
+    if (http.status!=404) {
+      console.log('image loaded');
+      return <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profilePic'/>
+    } else{
+      console.log('image load failed');
+    };
+}
+
   render () {
 
     const {imgSrc} = this.state
@@ -183,7 +199,8 @@ class ProfilePic extends Component {
       </div>
 
 
-      <div style={{height: 'auto', overflow: 'hidden'}} id='userImage' > 
+      <div style={{height: 'auto', overflow: 'hidden'}} id='userImage' className="userPlaceholder" /> 
+      <div className="userImage">
         {imgSrc !== null 
         ? 
           <div>
@@ -198,7 +215,8 @@ class ProfilePic extends Component {
             />
           </div> 
         : 
-          <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profilePic'/>
+          // <img style={{width: '100%', height: 'auto'}} src={`image/${this.props.id}/profilePic?`} alt='profilePic'/>
+          this.ProfileImageExists()
         } 
       </div>
 

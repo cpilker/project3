@@ -4,15 +4,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
 
 .popCard {
   width: 100%;
   display: inline-block;
   text-align: center;
-  /* margin: 0 10px; */
   border: 0;
   border-radius: 20px;
+}
+
+.popCard h5 {
+  font-size: 1em;
+}
+
+.popColumn {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .popCardHeader {
@@ -37,12 +46,15 @@
 
 @media only screen and (max-width : 1200px) {
   .popCard h5 {
-    font-size: 1em;
+    font-size: 0.8em;
   }
 } 
 
 @media only screen and (max-width : 991px) {
   .popCard {
     margin-bottom: 15px;
+  }
+  .popCard h5 {
+    font-size: 1em;
   }
 } 
