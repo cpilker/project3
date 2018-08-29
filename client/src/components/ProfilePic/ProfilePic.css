@@ -66,19 +66,52 @@
   top: -8px;
 }
 
-#userImage {
+.userPlaceholder {
+  margin-bottom: 10px;
+  border-radius: 50%;
   background: url('./hounddog.jpg');
   background-position: center;
-  background-size: contain;
-  height: 215px !important;
+  background-size: cover;
+  width: 100% !important;
+  height: 0 !important;
+  padding-top: 100%;
+}
+
+.userImage {
+  position: absolute;
+  top: 24px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  width: 100% !important;
+  height: calc(100% - 24px);
+}
+
+#modal-btn {
+  z-index: 2;
 }
 
 /************* Media queries *************/
+
+/* @media only screen and (max-width : 1200px) {
+  #userImage {
+    height: 174px !important;
+  }
+} 
+
+@media only screen and (max-width : 992px) {
+  #userImage {
+    height: 117px !important;
+  }
+}  */
 
 @media only screen and (max-width : 770px) {
   .modal-content2 {
     margin: 15% auto;
   }
+  /* #userImage {
+    height: 250px !important;
+  } */
 } 
 
 @media only screen and (max-width : 500px) {

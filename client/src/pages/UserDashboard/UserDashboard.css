@@ -58,12 +58,6 @@
   display: block;
 }
 
-#userImage {
-  width: 100%;
-  margin-bottom: 10px;
-  border-radius: 50%;
-}
-
 #editProfile {
   margin-bottom: 10px;
 }
@@ -156,12 +150,6 @@
 
   #userProfile {
     width: 100%;
-  }
-
-  #userImage {
-    width: 50%;
-    margin-bottom: 10px;
-    border-radius: 50%;
   }
 
   .gutterWrap {
