@@ -35,6 +35,14 @@ const userSchema = new Schema({
     type: Number,
     required: true,
   },
+  linkedin: {
+    type: String,
+    required: false
+  },
+  git: {
+    type: String,
+    required: false
+  },
   username: {
     type: String,
     required: true,

@@ -16,6 +16,8 @@ class Signup extends Component {
     newcity: undefined,
     newstate: undefined,
     newzip: undefined,
+    newlinkedin: undefined,
+    newgit: undefined,
     password: undefined,
     redirectTo: null
   }
@@ -39,6 +41,8 @@ class Signup extends Component {
       newcity: '',
       newstate: '',
       newzip: '',
+      newlinkedin: '',
+      newgit: '',
       password: '',
     })
   }
@@ -55,11 +59,13 @@ class Signup extends Component {
       newcity: this.state.newcity,
       newstate: this.state.newstate,
       newzip: this.state.newzip,
+      newlinkedin: this.state.newlinkedin,
+      newgit: this.state.newgit,
       password: this.state.password,
       jobSearchStatus: this.state.jobSearchStatus
     }
     $.ajax({
-      url: '/api/Signup',
+      url: '/api/signup',
       type: 'post',
       data: data,
       success: (response) => {
@@ -221,6 +227,12 @@ class Signup extends Component {
                               <option value="Open to Opportunities">Open to Opportunities</option>
                               <option value="Not Searching">Not Searching</option>
                             </select>
+                          </div>
+                          <div className="form-group col-md-4">
+                            <input type="text" className="form-control" id="newlinkedin" name="newlinkedin" placeholder="LinkedIn" value={this.state.newlinkedin} onChange={this.handleOnChange} />
+                          </div>
+                          <div className="form-group col-md-4">
+                          <input type="text" className="form-control" id="newgit" name="newgit" placeholder="GitHub" value={this.state.newgit} onChange={this.handleOnChange} />
                           </div>
                         </div>
                         <div className="form-row" id="submit-btn-container">

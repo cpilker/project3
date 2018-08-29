@@ -38,6 +38,8 @@ class UserDashboard extends Component {
     newcity: undefined,
     newstate: undefined,
     newzip: undefined,
+    newlinkedin: undefined,
+    newgit: undefined,
     newpassword: undefined,
     newlastLogin: undefined,
     newjobsearchstatus: undefined,
@@ -142,6 +144,8 @@ class UserDashboard extends Component {
       newcity: this.state.newcity === undefined ? this.props.city : this.state.newcity,
       newstate: this.state.newstate === undefined ? this.props.state : this.state.newstate,
       newzip: this.state.newzip === undefined ? this.props.zip : this.state.newzip,
+      newlinkedin: this.state.newlinkedin === undefined ? this.props.linkedin : this.state.newlinkedin,
+      newgit: this.state.newgit === undefined ? this.props.git : this.state.newgit,
       newpassword: this.state.newpassword,
       newjobsearchstatus: this.state.newjobsearchstatus === undefined ? this.props.jobSearchStatus : this.state.newjobsearchstatus,
       newUserSkills: this.state.newUserSkills === undefined ? this.props.userSkills : this.state.newUserSkills
@@ -385,6 +389,25 @@ class UserDashboard extends Component {
                       <label htmlFor="newzip" className="formSpacer"><strong>Zip Code:</strong> {this.props.zip}</label>
                       <input type="text" className="form-control hidden hider" id="newzip" name="newzip" placeholder="Zip" value={this.state.newzip} onChange={this.handleOnChange} required autoComplete="postal-code" />
                   </div>
+
+
+                  <div className="form-row usersocialrow">
+                    {/* LinkedIn */}
+                    <div className="form-group col-md-12">
+                        <label htmlFor="newlinkedin" className="formSpacer"> 
+                          {this.props.linkedin ? <a href={this.props.linkedin}><img src="./images/linkedin.jpg" className="hider usersocialicon" alt="linkedin" /></a> : ""}
+                          <span className="hidden hider"><strong>LinkedIn:</strong></span>
+                          </label>
+                        <input type="text" className="form-control hidden hider" id="newlinkedin" name="newlinkedin" placeholder="LinkedIn" value={this.state.newlinkedin} onChange={this.handleOnChange} />
+
+                        <label htmlFor="newgit" className="formSpacer"> 
+                          {this.props.git ? <a href={this.props.git}><img src="./images/git.jpg" className="hider usersocialicon" alt="github" /></a> : ""}
+                          <span className="hidden hider"><strong>GitHub:</strong></span>
+                          </label>
+                        <input type="text" className="form-control hidden hider" id="newgit" name="newgit" placeholder="GitHub" value={this.state.newgit} onChange={this.handleOnChange} />                        
+                    </div> 
+                  
+                  </div>                 
                   
                   {/* Skills */}
                   <div className="form-group col-md-12" id="skills-container">

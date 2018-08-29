@@ -19,6 +19,8 @@ class App extends Component {
     city: null,
     state: null,
     zip: null,
+    linkedin: null,
+    git: null,
     loggedIn: null,
     created: null,
     lastLogin: null,
@@ -97,6 +99,8 @@ class App extends Component {
                 city={this.state.city}
                 state={this.state.state}
                 zip={this.state.zip}
+                linkedin={this.state.linkedin}
+                git={this.state.git}
                 loggedIn={this.state.loggedIn}
                 updateUser={this.updateUser}
                 sitepath={"user-dashboard"}

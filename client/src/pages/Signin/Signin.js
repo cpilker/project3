@@ -49,6 +49,8 @@ class Signin extends Component {
           city: response.city,
           state: response.state,
           zip: response.zip,
+          linkedin: response.linkedin,
+          git: response.git,
           created: response.created,
           lastLogin: response.lastLogin
         })
