@@ -18,7 +18,6 @@ const
   path = require('path'),
   Recruiter = require('./models/recruiter');
 
-
 // Connect to the Mongo DB
 let conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/main");
 mongoose.Promise = Promise;
@@ -72,7 +71,7 @@ conn.on('error', function (err) {
 
 // Make connection to the database
 conn.once('open', function () {
-  console.log('Mongo Connection Success!')
+  console.log('Mongo Database has been connected successfully!')
   // Init our stream
   gfs = Grid(conn.db, mongoose.mongo)
   gfs.collection('uploads')
@@ -99,3 +98,4 @@ app.listen(PORT, () => console.log(`http://localhost: ${PORT}!`));
 //
 //
 //
+// testing

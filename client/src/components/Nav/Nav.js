@@ -12,12 +12,12 @@ class Nav extends Component {
   signout = this.signout.bind(this);
 
   signout() {
-    console.log("Signout ajax get has been fired!");
+    // console.log("Signout ajax get has been fired!");
     $.ajax({
       url: '/api/signout',
       type: 'get',
       success: (response) => {
-        console.log(response)
+        // console.log(response)
         // this.clearForm()
         if (response.err) {
           console.log("Signout Error!");
@@ -39,7 +39,7 @@ class Nav extends Component {
             loggedIn: false,
             created: null
           })   // Stores logged in status in App.js
-          console.log("Redirecting now...")
+          // console.log("Redirecting now...")
           window.location.assign('/')
         }
       },
@@ -50,8 +50,8 @@ class Nav extends Component {
   }
 
   render () {
-      console.log(this.props.sitepath)
-      console.log(`Logged in? ${this.props.loggedIn}`)
+      // console.log(this.props.sitepath)
+      // console.log(`Logged in? ${this.props.loggedIn}`)
     return (
         <Fragment>
       <nav className="navbar navbar-expand-md navbar-light bg-white fixed-top">
@@ -72,7 +72,7 @@ class Nav extends Component {
                 </li>
               {this.props.loggedIn ? 
                 <li className="nav-item">
-                  <a className="logout-link" href="/" onClick={this.signout}>Sign Out</a>
+                  <a className="logout-link" href="#" onClick={this.signout}>Sign Out</a>
                 </li>
                 :
                 this.props.sitepath === "recruitersignup" ?

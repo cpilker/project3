@@ -7,6 +7,7 @@ class Resume extends Component {
   }
 
   render () {
+    // console.log(this.props.id)
     return (
     <div id="resumeBuilder">
       <h2>Resume</h2>

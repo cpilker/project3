@@ -18,7 +18,7 @@ const
   });
 
 // Database configuration
-const databaseUrl = "main";
+const databaseUrl = process.env.MONGODB_URI || "mongodb://localhost/main";
 
 // Hook mongojs configuration to the db variable
 const db = mongojs(databaseUrl);
@@ -28,12 +28,13 @@ db.on("error", function(error) {
 
 module.exports = function(app, gfs) {
 
-  const database = mongojs('main')
+  const database = mongojs(process.env.MONGODB_URI || "main");
 
   // Create storage engine for files/images
-  const storage = new GridFsStorage({
-    url: 'mongodb://localhost/main',
+  let storage = new GridFsStorage({
+    url: process.env.MONGODB_URI || "mongodb://localhost/main",
     file: (req, file) => {
+      console.log(file)
       return new Promise((resolve, reject) => {
         console.log("new picture object fired")
         const fileInfo = {
@@ -55,7 +56,7 @@ module.exports = function(app, gfs) {
   // @desc Uploads file to DB
   app.post('/upload/:filename/:purpose', (req, res) => {
     console.log("1: new picture upload fired")
-    console.log(req.data)
+    // console.log(req.data)
     gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
       if (err) {
         return res.status(404).json({err: err})
@@ -63,7 +64,7 @@ module.exports = function(app, gfs) {
       // res.redirect('/user-dashboard')
       console.log('2: delete fired')
     })
-
+    let storage = '';
     upload(req, res, function (err) {
       if (err) {
         return ("Multer err: " + err)
@@ -71,18 +72,19 @@ module.exports = function(app, gfs) {
       
       console.log("3: successful multer upload")
     }) 
-  
+    
     res.send('hello')
   })
  
   // @route DELETE /files/:id
   // @desc  Delete file
   app.delete('/files/:filename/:purpose', (req, res) => {
-    console.log("picture delete fired")
+    // console.log("picture delete fired")
     gfs.files.remove({metadata:{filename: req.params.filename, purpose: req.params.purpose}}, (err, GridFSBucke) => {
       if (err) {
         return res.status(404).json({err: err})
       } 
+      
       res.sendStatus()
     })
   })
@@ -111,12 +113,13 @@ module.exports = function(app, gfs) {
         })
       }
     })
+    
   })
 
   // @route GET /image/:filename
   // @desc Download Image
   app.get('/download/:filename/:purpose', (req, res) => {
-    console.log('download fired')
+    // console.log('download fired')
     gfs.files.findOne({metadata: {filename: req.params.filename, purpose: req.params.purpose}}, function (err, file) {
       
       if (err) {
@@ -138,6 +141,7 @@ module.exports = function(app, gfs) {
       });
       readstream.pipe(res);
     });
+    
   })
 
   //////////////// Upload image routes //////////////
@@ -168,10 +172,11 @@ module.exports = function(app, gfs) {
           res.json({status: err});
         }
     });
+    
   });
 
   app.post('/api/signup', (req, res) => {
-    console.log("Signup post incoming...");
+    // console.log("Signup post incoming...");
    
     User.register(new User(
       { 
@@ -198,14 +203,17 @@ module.exports = function(app, gfs) {
           });
         }
       });
+
+      
     }
+    
   );
 
   
 
   // Update user profile
   app.post('/api/update-user-profile', (req, res) => {
-    console.log("Update user post incoming...");
+    // console.log("Update user post incoming...");
     User.update({_id: mongojs.ObjectID(req.body.id)}, {$set: {   // First update the user profile
       username: req.body.newusername,
       firstname: req.body.newfirstname,
@@ -240,7 +248,7 @@ module.exports = function(app, gfs) {
             })
           }
           req.login(user, function(err) {   // Third refresh the session with new email address if changed
-            if (err) return next(err)
+            if (err) console.log(err)
             res.send({
               id:user._id,
               username: user.username,
@@ -260,12 +268,13 @@ module.exports = function(app, gfs) {
         })
       }
     });    
+    
   })
 
 
   // Search for all recruiters by a given city
   app.get('/recruitersearch', function(req, res){
-    console.log('/recruitersearch route fired')
+    // console.log('/recruitersearch route fired')
     database.collection("recruiters").find({city: req.query.city}, function(error, response) {
       // Throw any errors to the console
       if (error) {
@@ -276,12 +285,13 @@ module.exports = function(app, gfs) {
         res.send({response})
       }
     });
+    
   })
 
   // Sign in route, detects if user or recruiter and redirects accordingly
   app.post('/api/signin',
     passport.authenticate(['user', 'recruiter']), function(req, res) {
-      console.log("Passport has fired!");
+      // console.log("Passport has fired!");
       // console.log(req.user)
       if (req.user.prefix === 'R') {
         res.json({
@@ -315,13 +325,14 @@ module.exports = function(app, gfs) {
           redirectTo: '/user-dashboard'
         });
       }
+      
     }
   )
   
   // 
   app.get('/api/getuser', function(req, res) {
-    console.log('getuser get has fired')
-    console.log(req.session)
+    // console.log('getuser get has fired')
+    // console.log(req.session)
     if (req.session.passport !== undefined) {  // If user is in fact signed in, then gather all their data
       database.collection("users").find({username: req.session.passport.user}, function(error, response) {
         if (error) {
@@ -329,6 +340,7 @@ module.exports = function(app, gfs) {
         }
         // If there are no errors, send the data to the browser as json
         else {
+          // console.log(response[0])
           if (response.length !== 0) {
             res.send({
               id: response[0]._id,
@@ -353,6 +365,7 @@ module.exports = function(app, gfs) {
     } else {
       console.log('not logged in')
     }
+    
   });
 
 
@@ -370,10 +383,11 @@ module.exports = function(app, gfs) {
       console.log("success"),
       res.send(x + " added to the db")
     })
+    
   })
 
   app.get("/api/signout", function(req, res) {
-    console.log("Signout has been fired!");
+    // console.log("Signout has been fired!");
     // console.log(req.session.passport);
     req.session.destroy(function (err) {
       // console.log(req.session);
@@ -381,5 +395,6 @@ module.exports = function(app, gfs) {
       res.send("Success")
     });
   });
+  
   /////////////////// User routes ///////////////////
 };
