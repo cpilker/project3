@@ -22,8 +22,14 @@ const RowDetail = ({ row }) => (
         {row.address}<br/>
         {row.city}, {row.state} {row.zipcode}
       </p>
-      <p><strong>Skills:</strong><br/>
-      {row.skill.toString().replace(/,/g, ', ')}</p>
+      {row.skill.length > 0 ? 
+        <p><strong>Skills:</strong><br/>
+        {row.skill.toString().replace(/,/g, ', ')}</p>
+      : "" }
+      <p>
+        {row.linkedin ? <a href={row.linkedin}><img src="./images/linkedin.jpg" className="hider usersocialicon" alt="linkedin" /></a> : ""}
+        {row.git ? <a href={row.git}><img src="./images/git.jpg" className="hider usersocialicon" alt="github" /></a> : ""}
+      </p>
     </div>
   </div>
 );
@@ -67,14 +73,15 @@ export default class userTileBriteGrid2 extends React.PureComponent {
     temp['zipcode'] = data[i]['zip'];
     temp['skill'] = data[i]['skill'];
     temp['id'] = data[i]['_id'];
-    temp['image'] = `./images/${data[i]['_id']}/profilePic`
+    temp['image'] = `./images/${data[i]['_id']}/profilePic`;
+    temp['linkedin'] = data[i]['linkedin'];
+    temp['git'] = data[i]['git'];
     rows.push(temp);
   }
   return rows
   }
 
   render() {
-    console.log(this.props.users)
     const { rows, columns } = this.state;
 
     return (
