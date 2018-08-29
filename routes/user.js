@@ -188,6 +188,8 @@ module.exports = function(app, gfs) {
         city: req.body.newcity,
         state: req.body.newstate,
         zip: req.body.newzip,
+        linkedin: req.body.newlinkedin,
+        git: req.body.newgit,
         password: req.body.password,
         jobSearchStatus: req.body.jobSearchStatus
       }), req.body.password, function(err, account) {
@@ -223,6 +225,8 @@ module.exports = function(app, gfs) {
       city: req.body.newcity,
       state: req.body.newstate,
       zip: req.body.newzip,
+      linkedin: req.body.linkedin,
+      git: req.body.git,
       jobSearchStatus: req.body.newjobsearchstatus,
       skill: req.body.newUserSkills
     }}, 
@@ -259,6 +263,8 @@ module.exports = function(app, gfs) {
               city: user.city,
               state: user.state,
               zip: user.zip,
+              linkedin: user.linkedin,
+              git: user.git,
               created: user.created,
               lastLogin: user.lastLogin,
               jobSearchStatus: user.jobSearchStatus
@@ -304,6 +310,8 @@ module.exports = function(app, gfs) {
           city: req.user.city,
           state: req.user.state,
           zip: req.user.zip,
+          linkedin: req.user.linkedin,
+          git: req.user.git,
           created: req.user.created,
           lastLogin: req.user.lastLogin,
           redirectTo: '/recruiterdashboard'
@@ -319,6 +327,8 @@ module.exports = function(app, gfs) {
           city: req.user.city,
           state: req.user.state,
           zip: req.user.zip,
+          linkedin: req.user.linkedin,
+          git: req.user.git,
           created: req.user.created,
           lastLogin: req.user.lastLogin,
           jobSearchStatus: req.user.jobSearchStatus,
@@ -352,6 +362,8 @@ module.exports = function(app, gfs) {
               city: response[0].city,
               state: response[0].state,
               zip: response[0].zip,
+              linkedin: response[0].linkedin,
+              git: response[0].git,
               created: response[0].created,
               lastLogin: response[0].lastLogin,
               jobSearchStatus: response[0].jobSearchStatus,
