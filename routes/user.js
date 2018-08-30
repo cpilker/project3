@@ -225,8 +225,8 @@ module.exports = function(app, gfs) {
       city: req.body.newcity,
       state: req.body.newstate,
       zip: req.body.newzip,
-      linkedin: req.body.linkedin,
-      git: req.body.git,
+      linkedin: req.body.newlinkedin,
+      git: req.body.newgit,
       jobSearchStatus: req.body.newjobsearchstatus,
       skill: req.body.newUserSkills
     }}, 
