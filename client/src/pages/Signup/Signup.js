@@ -120,6 +120,7 @@ class Signup extends Component {
                     <div className="profile-form">
                       <form id="usersignup" name="signup">
                         <h2>CREATE A PROFILE</h2>
+                        <p style={{color:"#6c757d"}}><i>Sign up for a user profile now to receive exclusive beta access.<br/>RecruitHound will update you as soon as the site is live. The hunt is on!</i></p>
                         <p className="error-text">{this.state.errorMessage ? `Error: ${this.state.errorMessage}` : ""}</p>
                         <div className="form-row" className="signup-recruiter-link-top">
                           <a href="/recruitersignup">Recruiter? Sign Up Here!</a>
