@@ -3,6 +3,12 @@
     min-height: 100vh;
 }
 
+.recruiterImage {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+
 #agency_info {
   float: right;
 }
