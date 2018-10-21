@@ -29,9 +29,9 @@
 #logo-header {
   width: 30px;
   height: 30px;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   padding: 5px;
-  border: 2px solid rgb(253, 130, 85);
+  /* border: 2px solid rgb(253, 130, 85); */
   margin-right: 5px;
 }
 
