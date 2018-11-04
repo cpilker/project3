@@ -10,7 +10,7 @@ const
   cookieParser = require('cookie-parser'),
   session  = require('express-session'),
   mongoose = require("mongoose"),
-  routes = require("./routes"),
+  routes = require("./controllers"),
   app = express(),
   MongoStore = require('connect-mongo')(session),
   PORT = process.env.PORT || 3000,
@@ -76,8 +76,8 @@ conn.once('open', function () {
   gfs = Grid(conn.db, mongoose.mongo)
   gfs.collection('uploads')
   // Routes
-  require('./routes/user')(app, gfs)
-  require('./routes/recruiter')(app, gfs)
+  require('./controllers/user')(app, gfs)
+  require('./controllers/recruiter')(app, gfs)
 })
 
 

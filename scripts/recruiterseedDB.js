@@ -3,13 +3,13 @@ const db = require("../models");
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/main");   // Establish connection to database
 
-db.Recruiter.remove(function(err, p) {   // Empty the recruiter model to start brand new, for dev purposes only
-  if (err) {
-    throw err;
-  } else {
-    console.log(`Recruiter model emptied!`);
-  }
-})
+// db.Recruiter.remove(function(err, p) {   // Empty the recruiter model to start brand new, for dev purposes only
+//   if (err) {
+//     throw err;
+//   } else {
+//     console.log(`Recruiter model emptied!`);
+//   }
+// })
 
 const recruiterSeed = [   // Update the collection (aka database) with the recruiter rows below
   {
