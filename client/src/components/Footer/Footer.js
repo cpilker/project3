@@ -3,12 +3,6 @@ import './Footer.css';
 
 class Footer extends Component {
 
-  componentDidMount() {
-    <script>  
-      var scroll = new SmoothScroll('a[href*="#"]');
-    </script> 
-  }
-
   render () {
     return (
       <Fragment>
