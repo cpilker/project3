@@ -572,6 +572,10 @@ element.style {
   --acc-back: cubic-bezier(0.175, 0.885, 0.320, 1.275);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 #logo-top {
   z-index: 2;
   animation: popInImg2 500ms var(--acc-back) 1 forwards;

@@ -63,7 +63,7 @@ class Nav extends Component {
             <ul className="navbar-nav">
               {this.props.sitepath === "index" ? 
                 <li className="nav-item">
-                  <a className="main-menu-links" href="#what-we-do-title">How It Works</a>
+                  <a className="main-menu-links" data-scroll href="#what-we-do-title">How It Works</a>
                 </li>
                 : ""
               }
